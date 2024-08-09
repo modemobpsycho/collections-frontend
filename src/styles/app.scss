@@ -1,0 +1,13 @@
+@import './variables.scss';
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.app {
+    height: $height-app;
+    max-height: $max-height-app;
+    width: $width-app;
+}

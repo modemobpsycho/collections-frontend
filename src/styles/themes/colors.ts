@@ -1,0 +1,23 @@
+export const myColors = {
+    grayLight: '#f5f5f5',
+    gray: '#9e9e9e',
+    grayDark: '#616161',
+    white: '#ffffff',
+    whitesmoke: '#f5f5f5',
+    snow: '#ffffff',
+    green: '#2e7d32',
+    greenLight: '#c8e6c9',
+    greenDark: '#1b5e20',
+    black: '#000000',
+    blackLight: '#2f2f2f',
+    blackDark: '#000000',
+    red: '#b71c1c',
+    redDark: '#8b0000',
+    redLight: '#ffcdd2',
+    blue: '#0084ff',
+    blueLight: '#2797ff',
+    blueDark: '#01579b',
+    yellow: '#fbc02d',
+    yellowLight: '#fff9c4',
+    yellowDark: '#f57f17'
+};

@@ -1,0 +1,66 @@
+import { LOCALES } from './locales';
+
+export const messages = {
+    [LOCALES.ENGLISH]: {
+        login: 'Login',
+        signup: 'Sign up',
+        email: 'Email',
+        fullName: 'Full Name',
+        password: 'Password',
+        button_login: 'Log in',
+        button_signup: 'Sign up',
+        rem_signup: 'Already have an account?',
+        rem_login: "Don't have an account?",
+        join_now: 'Join now',
+        auth_welcome: `Welcome to the creative and entertainment platform! 
+        Share your collections and inspire others`,
+        home_welcome: 'Welcome to our collection world',
+        home_description: 'Explore unique collections from our users.',
+        header_brand: 'Collections.net',
+        home: 'Home',
+        all_collections: 'All Collections',
+        my_collections: 'My Collections',
+        search: 'Search',
+        join: 'Join',
+        account: 'Account',
+        logout: 'Log out',
+        dark_theme: 'Dark theme',
+        light_theme: 'Light theme',
+        en_lang: 'English',
+        ru_lang: 'Russian'
+    },
+    [LOCALES.RUSSIAN]: {
+        login: 'Вход',
+        signup: 'Регистрация',
+        email: 'Электронная почта',
+        fullName: 'Полное имя',
+        password: 'Пароль',
+        button_login: 'Войти',
+        button_signup: 'Зарегистрироваться',
+        rem_signup: 'Уже есть аккаунт?',
+        rem_login: 'Нет аккаунта?',
+        join_now: 'Присоединиться',
+        auth_welcome: `Добро пожаловать на платформу творчества и увлечений! Делитесь своими коллекциями и вдохновляйте других`,
+        home_welcome: 'Добро пожаловать в наш мир коллекций',
+        home_description: 'Исследуйте уникальные коллекции от наших пользователей.',
+        header_brand: 'Коллекций.нет',
+        home: 'Главная',
+        all_collections: 'Все Коллекции',
+        my_collections: 'Мои Коллекции',
+        search: 'Поиск',
+        join: 'Вход',
+        account: 'Аккаунт',
+        logout: 'Выход',
+        dark_theme: 'Тёмная тема',
+        light_theme: 'Светлая тема',
+        en_lang: 'Английский',
+        ru_lang: 'Русский'
+    },
+    [LOCALES.FRENCH]: {
+        login: 'Connexion',
+        signup: 'Inscription',
+        rem_signup: 'Vous avez deja un compte?',
+        rem_login: "Vous n'avez pas de compte?",
+        join_now: "S'inscrire maintenant"
+    }
+};
