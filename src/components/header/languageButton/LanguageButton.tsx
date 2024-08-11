@@ -1,21 +1,20 @@
 import { Button, Menu, MenuItem } from '@mui/material';
-import { SetStateAction, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { actions } from '../../stores/slices/pageSettings.slice';
+import { useState } from 'react';
 import LanguageIcon from '@mui/icons-material/Language';
 import { FormattedMessage } from 'react-intl';
+import { useActions } from '../../../hooks/useActions';
 
 function LanguageButton() {
-    const dispatch = useDispatch();
+    const { setLanguage } = useActions();
 
-    const [anchorElLanguage, setAnchorElLanguage] = useState(null);
+    const [anchorElLanguage, setAnchorElLanguage] = useState<Element | null>(null);
 
-    const handleMenuLanguageClick = (event: SetStateAction<RootState>) => {
-        setAnchorElLanguage(event.currentTarget);
+    const handleMenuLanguageClick = (event: React.MouseEvent) => {
+        setAnchorElLanguage(event.currentTarget as Element);
     };
 
     const handleLanguageMenuItemClick = (selectedLanguage: number) => {
-        dispatch(actions.setLanguage(selectedLanguage));
+        setLanguage(selectedLanguage);
         setAnchorElLanguage(null);
     };
 

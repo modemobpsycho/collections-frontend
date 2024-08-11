@@ -27,7 +27,17 @@ export const messages = {
         dark_theme: 'Dark theme',
         light_theme: 'Light theme',
         en_lang: 'English',
-        ru_lang: 'Russian'
+        ru_lang: 'Russian',
+        go_to_home: 'Go to home',
+        my_data: 'My data',
+        my_reactions: 'My reactions',
+        my_comments: 'My comments',
+        del_acc: 'Delete account',
+        your_data: 'Your personal data',
+        name: 'Name',
+        old_password: 'Old password (required)',
+        new_password: 'New password (if you want)',
+        save: 'Save'
     },
     [LOCALES.RUSSIAN]: {
         login: 'Вход',
@@ -54,7 +64,17 @@ export const messages = {
         dark_theme: 'Тёмная тема',
         light_theme: 'Светлая тема',
         en_lang: 'Английский',
-        ru_lang: 'Русский'
+        ru_lang: 'Русский',
+        go_to_home: 'Вернуться на главную',
+        my_data: 'Мои данные',
+        my_comments: 'Мои комментарии',
+        my_reactions: 'Мои реакции',
+        del_acc: 'Удалить аккаунт',
+        your_data: 'Ваши личные данные',
+        name: 'Имя',
+        old_password: 'Старый пароль (обязательно)',
+        new_password: 'Новый пароль (по желанию)',
+        save: 'Сохранить'
     },
     [LOCALES.FRENCH]: {
         login: 'Connexion',

@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useLoginUserMutation } from '../../stores/api/user.api';
 import { useActions } from '../../hooks/useActions';
-import { IUser } from '../../types/user.interface';
 import { FormattedMessage } from 'react-intl';
 
 function Login() {
@@ -19,7 +18,7 @@ function Login() {
 
     useEffect(() => {
         if (isSuccess) {
-            setUser(data as IUser);
+            setUser(data);
             navigate('/');
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -78,11 +77,7 @@ function Login() {
                     disabled={isLoading}
                     onClick={handleSubmit}
                 >
-                    {isLoading ? (
-                        <CircularProgress size={25} />
-                    ) : (
-                        <FormattedMessage id="button_login" />
-                    )}
+                    {isLoading ? <CircularProgress size={25} /> : <FormattedMessage id="button_login" />}
                 </Button>
 
                 <Typography variant="body1" className="new-to-collections">

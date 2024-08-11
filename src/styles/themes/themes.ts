@@ -21,6 +21,9 @@ export const darkTheme = createTheme({
         text: {
             primary: myColors.white
         }
+    },
+    typography: {
+        fontFamily: 'sans-serif'
     }
 });
 
@@ -44,5 +47,8 @@ export const lightTheme = createTheme({
         text: {
             primary: myColors.black
         }
+    },
+    typography: {
+        fontFamily: 'sans-serif'
     }
 });
