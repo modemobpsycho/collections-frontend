@@ -6,7 +6,9 @@ import AuthWrapper from '../pages/authorization/AuthWrapper';
 import Login from '../pages/authorization/Login';
 import SignUp from '../pages/authorization/SignUp';
 import Collections from '../pages/collections/Collections';
-import Cabinet from '../pages/cabinet/Cabinet';
+import Cabinet from '../pages/cabinet/CabinetWrapper';
+import UserCollections from '../pages/collections/UserCollections';
+import AddCollection from '../pages/addCollection/AddCollection';
 
 export const AppRouter = () => {
     return (
@@ -31,9 +33,10 @@ export const AppRouter = () => {
                             </AuthWrapper>
                         }
                     />
-                    <Route path="/collections" element={<Collections />} />
-                    <Route path="/my-collections" element={<Collections />} />
                     <Route path="/cabinet" element={<Cabinet />} />
+                    <Route path="/collections" element={<Collections />} />
+                    <Route path="/my-collections" element={<UserCollections />} />
+                    <Route path="/add-collection" element={<AddCollection />} />
                     <Route path="*" element={<HomePage />} />
                 </Routes>
             </BrowserRouter>

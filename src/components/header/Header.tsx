@@ -6,17 +6,17 @@ import SearchIcon from '@mui/icons-material/Search';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Input } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { useActions } from '../../hooks/useActions';
-import ThemeButton from '../../elements/themeButton/ThemeButton';
-import LanguageButton from '../../elements/languageButton/LanguageButton';
+import ThemeButton from './themeButton/ThemeButton';
+import LanguageButton from './languageButton/LanguageButton';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { useOptionsState, useUserState } from '../../hooks/useStoreState';
 
 export default function Header() {
-    const { user } = useSelector((state: RootState) => state.user);
-    const { theme } = useSelector((state: RootState) => state.options);
-    const intl = useIntl();
+    const { token } = useUserState();
+    const { theme } = useOptionsState();
     const { logout } = useActions();
+    const intl = useIntl();
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -68,7 +68,7 @@ export default function Header() {
                             >
                                 <FormattedMessage id="all_collections" />
                             </Typography>
-                            {user && (
+                            {token && (
                                 <Typography
                                     color="inherit"
                                     component={Link}
@@ -101,7 +101,7 @@ export default function Header() {
                     </Box>
 
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        {!user ? (
+                        {!token ? (
                             <Button variant="outlined" component={Link} to="/login">
                                 <FormattedMessage id="join" />
                             </Button>

@@ -1,24 +1,23 @@
 import { Button, Menu, MenuItem } from '@mui/material';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
-import { useDispatch, useSelector } from 'react-redux';
-import { SetStateAction, useState } from 'react';
-import { actions } from '../../stores/slices/pageSettings.slice';
+import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
+import { useOptionsState } from '../../../hooks/useStoreState';
+import { useActions } from '../../../hooks/useActions';
 
 function ThemeButton() {
-    const dispatch = useDispatch();
+    const { theme } = useOptionsState();
+    const { setTheme } = useActions();
 
-    const { theme } = useSelector((state: RootState) => state.options);
+    const [anchorEl, setAnchorEl] = useState<Element | null>(null);
 
-    const [anchorEl, setAnchorEl] = useState(null);
-
-    const handleMenuClick = (event: SetStateAction<RootState>) => {
-        setAnchorEl(event.currentTarget);
+    const handleMenuClick = (event: React.MouseEvent) => {
+        setAnchorEl(event.currentTarget as Element);
     };
 
     const handleMenuItemClick = (selectedTheme: string) => {
-        dispatch(actions.setTheme(selectedTheme));
+        setTheme(selectedTheme);
         setAnchorEl(null);
     };
 

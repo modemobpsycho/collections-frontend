@@ -20,7 +20,6 @@ function SignUp() {
 
     const handleSubmit = async () => {
         try {
-            console.log(formData);
             await signupUser(formData);
             setFormData({
                 fullName: '',
@@ -79,19 +78,11 @@ function SignUp() {
                         onClick={handleSubmit}
                         disabled={isLoading}
                     >
-                        {isLoading ? (
-                            <CircularProgress size={25} />
-                        ) : (
-                            <FormattedMessage id="button_signup" />
-                        )}
+                        {isLoading ? <CircularProgress size={25} /> : <FormattedMessage id="button_signup" />}
                     </Button>
                     <Typography variant="body1" className="new-to-collections">
                         <FormattedMessage id="rem_signup" />
-                        <Typography
-                            component={Link}
-                            to="/login"
-                            sx={{ textDecoration: 'none', marginLeft: '5px' }}
-                        >
+                        <Typography component={Link} to="/login" sx={{ textDecoration: 'none', marginLeft: '5px' }}>
                             <FormattedMessage id="button_login" />
                         </Typography>
                     </Typography>

@@ -37,13 +37,12 @@ const HomePage = () => {
         <Box className="home-page">
             <Typography variant="h1">Welcome to Our Collections</Typography>
             <Typography variant="h5" sx={{ marginBottom: '20px' }}>
-                Explore unique collections from our users.
+                Here out biggest collections
             </Typography>
 
             <Box className="collection-cards">
                 {collectionsData.map((collection) => (
                     <Box key={collection.id} className="collection-card">
-                        <img src={collection.imageUrl} alt={collection.title} />
                         <Typography variant="h5">{collection.title}</Typography>
                         <Typography variant="subtitle1">Owner: {collection.owner}</Typography>
                         <Typography variant="subtitle1">{collection.description}</Typography>
