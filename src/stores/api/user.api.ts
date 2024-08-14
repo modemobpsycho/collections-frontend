@@ -1,10 +1,4 @@
-import {
-    IUser,
-    IUserDeleteInfo,
-    IUserLoginInfo,
-    IUserRegisterInfo,
-    IUserUpdateInfo
-} from '../../types/user.interface';
+import { IUser, IUserDeleteInfo, IUserLoginInfo, IUserRegisterInfo, IUserUpdateInfo } from '@/types/user.interface';
 import { baseApi } from './baseApi';
 
 export const userApi = baseApi.injectEndpoints({
@@ -15,11 +9,7 @@ export const userApi = baseApi.injectEndpoints({
                 url: '/user/login',
                 method: 'POST'
             }),
-            invalidatesTags: () => [
-                {
-                    type: 'Collections'
-                }
-            ]
+            invalidatesTags: () => ['Collections']
         }),
         signupUser: builder.mutation<string, IUserRegisterInfo>({
             query: (userInfo: IUserRegisterInfo) => ({

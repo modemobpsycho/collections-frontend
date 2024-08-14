@@ -1,8 +1,7 @@
 import { Button, Menu, MenuItem } from '@mui/material';
 import { useState } from 'react';
 import LanguageIcon from '@mui/icons-material/Language';
-import { FormattedMessage } from 'react-intl';
-import { useActions } from '../../../hooks/useActions';
+import { useActions } from '@/hooks/useActions';
 
 function LanguageButton() {
     const { setLanguage } = useActions();
@@ -27,17 +26,9 @@ function LanguageButton() {
             <Button color="inherit" onClick={handleMenuLanguageClick}>
                 <LanguageIcon />
             </Button>
-            <Menu
-                anchorEl={anchorElLanguage}
-                open={Boolean(anchorElLanguage)}
-                onClose={handleClose}
-            >
-                <MenuItem onClick={() => handleLanguageMenuItemClick(0)}>
-                    <FormattedMessage id="en_lang" />
-                </MenuItem>
-                <MenuItem onClick={() => handleLanguageMenuItemClick(1)}>
-                    <FormattedMessage id="ru_lang" />
-                </MenuItem>
+            <Menu anchorEl={anchorElLanguage} open={Boolean(anchorElLanguage)} onClose={handleClose}>
+                <MenuItem onClick={() => handleLanguageMenuItemClick(0)}>English</MenuItem>
+                <MenuItem onClick={() => handleLanguageMenuItemClick(1)}>Русский</MenuItem>
             </Menu>
         </>
     );

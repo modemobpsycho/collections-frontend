@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { variables } from '../../helpers/variables';
-import { ICollection } from '../../types/collection.interface';
+import { variables } from '@/helpers/variables';
+import { ICollection } from '@/types/collection.interface';
 
 export interface userState {
     token?: string;

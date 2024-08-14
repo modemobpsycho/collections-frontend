@@ -1,14 +1,16 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import Header from '../components/header/Header';
-import HomePage from '../pages/homePage/homePage';
-import AuthWrapper from '../pages/authorization/AuthWrapper';
-import Login from '../pages/authorization/Login';
-import SignUp from '../pages/authorization/SignUp';
-import Collections from '../pages/collections/Collections';
-import Cabinet from '../pages/cabinet/CabinetWrapper';
-import UserCollections from '../pages/collections/UserCollections';
-import AddCollection from '../pages/addCollection/AddCollection';
+import Header from '@/components/header/Header';
+import HomePage from '@/pages/home/Home';
+import AuthWrapper from '@/pages/authorization/AuthWrapper';
+import Login from '@/pages/authorization/Login';
+import SignUp from '@/pages/authorization/SignUp';
+import Collections from '@/pages/collections/Collections';
+import Cabinet from '@/pages/cabinet/CabinetWrapper';
+import UserCollections from '@/pages/collections/UserCollections';
+import AddCollection from '@/pages/addCollection/AddCollection';
+import CollectionInfo from '@/pages/collectionInfo/CollectionInfo';
+import ChangeCollection from '@/pages/changeCollection/ChangeCollection';
 
 export const AppRouter = () => {
     return (
@@ -37,6 +39,8 @@ export const AppRouter = () => {
                     <Route path="/collections" element={<Collections />} />
                     <Route path="/my-collections" element={<UserCollections />} />
                     <Route path="/add-collection" element={<AddCollection />} />
+                    <Route path="/collections/:id" element={<CollectionInfo />} />
+                    <Route path="/collections/:id/edit" element={<ChangeCollection />} />
                     <Route path="*" element={<HomePage />} />
                 </Routes>
             </BrowserRouter>

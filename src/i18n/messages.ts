@@ -2,17 +2,17 @@ import { LOCALES } from './locales';
 
 export const messages = {
     [LOCALES.ENGLISH]: {
-        login: 'Login',
-        signup: 'Sign up',
-        email: 'Email',
-        fullName: 'Full Name',
-        password: 'Password',
-        button_login: 'Log in',
-        button_signup: 'Sign up',
-        rem_signup: 'Already have an account?',
-        rem_login: "Don't have an account?",
-        join_now: 'Join now',
-        auth_welcome: `Welcome to the creative and entertainment platform! 
+        Login: 'Login',
+        Sign_up: 'Sign up',
+        Email: 'Email',
+        Full_Name: 'Full Name',
+        Password: 'Password',
+        Log_in_button: 'Log in',
+        Sign_up_button: 'Sign up',
+        Already_have_an_account: 'Already have an account?',
+        Dont_have_an_account: "Don't have an account?",
+        Join_now: 'Join now',
+        Welcome_to_the_creative_and_entertainment_platform: `Welcome to the creative and entertainment platform! 
         Share your collections and inspire others`,
         home_welcome: 'Welcome to our collection world',
         home_description: 'Explore unique collections from our users.',
@@ -24,8 +24,8 @@ export const messages = {
         join: 'Join',
         account: 'Account',
         logout: 'Log out',
-        dark_theme: 'Dark theme',
-        light_theme: 'Light theme',
+        dark_theme: 'Dark mode',
+        light_theme: 'Light mode',
         en_lang: 'English',
         ru_lang: 'Russian',
         go_to_home: 'Go to home',
@@ -40,17 +40,17 @@ export const messages = {
         save: 'Save'
     },
     [LOCALES.RUSSIAN]: {
-        login: 'Вход',
-        signup: 'Регистрация',
-        email: 'Электронная почта',
-        fullName: 'Полное имя',
-        password: 'Пароль',
-        button_login: 'Войти',
-        button_signup: 'Зарегистрироваться',
-        rem_signup: 'Уже есть аккаунт?',
-        rem_login: 'Нет аккаунта?',
-        join_now: 'Присоединиться',
-        auth_welcome: `Добро пожаловать на платформу творчества и увлечений! Делитесь своими коллекциями и вдохновляйте других`,
+        Login: 'Вход',
+        Sign_up: 'Регистрация',
+        Email: 'Электронная почта',
+        Full_Name: 'Полное имя',
+        Password: 'Пароль',
+        Log_in_button: 'Войти',
+        Sign_up_button: 'Зарегистрироваться',
+        Already_have_an_account: 'Уже есть аккаунт?',
+        Dont_have_an_account: 'Нет аккаунта?',
+        Join_now: 'Присоединиться',
+        Welcome_to_the_creative_and_entertainment_platform: `Добро пожаловать на платформу творчества и увлечений! Делитесь своими коллекциями и вдохновляйте других`,
         home_welcome: 'Добро пожаловать в наш мир коллекций',
         home_description: 'Исследуйте уникальные коллекции от наших пользователей.',
         header_brand: 'Коллекций.нет',
@@ -75,12 +75,5 @@ export const messages = {
         old_password: 'Старый пароль (обязательно)',
         new_password: 'Новый пароль (по желанию)',
         save: 'Сохранить'
-    },
-    [LOCALES.FRENCH]: {
-        login: 'Connexion',
-        signup: 'Inscription',
-        rem_signup: 'Vous avez deja un compte?',
-        rem_login: "Vous n'avez pas de compte?",
-        join_now: "S'inscrire maintenant"
     }
 };

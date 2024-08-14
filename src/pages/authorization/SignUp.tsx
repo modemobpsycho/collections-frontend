@@ -1,17 +1,17 @@
 import { Container, Typography, TextField, Button, Box, CircularProgress } from '@mui/material';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useSignupUserMutation } from '../../stores/api/user.api';
+import { useSignupUserMutation } from '@/stores/api/user.api';
 import { FormattedMessage } from 'react-intl';
 
 function SignUp() {
+    const [signupUser, { isLoading }] = useSignupUserMutation();
+
     const [formData, setFormData] = useState({
         fullName: '',
         email: '',
         password: ''
     });
-
-    const [signupUser, { isLoading }] = useSignupUserMutation();
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -36,11 +36,11 @@ function SignUp() {
             <Container maxWidth="sm">
                 <Box component="form" className="form-box">
                     <Typography variant="h4" sx={{ marginBottom: '20px' }}>
-                        <FormattedMessage id="signup" />
+                        <FormattedMessage id="Sign_up" />
                     </Typography>
 
                     <TextField
-                        label={<FormattedMessage id="fullName" />}
+                        label={<FormattedMessage id="Full_Name" />}
                         id="fullName"
                         name="fullName"
                         value={formData.fullName}
@@ -50,7 +50,7 @@ function SignUp() {
                     />
 
                     <TextField
-                        label={<FormattedMessage id="email" />}
+                        label={<FormattedMessage id="Email" />}
                         id="email"
                         name="email"
                         value={formData.email}
@@ -61,7 +61,7 @@ function SignUp() {
 
                     <TextField
                         type="password"
-                        label={<FormattedMessage id="password" />}
+                        label={<FormattedMessage id="Password" />}
                         id="password"
                         name="password"
                         value={formData.password}
@@ -78,12 +78,12 @@ function SignUp() {
                         onClick={handleSubmit}
                         disabled={isLoading}
                     >
-                        {isLoading ? <CircularProgress size={25} /> : <FormattedMessage id="button_signup" />}
+                        {isLoading ? <CircularProgress size={25} /> : <FormattedMessage id="Sign_up_button" />}
                     </Button>
                     <Typography variant="body1" className="new-to-collections">
-                        <FormattedMessage id="rem_signup" />
+                        <FormattedMessage id="Already_have_an_account" />
                         <Typography component={Link} to="/login" sx={{ textDecoration: 'none', marginLeft: '5px' }}>
-                            <FormattedMessage id="button_login" />
+                            <FormattedMessage id="Log_in_button" />
                         </Typography>
                     </Typography>
                 </Box>

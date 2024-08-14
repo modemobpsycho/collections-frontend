@@ -1,5 +1,5 @@
 import { ChangeEvent } from 'react';
-import { ICollectionFields } from '../../types/collectionFields.interface';
+import { ICollectionFields } from '@/types/collectionFields.interface';
 import { Box, Button, Input, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 

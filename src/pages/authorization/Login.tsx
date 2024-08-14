@@ -1,27 +1,25 @@
 import { Container, Typography, TextField, Button, Box, CircularProgress } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useLoginUserMutation } from '../../stores/api/user.api';
-import { useActions } from '../../hooks/useActions';
+import { useLoginUserMutation } from '@/stores/api/user.api';
+import { useActions } from '@/hooks/useActions';
 import { FormattedMessage } from 'react-intl';
 
 function Login() {
     const navigate = useNavigate();
+    const { setUser } = useActions();
+    const [loginUser, { isLoading, isSuccess, data }] = useLoginUserMutation();
 
     const [formData, setFormData] = useState({
         email: '',
         password: ''
     });
 
-    const { setUser } = useActions();
-    const [loginUser, { isLoading, isSuccess, data }] = useLoginUserMutation();
-
     useEffect(() => {
         if (isSuccess) {
             setUser(data);
             navigate('/');
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isLoading]);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,11 +43,11 @@ function Login() {
         <Container maxWidth="sm" className="container">
             <Box component="form" className="form-box">
                 <Typography variant="h4" sx={{ marginBottom: '20px' }}>
-                    <FormattedMessage id="login" />
+                    <FormattedMessage id="Login" />
                 </Typography>
 
                 <TextField
-                    label={<FormattedMessage id="email" />}
+                    label={<FormattedMessage id="Email" />}
                     id="email"
                     name="email"
                     value={formData.email}
@@ -60,7 +58,7 @@ function Login() {
 
                 <TextField
                     type="password"
-                    label={<FormattedMessage id="password" />}
+                    label={<FormattedMessage id="Password" />}
                     id="password"
                     name="password"
                     value={formData.password}
@@ -77,13 +75,13 @@ function Login() {
                     disabled={isLoading}
                     onClick={handleSubmit}
                 >
-                    {isLoading ? <CircularProgress size={25} /> : <FormattedMessage id="button_login" />}
+                    {isLoading ? <CircularProgress size={25} /> : <FormattedMessage id="Log_in_button" />}
                 </Button>
 
                 <Typography variant="body1" className="new-to-collections">
-                    <FormattedMessage id="rem_login" />
+                    <FormattedMessage id="Dont_have_an_account" />
                     <Typography component={Link} to="/signup">
-                        <FormattedMessage id="join_now" />
+                        <FormattedMessage id="Join_now" />
                     </Typography>
                 </Typography>
             </Box>

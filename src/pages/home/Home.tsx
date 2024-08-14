@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material';
-import './homePage.scss';
+import './home.scss';
 
 const collectionsData = [
     {

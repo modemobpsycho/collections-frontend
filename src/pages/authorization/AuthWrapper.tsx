@@ -1,8 +1,8 @@
 import { ReactElement } from 'react';
 import { Box, Typography } from '@mui/material';
+import { FormattedMessage } from 'react-intl';
 
 import './authPage.scss';
-import { FormattedMessage } from 'react-intl';
 
 function AuthWrapper({ children }: { children: ReactElement[] | ReactElement }) {
     return (
@@ -18,7 +18,7 @@ function AuthWrapper({ children }: { children: ReactElement[] | ReactElement }) 
                     width: '70%'
                 }}
             >
-                <FormattedMessage id="auth_welcome" />
+                <FormattedMessage id="Welcome_to_the_creative_and_entertainment_platform" />
             </Typography>
             {children}
         </Box>

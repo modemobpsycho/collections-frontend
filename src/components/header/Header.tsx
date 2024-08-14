@@ -6,11 +6,11 @@ import SearchIcon from '@mui/icons-material/Search';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Input } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { useActions } from '../../hooks/useActions';
+import { useActions } from '@/hooks/useActions';
 import ThemeButton from './themeButton/ThemeButton';
 import LanguageButton from './languageButton/LanguageButton';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { useOptionsState, useUserState } from '../../hooks/useStoreState';
+import { useOptionsState, useUserState } from '@/hooks/useStoreState';
 
 export default function Header() {
     const { token } = useUserState();
@@ -107,12 +107,7 @@ export default function Header() {
                             </Button>
                         ) : (
                             <>
-                                <Button
-                                    color="primary"
-                                    variant="outlined"
-                                    component={Link}
-                                    to="/cabinet"
-                                >
+                                <Button color="primary" variant="outlined" component={Link} to="/cabinet">
                                     <FormattedMessage id="account" />
                                 </Button>
                                 <Button
@@ -126,8 +121,8 @@ export default function Header() {
                                 </Button>
                             </>
                         )}
-                        <LanguageButton />
                         <ThemeButton />
+                        <LanguageButton />
                     </Box>
                 </Box>
             </AppBar>

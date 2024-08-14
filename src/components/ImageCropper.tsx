@@ -1,28 +1,32 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { SetStateAction, useCallback, useRef } from 'react';
 import Cropper from 'react-cropper';
+import { Box, Button } from '@mui/material';
+
 import 'cropperjs/dist/cropper.css';
 
 interface ImageCropperProps {
-    imageSrc: string;
-    onCrop: (croppedImage: string) => void;
+    file: File | undefined;
+    setFile: (file: SetStateAction<File | undefined>) => void;
+    croppedImage: string | undefined;
+    setCroppedImage: (croppedImage: string | undefined) => void;
 }
 
-const ImageCropper: React.FC<ImageCropperProps> = ({ imageSrc, onCrop }) => {
+const ImageCropper = ({ file, setFile, croppedImage, setCroppedImage }: ImageCropperProps) => {
     const cropperRef = useRef<HTMLImageElement | null>(null);
-    const [croppedImage, setCroppedImage] = useState<string | null>(null);
 
-    useEffect(() => {
-        if (croppedImage) {
-            onCrop(croppedImage);
-        }
-    }, [croppedImage, onCrop]);
-
-    const handleCrop = () => {
+    const handleCrop = useCallback(() => {
         if (cropperRef.current) {
             const cropper: any = (cropperRef.current as any).cropper;
             cropper.getCroppedCanvas().toBlob((blob: any) => {
                 setCroppedImage(URL.createObjectURL(blob));
             });
+        }
+    }, [cropperRef]);
+
+    const handleCancel = () => {
+        if (croppedImage || file) {
+            setFile(() => undefined);
+            setCroppedImage(undefined);
         }
     };
 
@@ -30,12 +34,22 @@ const ImageCropper: React.FC<ImageCropperProps> = ({ imageSrc, onCrop }) => {
         <>
             <Cropper
                 ref={cropperRef}
-                src={imageSrc}
-                style={{ height: 400, maxWidth: '400px' }}
+                src={URL.createObjectURL(file as Blob)}
                 aspectRatio={16 / 9}
                 guides={true}
+                style={{ width: '400px', maxHeight: '600px' }}
+                zoomable={false}
+                scalable={false}
+                movable={false}
             />
-            <button onClick={handleCrop}>Crop Image</button>
+            <Box style={{ display: 'flex', flexDirection: 'row', gap: '10px' }}>
+                <Button variant="contained" onClick={handleCrop} sx={{ marginTop: '10px' }}>
+                    Crop Image
+                </Button>
+                <Button variant="contained" color="error" sx={{ marginTop: '10px' }} onClick={handleCancel}>
+                    Cancel upload
+                </Button>
+            </Box>
         </>
     );
 };

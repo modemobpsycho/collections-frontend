@@ -15,9 +15,9 @@ function App() {
     return (
         <div className="app">
             <IntlProvider
-                messages={messages[language === 0 ? LOCALES.ENGLISH : LOCALES.RUSSIAN] as IMessages}
                 locale={language === 0 ? LOCALES.ENGLISH : LOCALES.RUSSIAN}
                 defaultLocale={LOCALES.ENGLISH}
+                messages={messages[language === 0 ? LOCALES.ENGLISH : LOCALES.RUSSIAN] as IMessages}
             >
                 <ThemeProvider theme={theme === 'dark' ? darkTheme : lightTheme}>
                     <CssBaseline />

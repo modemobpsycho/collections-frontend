@@ -8,7 +8,8 @@ export const darkTheme = createTheme({
             main: myColors.blueLight
         },
         secondary: {
-            main: myColors.white
+            main: myColors.white,
+            dark: myColors.backgroundCardDark
         },
         info: {
             light: myColors.greenLight,
@@ -34,7 +35,8 @@ export const lightTheme = createTheme({
             main: myColors.blue
         },
         secondary: {
-            main: myColors.white
+            main: myColors.white,
+            dark: myColors.backgroundCardLight
         },
         info: {
             light: myColors.greenLight,

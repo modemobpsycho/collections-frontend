@@ -1,4 +1,4 @@
-import { Box, Button, InputLabel, TextField, Typography } from '@mui/material';
+import { Button, Card, InputLabel, TextField, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useGetUserQuery, useUpdateUserMutation } from '../../stores/api/user.api';
@@ -8,11 +8,7 @@ function PersonalData() {
     const { setUser } = useActions();
     const [updateUser, { isLoading, isSuccess, data }] = useUpdateUserMutation();
 
-    const {
-        data: userData,
-        isLoading: isLoadingUser,
-        isSuccess: isSuccessUser
-    } = useGetUserQuery();
+    const { data: userData, isLoading: isLoadingUser, isSuccess: isSuccessUser } = useGetUserQuery();
 
     const [formData, setFormData] = useState({
         fullName: '',
@@ -52,7 +48,7 @@ function PersonalData() {
     };
 
     return (
-        <Box
+        <Card
             sx={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -60,8 +56,9 @@ function PersonalData() {
                 padding: '10px',
                 borderRadius: '10px',
                 margin: 'auto',
-                marginTop: 'auto',
-                gap: '10px'
+                marginTop: '10px',
+                gap: '10px',
+                backgroundColor: 'secondary.dark'
             }}
         >
             <Typography variant="h4" sx={{ textAlign: 'center', marginTop: '20px' }}>
@@ -70,12 +67,7 @@ function PersonalData() {
             <InputLabel sx={{ marginTop: '20px' }}>
                 <FormattedMessage id="name" />
             </InputLabel>
-            <TextField
-                id="fullName"
-                name="fullName"
-                value={formData.fullName}
-                onChange={handleChange}
-            />
+            <TextField id="fullName" name="fullName" value={formData.fullName} onChange={handleChange} />
             <InputLabel>
                 <FormattedMessage id="email" />
             </InputLabel>
@@ -83,25 +75,15 @@ function PersonalData() {
             <InputLabel>
                 <FormattedMessage id="old_password" />
             </InputLabel>
-            <TextField
-                id="oldPassword"
-                name="oldPassword"
-                value={formData.oldPassword}
-                onChange={handleChange}
-            />
+            <TextField id="oldPassword" name="oldPassword" value={formData.oldPassword} onChange={handleChange} />
             <InputLabel>
                 <FormattedMessage id="new_password" />
             </InputLabel>
-            <TextField
-                id="newPassword"
-                name="newPassword"
-                value={formData.newPassword}
-                onChange={handleChange}
-            />
+            <TextField id="newPassword" name="newPassword" value={formData.newPassword} onChange={handleChange} />
             <Button variant="contained" sx={{ marginTop: '20px' }} onClick={handleSubmit}>
                 <FormattedMessage id="save" />
             </Button>
-        </Box>
+        </Card>
     );
 }
 

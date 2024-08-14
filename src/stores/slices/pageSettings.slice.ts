@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { variables } from '../../helpers/variables';
+import { variables } from '@/helpers/variables';
 
 export interface settingsState {
     theme: string;
