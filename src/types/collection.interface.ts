@@ -14,4 +14,10 @@ export interface ICollection {
     user?: IUser;
 }
 
+export interface ICollectionInfo {
+    collection: ICollection;
+    userId: number;
+    userName: string;
+}
+
 export type ICollectionCreate = Omit<ICollection, 'id' | 'creationDate'>;

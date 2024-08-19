@@ -4,10 +4,12 @@ import ImageCropper from '@/components/ImageCropper';
 import { Navigate } from 'react-router-dom';
 import { useUserState } from '@/hooks/useStoreState';
 import CollectionAddData from './CollectionAddData';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import 'cropperjs/dist/cropper.css';
 
 function AddCollection() {
+    const intl = useIntl();
     const { token } = useUserState();
     const [file, setFile] = useState<File>();
     const [croppedImage, setCroppedImage] = useState<string | undefined>(undefined);
@@ -27,14 +29,18 @@ function AddCollection() {
         <Card sx={{ width: '60%', margin: '10px auto' }}>
             <CardContent>
                 <Typography variant="h5" component="div" sx={{ textAlign: 'center' }}>
-                    Add new collection
+                    <FormattedMessage id="Add_new_collection" />
                 </Typography>
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                    <InputLabel sx={{ marginTop: '20px' }}>Upload cover image</InputLabel>
+                    <InputLabel sx={{ marginTop: '20px' }}>
+                        <FormattedMessage id="Upload_cover_image" />
+                    </InputLabel>
                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                         <Button variant="contained" sx={{ width: '20%', position: 'relative' }}>
                             <label htmlFor="upload-image" style={{ width: '100%', height: '100%' }}>
-                                <Typography variant="subtitle2">Upload image</Typography>
+                                <Typography variant="subtitle2">
+                                    <FormattedMessage id="Upload_image" />
+                                </Typography>
                                 <input
                                     accept="image/*"
                                     id="upload-image"
@@ -77,7 +83,7 @@ function AddCollection() {
                                     >
                                         <img
                                             src={croppedImage}
-                                            alt="Cropped Preview"
+                                            alt={intl.formatMessage({ id: 'Cropped_preview' })}
                                             style={{ maxWidth: '500px', borderRadius: '10px' }}
                                         />
                                     </Box>

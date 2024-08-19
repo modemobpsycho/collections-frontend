@@ -2,8 +2,10 @@ import { ChangeEvent } from 'react';
 import { ICollectionFields } from '@/types/collectionFields.interface';
 import { Box, Button, Input, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 const CollectionFields = ({ fields, setFields }: { fields: ICollectionFields[]; setFields: Function }) => {
+    const intl = useIntl();
     const handleAddField = () => {
         setFields([...fields, { id: undefined, fieldType: 'string', fieldName: '' }]);
     };
@@ -32,7 +34,7 @@ const CollectionFields = ({ fields, setFields }: { fields: ICollectionFields[]; 
     return (
         <Box>
             <Button onClick={handleAddField} variant="contained">
-                Add Field
+                <FormattedMessage id="Add_field" />
             </Button>
             {fields.length > 0 &&
                 fields.map((_field, index) => (
@@ -54,15 +56,23 @@ const CollectionFields = ({ fields, setFields }: { fields: ICollectionFields[]; 
                             value={_field.fieldType}
                             variant="outlined"
                         >
-                            <MenuItem value="string">Text</MenuItem>
-                            <MenuItem value="number">Number</MenuItem>
-                            <MenuItem value="Date">Date</MenuItem>
-                            <MenuItem value="boolean">Boolean</MenuItem>
+                            <MenuItem value="string">
+                                <FormattedMessage id="Text" />
+                            </MenuItem>
+                            <MenuItem value="number">
+                                <FormattedMessage id="Number" />
+                            </MenuItem>
+                            <MenuItem value="Date">
+                                <FormattedMessage id="Date" />
+                            </MenuItem>
+                            <MenuItem value="boolean">
+                                <FormattedMessage id="Boolean" />
+                            </MenuItem>
                         </Select>
                         <Input
                             type="text"
                             onChange={(event) => handleChangeFieldName(event, index || 0)}
-                            placeholder="Field Name"
+                            placeholder={intl.formatMessage({ id: 'Field_name' })}
                             id={'fieldInput' + index}
                             sx={{ width: '100%', marginRight: '10px', height: '50px' }}
                         />

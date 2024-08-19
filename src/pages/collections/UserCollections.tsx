@@ -5,6 +5,7 @@ import { useGetMyCollectionsQuery } from '@/stores/api/collections.api';
 import { useEffect } from 'react';
 import { ICollection } from '@/types/collection.interface';
 import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
+import { FormattedMessage } from 'react-intl';
 
 function UserCollections() {
     const { isLoading, data } = useGetMyCollectionsQuery();
@@ -14,23 +15,34 @@ function UserCollections() {
     return (
         <Box
             sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                margin: '20px auto',
-                alignItems: 'center',
-                width: '50%',
-                gap: '10px'
+                width: '50vw',
+                maxWidth: '50vw',
+                margin: '20px auto'
             }}
         >
-            <Typography variant="h4">MY COLLECTIONS</Typography>
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    gap: '10px',
+                    width: '100%'
+                }}
+            >
+                <Typography variant="h4">
+                    <FormattedMessage id="My_collections" />
+                </Typography>
 
-            {data &&
-                data.map((collection: ICollection) => <CollectionCard key={collection.id} collection={collection} />)}
+                {data &&
+                    data.map((collection: ICollection) => (
+                        <CollectionCard key={collection.id} collection={collection} />
+                    ))}
+            </Box>
             <Link
                 component={RouterLink}
                 to="/add-collection"
-                sx={{ position: 'fixed', right: 'calc(20% + 10px)', bottom: '10px' }}
+                sx={{ position: 'fixed', left: 'calc(75% + 20px)', bottom: '10px' }}
             >
                 <Button
                     variant="contained"

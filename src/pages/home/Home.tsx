@@ -1,53 +1,23 @@
 import { Box, Typography } from '@mui/material';
-import './home.scss';
-
-const collectionsData = [
-    {
-        id: 1,
-        title: 'Funko Pop Figures',
-        owner: 'John Doe',
-        description: 'Collection of rare Funko Pop figures.',
-        imageUrl: 'https://example.com/funko.jpg'
-    },
-    {
-        id: 2,
-        title: 'Vintage Stamp Collection',
-        owner: 'Alice Smith',
-        description: 'Explore a vintage stamp collection.',
-        imageUrl: 'https://example.com/stamps.jpg'
-    },
-    {
-        id: 3,
-        title: 'Classic Vinyl Records',
-        owner: 'Emily Johnson',
-        description: 'Collection of classic vinyl records.',
-        imageUrl: 'https://example.com/records.jpg'
-    },
-    {
-        id: 4,
-        title: 'Classic Vinyl Records',
-        owner: 'Emily Johnson',
-        description: 'Collection of classic vinyl records.',
-        imageUrl: 'https://example.com/records.jpg'
-    }
-];
+import { useGetBiggestCollectionsQuery } from '@/stores/api/collections.api';
+import CollectionCard from '@/components/collectionCard/CollectionCard';
+import { FormattedMessage } from 'react-intl';
 
 const HomePage = () => {
+    const { isLoading: isLoadingCollections, data: collections } = useGetBiggestCollectionsQuery();
     return (
-        <Box className="home-page">
-            <Typography variant="h1">Welcome to Our Collections</Typography>
-            <Typography variant="h5" sx={{ marginBottom: '20px' }}>
-                Here out biggest collections
-            </Typography>
-
-            <Box className="collection-cards">
-                {collectionsData.map((collection) => (
-                    <Box key={collection.id} className="collection-card">
-                        <Typography variant="h5">{collection.title}</Typography>
-                        <Typography variant="subtitle1">Owner: {collection.owner}</Typography>
-                        <Typography variant="subtitle1">{collection.description}</Typography>
-                    </Box>
-                ))}
+        <Box sx={{ padding: '20px' }}>
+            <Box sx={{ textAlign: 'center' }}>
+                <Typography variant="h3">
+                    <FormattedMessage id="Welcome_to_Our_Collections" />
+                </Typography>
+                <Typography variant="h4" sx={{ marginBottom: '20px' }}>
+                    <FormattedMessage id="Here_our_biggest_collections" />
+                </Typography>
+            </Box>
+            <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', justifyContent: 'center', gap: '20px' }}>
+                {collections &&
+                    collections.map((collection) => <CollectionCard key={collection.id} collection={collection} />)}
             </Box>
         </Box>
     );

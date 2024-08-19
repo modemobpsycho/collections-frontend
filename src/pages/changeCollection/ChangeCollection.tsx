@@ -2,10 +2,11 @@ import { useState } from 'react';
 import { Box, Button, Card, InputLabel, Typography } from '@mui/material';
 import ImageCropper from '@/components/ImageCropper';
 import CollectionChangeData from './CollectionChangeData';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 function ChangeCollection() {
     const [croppedImage, setCroppedImage] = useState<string | undefined>(undefined);
-
+    const intl = useIntl();
     const [file, setFile] = useState<File>();
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,7 +19,7 @@ function ChangeCollection() {
     return (
         <Box>
             <Typography variant="h4" sx={{ textAlign: 'center', margin: '20px' }}>
-                COLLECTION INFO
+                <FormattedMessage id="Collection_information" />
             </Typography>
             <Card
                 sx={{
@@ -36,7 +37,9 @@ function ChangeCollection() {
                 <CollectionChangeData croppedImage={croppedImage} file={file} />
                 <Button variant="contained" sx={{ width: '20%', position: 'relative' }}>
                     <label htmlFor="upload-image" style={{ width: '100%', height: '100%' }}>
-                        <Typography variant="subtitle2">Upload image</Typography>
+                        <Typography variant="subtitle2">
+                            <FormattedMessage id="Upload_image" />
+                        </Typography>
                         <input
                             accept="image/*"
                             id="upload-image"
@@ -63,7 +66,9 @@ function ChangeCollection() {
                         }}
                     >
                         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                            <InputLabel sx={{ margin: '10px 0' }}>Crop image here</InputLabel>
+                            <InputLabel sx={{ margin: '10px 0' }}>
+                                <FormattedMessage id="Crop_image_here" />
+                            </InputLabel>
                             <ImageCropper
                                 file={file}
                                 setFile={(file) => setFile(file)}
@@ -80,10 +85,12 @@ function ChangeCollection() {
                                     alignItems: 'center'
                                 }}
                             >
-                                <InputLabel sx={{ margin: '10px 0' }}>Cropped collection image</InputLabel>
+                                <InputLabel sx={{ margin: '10px 0' }}>
+                                    <FormattedMessage id="Cropped_collection_image" />
+                                </InputLabel>
                                 <img
                                     src={croppedImage}
-                                    alt="Cropped Preview"
+                                    alt={intl.formatMessage({ id: 'Cropped_preview' })}
                                     style={{ borderRadius: '10px', width: '500px', maxWidth: '100%' }}
                                 />
                             </Box>

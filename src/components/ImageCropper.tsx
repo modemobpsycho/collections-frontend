@@ -3,6 +3,7 @@ import Cropper from 'react-cropper';
 import { Box, Button } from '@mui/material';
 
 import 'cropperjs/dist/cropper.css';
+import { FormattedMessage } from 'react-intl';
 
 interface ImageCropperProps {
     file: File | undefined;
@@ -44,10 +45,10 @@ const ImageCropper = ({ file, setFile, croppedImage, setCroppedImage }: ImageCro
             />
             <Box style={{ display: 'flex', flexDirection: 'row', gap: '10px' }}>
                 <Button variant="contained" onClick={handleCrop} sx={{ marginTop: '10px' }}>
-                    Crop Image
+                    <FormattedMessage id="Crop_image" />
                 </Button>
                 <Button variant="contained" color="error" sx={{ marginTop: '10px' }} onClick={handleCancel}>
-                    Cancel upload
+                    <FormattedMessage id="Cancel_upload" />
                 </Button>
             </Box>
         </>

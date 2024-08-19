@@ -5,7 +5,6 @@ import { IntlProvider } from 'react-intl';
 import { LOCALES } from '../i18n/locales';
 import { messages } from '../i18n/messages';
 import { IMessages } from '../types/messages.interface';
-
 import CssBaseline from '@mui/material/CssBaseline';
 import { useOptionsState } from '../hooks/useStoreState';
 

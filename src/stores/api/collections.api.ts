@@ -24,7 +24,7 @@ export const collectionApi = baseApi.injectEndpoints({
             }),
             providesTags: () => ['Collections']
         }),
-        deleteCollection: builder.mutation<string, string>({
+        deleteCollection: builder.mutation<string, number>({
             query: (id) => ({
                 url: `/collection/${id}`,
                 method: 'DELETE'
@@ -53,7 +53,14 @@ export const collectionApi = baseApi.injectEndpoints({
                 url: '/collection/savePhoto',
                 method: 'POST'
             }),
-            invalidatesTags: () => ['Collections']
+            invalidatesTags: () => ['Collections', 'Collection']
+        }),
+        getBiggestCollections: builder.query<ICollection[], void>({
+            query: () => ({
+                url: '/collection/biggest',
+                method: 'GET'
+            }),
+            providesTags: () => ['Collections']
         })
     })
 });
@@ -65,5 +72,6 @@ export const {
     useChangeCollectionMutation,
     useGetMyCollectionsQuery,
     useGetCollectionInfoQuery,
+    useGetBiggestCollectionsQuery,
     useDeleteCollectionMutation
 } = collectionApi;

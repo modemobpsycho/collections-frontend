@@ -1,13 +1,14 @@
-import { Button, InputLabel, TextField } from '@mui/material';
+import { Button, CircularProgress, InputLabel, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { dataUrlToFile } from '@/utils/cropUtils';
 import { ICollection } from '@/types/collection.interface';
 import { useAddCollectionImageMutation, useAddCollectionMutation } from '../../stores/api/collections.api';
 import CollectionFields from './CollectionFields';
 import { ICollectionFields } from '@/types/collectionFields.interface';
+import { FormattedMessage } from 'react-intl';
 
 function CollectionAddData({ croppedImage, file }: { croppedImage: string | undefined; file: File | undefined }) {
-    const [addCollection] = useAddCollectionMutation();
+    const [addCollection, { isLoading: isLoadingCollection }] = useAddCollectionMutation();
     const [addCollectionImage, { isLoading: isLoadingImage, isSuccess: isSuccessImage, data: dataImage }] =
         useAddCollectionImageMutation();
 
@@ -55,16 +56,46 @@ function CollectionAddData({ croppedImage, file }: { croppedImage: string | unde
 
     return (
         <>
-            <InputLabel sx={{ marginTop: '20px' }}>Collection title</InputLabel>
-            <TextField id="title" name="title" value={formData.title} onChange={handleChange} />
-            <InputLabel>Collection description (optional in Markdown)</InputLabel>
-            <TextField id="description" name="description" value={formData.description} onChange={handleChange} />
-            <InputLabel>Collection theme</InputLabel>
-            <TextField id="theme" name="theme" value={formData.theme} onChange={handleChange} />
-            <InputLabel>Add fields in your collection</InputLabel>
+            <InputLabel sx={{ marginTop: '20px' }}>
+                <FormattedMessage id="Collection_title" />
+            </InputLabel>
+            <TextField
+                id="title"
+                label={<FormattedMessage id="Title" />}
+                name="title"
+                value={formData.title}
+                onChange={handleChange}
+            />
+            <InputLabel>
+                <FormattedMessage id="Collection_description" />
+            </InputLabel>
+            <TextField
+                id="description"
+                name="description"
+                label={<FormattedMessage id="Description" />}
+                value={formData.description}
+                onChange={handleChange}
+            />
+            <InputLabel>
+                <FormattedMessage id="Collection_theme" />
+            </InputLabel>
+            <TextField
+                id="theme"
+                label={<FormattedMessage id="Theme" />}
+                name="theme"
+                value={formData.theme}
+                onChange={handleChange}
+            />
+            <InputLabel>
+                <FormattedMessage id="Add_fields_in_your_collection" />
+            </InputLabel>
             <CollectionFields fields={fields} setFields={setFields} />
             <Button variant="contained" sx={{ marginTop: '20px' }} onClick={handleSubmit}>
-                Submit
+                {isLoadingCollection ? (
+                    <CircularProgress color="inherit" size={25} />
+                ) : (
+                    <FormattedMessage id="Submit" />
+                )}
             </Button>
         </>
     );

@@ -6,19 +6,25 @@ import {
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Box, Button, Card, CardContent, CircularProgress, Typography } from '@mui/material';
 import { variables } from '@/helpers/variables';
+import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 import { useGetUserQuery } from '@/stores/api/user.api';
 import { marked } from 'marked';
+import AddItem from './AddItem';
+import CollectionItems from './CollectionItems';
+import { useGetItemsQuery } from '@/stores/api/items.api';
+import { FormattedMessage } from 'react-intl';
 
 function CollectionInfo() {
     const { id } = useParams();
     const navigate = useNavigate();
     const { data: collections } = useGetMyCollectionsQuery();
-    const { isLoading: isLoadingUser, data: user } = useGetUserQuery();
-    const { data: collection, isLoading } = useGetCollectionInfoQuery(String(id));
-    const [deleteCollection] = useDeleteCollectionMutation();
+    const { data: items } = useGetItemsQuery(Number(id));
+    const { data: user } = useGetUserQuery();
+    const [deleteCollection, { isLoading: isLoadingDelete }] = useDeleteCollectionMutation();
+    const { data: collection } = useGetCollectionInfoQuery(String(id));
 
     const handleDelete = () => {
-        deleteCollection(id!);
+        deleteCollection(Number(id));
         return navigate('/my-collections');
     };
 
@@ -30,7 +36,7 @@ function CollectionInfo() {
                         width: '50%',
                         padding: '10px',
                         borderRadius: '10px',
-                        margin: '10px auto 20px auto',
+                        margin: '20px auto 20px auto',
                         backgroundColor: 'secondary.dark'
                     }}
                 >
@@ -50,7 +56,7 @@ function CollectionInfo() {
                                 <Typography
                                     variant="subtitle1"
                                     color="text.secondary"
-                                    sx={{ marginBottom: '10px', marginTop: '-10px', textAlign: 'center' }}
+                                    sx={{ marginBottom: '10px', marginTop: '-5px', textAlign: 'center' }}
                                 >
                                     {collection.theme}
                                 </Typography>
@@ -61,14 +67,21 @@ function CollectionInfo() {
                                 style={{ width: '90%', borderRadius: '10px', margin: '0 auto 10px' }}
                             />
                         </Box>
-                        <Typography variant="body2" color="text.secondary" sx={{ marginTop: '10px' }}>
-                            Description
+                        <Typography variant="body1" sx={{ marginTop: '10px' }}>
+                            {collection.user && (
+                                <>
+                                    {<FormattedMessage id="Created_by" />} {collection.user.fullName}
+                                </>
+                            )}
+                        </Typography>
+                        <Typography variant="h6" sx={{ marginTop: '10px', textAlign: 'center', marginBottom: '-10px' }}>
+                            <FormattedMessage id="Description" />
                         </Typography>
                         {collection.description && collection.description?.trim() != '' && (
                             <Typography
-                                variant="body2"
+                                variant="body1"
                                 color="text.primary"
-                                sx={{ marginTop: '10px' }}
+                                sx={{ marginTop: '10px', textAlign: 'justify' }}
                                 dangerouslySetInnerHTML={{ __html: marked.parse(collection.description) }}
                             ></Typography>
                         )}
@@ -85,7 +98,7 @@ function CollectionInfo() {
                                         to={`/collections/${collection.id}/edit`}
                                         style={{ textDecoration: 'none', color: 'white' }}
                                     >
-                                        Изменить коллекцию
+                                        <FormattedMessage id="Change_collection" />
                                     </Link>
                                 </Button>
                                 <Button
@@ -94,22 +107,30 @@ function CollectionInfo() {
                                     sx={{ margin: '10px 10px', float: 'right' }}
                                     onClick={handleDelete}
                                 >
-                                    {isLoading ? <CircularProgress size={25} /> : 'Delete'}
+                                    {isLoadingDelete ? (
+                                        <CircularProgress size={25} />
+                                    ) : (
+                                        <FormattedMessage id="Delete_collection" />
+                                    )}
                                 </Button>
                             </Box>
                         )}
 
-                    <Typography
-                        variant="h4"
-                        color="text.secondary"
-                        sx={{ margin: '10px', textAlign: 'center', borderBottom: '1px solid gray' }}
-                    >
-                        Items
+                    <Typography variant="h4" color="text.primary" sx={{ margin: '10px', textAlign: 'center' }}>
+                        <FormattedMessage id="Items" />
                     </Typography>
-                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>Items???</Box>
-                    <Button variant="contained" color="primary" sx={{ margin: '10px 10px' }}>
-                        Add new item
-                    </Button>
+
+                    {(collection.user?.id === user?.id || user!.role === 1) && <AddItem dataCollection={collection} />}
+                    {items && items.length > 0 ? (
+                        <CollectionItems items={items} />
+                    ) : (
+                        <Box sx={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
+                            <Typography variant="h4" sx={{}}>
+                                <FormattedMessage id="There_are_no_items_in_this_collection_yet" />
+                            </Typography>
+                            <SentimentVeryDissatisfiedIcon sx={{ fontSize: '30px', marginTop: 'auto' }} />
+                        </Box>
+                    )}
                 </Card>
             )}
         </>
