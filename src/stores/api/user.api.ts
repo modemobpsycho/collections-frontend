@@ -1,4 +1,11 @@
-import { IUser, IUserDeleteInfo, IUserLoginInfo, IUserRegisterInfo, IUserUpdateInfo } from '@/types/user.interface';
+import {
+    IUser,
+    IUserDeleteInfo,
+    IUserLoginInfo,
+    IUserRegisterInfo,
+    IUserUpdateAdminInfo,
+    IUserUpdateInfo
+} from '@/types/user.interface';
 import { baseApi } from './baseApi';
 
 export const userApi = baseApi.injectEndpoints({
@@ -23,7 +30,8 @@ export const userApi = baseApi.injectEndpoints({
                 body: userInfo,
                 url: '/user/delete',
                 method: 'DELETE'
-            })
+            }),
+            invalidatesTags: ['Users', 'Collections']
         }),
         updateUser: builder.mutation<string, IUserUpdateInfo>({
             query: (userInfo: IUserUpdateInfo) => ({
@@ -31,7 +39,15 @@ export const userApi = baseApi.injectEndpoints({
                 url: '/user/update',
                 method: 'PUT'
             }),
-            invalidatesTags: ['User']
+            invalidatesTags: ['User', 'Users']
+        }),
+        updateUserAdmin: builder.mutation<string | IUserUpdateAdminInfo, IUserUpdateAdminInfo>({
+            query: (userInfo) => ({
+                body: userInfo,
+                url: '/user/update-admin',
+                method: 'PUT'
+            }),
+            invalidatesTags: ['User', 'Users']
         }),
         getUser: builder.query<IUser, void>({
             query: () => ({
@@ -39,6 +55,13 @@ export const userApi = baseApi.injectEndpoints({
                 method: 'GET'
             }),
             providesTags: ['User']
+        }),
+        getAllUsers: builder.query<IUser[], void>({
+            query: () => ({
+                url: '/user/',
+                method: 'GET'
+            }),
+            providesTags: () => ['Users']
         })
     })
 });
@@ -48,5 +71,7 @@ export const {
     useSignupUserMutation,
     useDeleteUserMutation,
     useUpdateUserMutation,
-    useGetUserQuery
+    useUpdateUserAdminMutation,
+    useGetUserQuery,
+    useGetAllUsersQuery
 } = userApi;

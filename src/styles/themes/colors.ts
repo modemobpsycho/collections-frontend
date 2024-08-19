@@ -20,5 +20,6 @@ export const myColors = {
     yellowLight: '#fff9c4',
     yellowDark: '#f57f17',
     backgroundCardDark: '#2f2f2f',
-    backgroundCardLight: '#dbdbdb'
+    backgroundCardLight: '#dbdbdb',
+    tagColor: '#212529'
 };

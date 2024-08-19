@@ -27,7 +27,6 @@ export interface IUserLoginInfo {
 export interface IUserDeleteInfo {
     email: string;
     fullName: string;
-    accessToken: string;
 }
 
 export interface IUserUpdateInfo {
@@ -39,3 +38,8 @@ export interface IUserUpdateInfo {
     access?: boolean;
     role?: number;
 }
+
+export type IUserUpdateAdminInfo = Omit<
+    IUser,
+    'joinDate' | 'loginDate' | 'oldPassword' | 'accessToken' | 'collections'
+>;

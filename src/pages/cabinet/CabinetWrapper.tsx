@@ -1,10 +1,32 @@
-import { Box, Button } from '@mui/material';
+import { Box, Button, CircularProgress } from '@mui/material';
 import { FormattedMessage } from 'react-intl';
 import { useNavigate } from 'react-router-dom';
-import PersonalData from './PersonalData';
+import { useDeleteUserMutation, useGetUserQuery } from '@/stores/api/user.api';
+import { ReactElement } from 'react';
+import { useActions } from '@/hooks/useActions';
+import { useUserState } from '@/hooks/useStoreState';
 
-function Cabinet() {
+function CabinetWrapper({ children }: { children: ReactElement[] | ReactElement }) {
     const navigate = useNavigate();
+    const { logout } = useActions();
+    const { token } = useUserState();
+    const { data: user } = useGetUserQuery();
+    const [deleteUser, { isLoading: isLoadingDelete, isSuccess: isSuccessDelete }] = useDeleteUserMutation();
+
+    const handleDelete = async () => {
+        if (user) {
+            try {
+                await deleteUser(user);
+                logout();
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    };
+
+    if (!token) {
+        navigate('/login');
+    }
 
     return (
         <Box>
@@ -15,36 +37,34 @@ function Cabinet() {
                     gap: '20px',
                     width: 'auto',
                     height: '85%',
-                    marginLeft: '20px',
-                    marginTop: '20px',
+                    marginLeft: '10px',
                     position: 'fixed'
                 }}
             >
-                <Button variant="contained" onClick={() => navigate('/')}>
-                    <FormattedMessage id="go_to_home" />
-                </Button>
+                {user && user.role === 1 && (
+                    <Button variant="contained" onClick={() => navigate('/admin-panel')}>
+                        <FormattedMessage id="Admin_panel" />
+                    </Button>
+                )}
                 <Button variant="contained" onClick={() => navigate('/cabinet')}>
-                    <FormattedMessage id="my_data" />
+                    <FormattedMessage id="My_data" />
                 </Button>
                 <Button variant="contained" onClick={() => navigate('/my-collections')}>
-                    <FormattedMessage id="my_collections" />
+                    <FormattedMessage id="My_collections" />
                 </Button>
                 <Button variant="contained">
-                    <FormattedMessage id="my_comments" />
+                    <FormattedMessage id="My_comments" />
                 </Button>
                 <Button variant="contained">
-                    <FormattedMessage id="my_reactions" />
+                    <FormattedMessage id="My_reactions" />
                 </Button>
-
-                <Button variant="contained" sx={{ backgroundColor: 'red', marginTop: 'auto' }}>
-                    <FormattedMessage id="del_acc" />
+                <Button variant="contained" color="error" onClick={handleDelete}>
+                    {isLoadingDelete ? <CircularProgress size={25} /> : <FormattedMessage id="Delete_account" />}
                 </Button>
             </Box>
-            <Box>
-                <PersonalData />
-            </Box>
+            <Box sx={{ marginLeft: '20px', marginTop: '20px' }}>{children}</Box>
         </Box>
     );
 }
 
-export default Cabinet;
+export default CabinetWrapper;
