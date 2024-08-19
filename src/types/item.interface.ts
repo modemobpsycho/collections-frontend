@@ -9,8 +9,10 @@ export interface IItem {
     name: string;
     tags: ITag[] | undefined;
     creationDate: Date;
-    fields: IItemFields[] | undefined;
+    ItemFields: IItemFields[] | undefined;
     comments: IComment[] | undefined;
     likes: IReaction[] | undefined;
-    myCollection?: ICollection;
+    collection?: ICollection;
 }
+
+export type IItemWithFields = Omit<IItem, 'ItemFields'> & { ItemFields: IItemFields[] };

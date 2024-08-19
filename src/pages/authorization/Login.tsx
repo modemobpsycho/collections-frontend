@@ -4,8 +4,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useLoginUserMutation } from '@/stores/api/user.api';
 import { useActions } from '@/hooks/useActions';
 import { FormattedMessage } from 'react-intl';
+import { baseApi } from '@/stores/api/baseApi';
+import { useDispatch } from 'react-redux';
 
 function Login() {
+    const dispatch = useDispatch()
     const navigate = useNavigate();
     const { setUser } = useActions();
     const [loginUser, { isLoading, isSuccess, data }] = useLoginUserMutation();
@@ -18,6 +21,7 @@ function Login() {
     useEffect(() => {
         if (isSuccess) {
             setUser(data);
+            dispatch(baseApi.util.invalidateTags(['User', 'Users', 'Items', 'Collections']));
             navigate('/');
         }
     }, [isLoading]);
@@ -30,6 +34,7 @@ function Login() {
     const handleSubmit = async () => {
         try {
             await loginUser(formData);
+
             setFormData({
                 email: '',
                 password: ''
