@@ -1,6 +1,6 @@
 import { variables } from '@/helpers/variables';
 import { IItem } from '@/types/item.interface';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, IconButton, Typography } from '@mui/material';
 import { FormattedMessage } from 'react-intl';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -9,11 +9,12 @@ import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 import { useEffect, useState } from 'react';
 import { useSetReactionMutation } from '@/stores/api/reaction.api';
 import { useGetUserQuery } from '@/stores/api/user.api';
+import { Socket } from 'socket.io-client';
 
-function ItemInfo({ item }: { item: IItem }) {
+function ItemInfo({ item, connection }: { item: IItem; connection: Socket }) {
     const { data: user } = useGetUserQuery();
-    const [liked, setLiked] = useState<boolean>(false);
-    const [disliked, setDisliked] = useState<boolean>(false);
+    const [liked] = useState<boolean>(false);
+    const [disliked] = useState<boolean>(false);
     const [setReaction] = useSetReactionMutation();
 
     const handleReaction = (isLike: boolean) => {
@@ -26,6 +27,7 @@ function ItemInfo({ item }: { item: IItem }) {
             },
             itemId: item.id
         });
+        connection.emit('message', item.id);
     };
 
     useEffect(() => {}, [liked, disliked]);
@@ -58,12 +60,12 @@ function ItemInfo({ item }: { item: IItem }) {
                 <Typography variant="subtitle1" color="text.secondary" sx={{ marginBottom: '10px', marginTop: '-5px' }}>
                     <FormattedMessage id="Creation_date" />
                     {': '}
-                    {new Date(item.creationDate).toLocaleDateString() +
+                    {new Date(item.creationDate).toLocaleTimeString().slice(0, 5) +
                         ' ' +
-                        new Date(item.creationDate).toLocaleTimeString().slice(0, 5)}
+                        new Date(item.creationDate).toLocaleDateString()}
                 </Typography>
                 <Box sx={{ display: 'flex', gap: '10px', marginTop: 'auto' }}>
-                    <Button
+                    <IconButton
                         onClick={() => handleReaction(true)}
                         sx={{
                             cursor: 'pointer',
@@ -77,15 +79,17 @@ function ItemInfo({ item }: { item: IItem }) {
                         }}
                     >
                         {item.likes?.filter((like) => like.isLike === true).some((like) => like.userId === user?.id) ? (
-                            <FavoriteIcon sx={{ color: 'red', fontSize: '40px' }} />
+                            <FavoriteIcon color="error" sx={{ fontSize: '45px' }} />
                         ) : (
-                            <FavoriteBorderIcon sx={{ color: 'red', fontSize: '35px' }} />
+                            <FavoriteBorderIcon
+                                sx={{ fontSize: '40px', color: (theme) => theme.palette.text.primary }}
+                            />
                         )}
-                    </Button>
-                    <Typography variant="h5" sx={{ marginTop: '10px', marginLeft: '-20px' }}>
+                    </IconButton>
+                    <Typography variant="h5" sx={{ marginTop: '13px', marginLeft: '-10px' }}>
                         {item.likes?.filter((like) => like.isLike === true).length || 0}
                     </Typography>
-                    <Button
+                    <IconButton
                         sx={{
                             cursor: 'pointer',
                             height: '60px',
@@ -98,12 +102,14 @@ function ItemInfo({ item }: { item: IItem }) {
                         {item.likes
                             ?.filter((like) => like.isLike === false)
                             .some((like) => like.userId === user?.id) ? (
-                            <ThumbDownIcon sx={{ fontSize: '40px' }} />
+                            <ThumbDownIcon color="primary" sx={{ fontSize: '45px' }} />
                         ) : (
-                            <ThumbDownOffAltIcon sx={{ fontSize: '35px' }} />
+                            <ThumbDownOffAltIcon
+                                sx={{ fontSize: '40px', color: (theme) => theme.palette.text.primary }}
+                            />
                         )}
-                    </Button>
-                    <Typography variant="h5" sx={{ marginTop: '10px', marginLeft: '-20px' }}>
+                    </IconButton>
+                    <Typography variant="h5" sx={{ marginTop: '13px', marginLeft: '-10px' }}>
                         {item.likes?.filter((like) => like.isLike === false).length || 0}
                     </Typography>
                 </Box>

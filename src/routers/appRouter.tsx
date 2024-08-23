@@ -15,6 +15,9 @@ import CabinetWrapper from '@/pages/cabinet/CabinetWrapper';
 import PersonalData from '@/pages/cabinet/PersonalData';
 import Item from '@/pages/item/Item';
 import ChangeItem from '@/pages/changeItem/ChangeItem';
+import PersonalReactions from '@/pages/cabinet/PersonalReactions';
+import PersonalComments from '@/pages/cabinet/PersonalComments';
+import Search from '@/pages/search/Search';
 
 export const AppRouter = () => {
     return (
@@ -55,6 +58,22 @@ export const AppRouter = () => {
                             </CabinetWrapper>
                         }
                     />
+                    <Route
+                        path="/cabinet/reactions"
+                        element={
+                            <CabinetWrapper>
+                                <PersonalReactions />
+                            </CabinetWrapper>
+                        }
+                    />
+                    <Route
+                        path="/cabinet/comments"
+                        element={
+                            <CabinetWrapper>
+                                <PersonalComments />
+                            </CabinetWrapper>
+                        }
+                    />
                     <Route path="/collections" element={<Collections />} />
                     <Route path="/my-collections" element={<UserCollections />} />
                     <Route path="/add-collection" element={<AddCollection />} />
@@ -62,6 +81,7 @@ export const AppRouter = () => {
                     <Route path="/collections/:id/edit" element={<ChangeCollection />} />
                     <Route path="/item/:itemId" element={<Item />} />
                     <Route path="item/:itemId/edit" element={<ChangeItem />} />
+                    <Route path="/search/:search" element={<Search />} />
                     <Route path="*" element={<HomePage />} />
                 </Routes>
             </BrowserRouter>

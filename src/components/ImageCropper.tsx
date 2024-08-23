@@ -4,6 +4,7 @@ import { Box, Button } from '@mui/material';
 
 import 'cropperjs/dist/cropper.css';
 import { FormattedMessage } from 'react-intl';
+import { variables } from '@/helpers/variables';
 
 interface ImageCropperProps {
     file: File | undefined;
@@ -36,7 +37,7 @@ const ImageCropper = ({ file, setFile, croppedImage, setCroppedImage }: ImageCro
             <Cropper
                 ref={cropperRef}
                 src={URL.createObjectURL(file as Blob)}
-                aspectRatio={16 / 9}
+                aspectRatio={variables.ASPECT_RATIO}
                 guides={true}
                 style={{ width: '400px', maxHeight: '600px' }}
                 zoomable={false}

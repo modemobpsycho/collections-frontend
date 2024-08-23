@@ -3,16 +3,16 @@ import { baseApi } from './baseApi';
 
 export const collectionApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
-        getCollections: builder.query<ICollection[], void>({
-            query: () => ({
-                url: '/collection/getAll',
+        getCollections: builder.query<ICollection[], number>({
+            query: (limit) => ({
+                url: `/collection/getAll/${limit}`,
                 method: 'GET'
             }),
             providesTags: () => ['Collections']
         }),
-        getMyCollections: builder.query<ICollection[], void>({
-            query: () => ({
-                url: '/collection/me',
+        getMyCollections: builder.query<ICollection[], number>({
+            query: (limit) => ({
+                url: `/collection/me/${limit}`,
                 method: 'GET'
             }),
             providesTags: () => ['Collections']
@@ -29,7 +29,7 @@ export const collectionApi = baseApi.injectEndpoints({
                 url: `/collection/${id}`,
                 method: 'DELETE'
             }),
-            invalidatesTags: () => ['Collections']
+            invalidatesTags: () => ['Collections', 'Tag', 'Item']
         }),
         addCollection: builder.mutation<string, ICollectionCreate>({
             query: (collection) => ({
