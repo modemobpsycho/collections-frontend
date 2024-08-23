@@ -1,12 +1,16 @@
-import { IItemWithFields } from '@/types/item.interface';
+import { IItem } from '@/types/item.interface';
 import { Box, Card, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 
-function CollectionItems({ items }: { items: IItemWithFields[] | undefined }) {
+function CollectionItems({ items }: { items: IItem[] | undefined }) {
     const navigate = useNavigate();
     return (
         <Box
             sx={{
+                marginTop: '20px',
                 flexDirection: 'column',
                 gap: '10px',
                 display: 'grid',
@@ -27,43 +31,70 @@ function CollectionItems({ items }: { items: IItemWithFields[] | undefined }) {
                         }}
                     >
                         <Box sx={{ display: 'flex' }}>
-                            <Typography variant="h5" noWrap component="div" sx={{ marginBottom: '10px' }}>
+                            <Typography
+                                variant="h5"
+                                noWrap
+                                component="div"
+                                sx={{ marginBottom: '10px', width: '250px' }}
+                            >
                                 {item.name}
                             </Typography>
-                            <Typography
-                                variant="subtitle2"
-                                color="text.secondary"
-                                sx={{ marginLeft: 'auto', marginTop: '10px' }}
-                            >
-                                {new Date(item.creationDate).toLocaleDateString()}
-                            </Typography>
+
+                            <Box sx={{ display: 'flex', gap: '10px', marginLeft: 'auto' }}>
+                                <Typography variant="subtitle1" sx={{ marginLeft: 'auto' }}>
+                                    <QuestionAnswerIcon sx={{ marginRight: '5px', fontSize: '25px' }} />
+                                    {item.comments?.length}
+                                </Typography>
+                                <Typography variant="subtitle1" sx={{ marginLeft: 'auto' }}>
+                                    <FavoriteIcon sx={{ marginRight: '5px', fontSize: '25px' }} />
+                                    {item.likes?.filter((like) => like.isLike === true).length}
+                                </Typography>
+                                <Typography variant="subtitle1" sx={{ marginLeft: 'auto' }}>
+                                    <ThumbDownAltIcon sx={{ marginRight: '5px', fontSize: '25px' }} />
+                                    {item.likes?.filter((like) => like.isLike === false).length}
+                                </Typography>
+                            </Box>
                         </Box>
                         <Box
                             sx={{
                                 display: 'flex',
-                                flexDirection: 'column',
                                 marginTop: '10px'
                             }}
                         >
-                            <Box sx={{ display: 'flex', gap: '5px', flexWrap: 'wrap' }}>
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    gap: '5px',
+                                    flexWrap: 'wrap',
+                                    maxHeight: '75px',
+                                    overflowY: 'hidden'
+                                }}
+                            >
                                 {item.tags &&
                                     item.tags.map((tag) => (
                                         <Box
                                             key={tag.id}
                                             sx={{
-                                                backgroundColor: 'cyan',
-                                                color: 'black',
-                                                padding: '3px',
+                                                backgroundColor: 'black',
+                                                padding: '5px',
                                                 borderRadius: '10px',
                                                 cursor: 'pointer',
                                                 width: 'fit-content',
-                                                overflow: 'hidden'
+                                                overflow: 'hidden',
+                                                color: 'white'
                                             }}
                                         >
                                             <Typography variant="body1">{tag.tag}</Typography>
                                         </Box>
                                     ))}
                             </Box>
+                            <Typography
+                                variant="subtitle2"
+                                color="text.secondary"
+                                sx={{ marginLeft: 'auto', marginTop: 'auto' }}
+                            >
+                                {new Date(item.creationDate).toLocaleDateString()}
+                            </Typography>
                         </Box>
                     </Card>
                 ))}

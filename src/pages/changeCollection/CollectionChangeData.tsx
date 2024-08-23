@@ -1,4 +1,4 @@
-import { Box, Button, InputLabel, TextField, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, InputLabel, TextField, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import {
     useAddCollectionImageMutation,
@@ -10,21 +10,21 @@ import { variables } from '@/helpers/variables';
 import { Navigate, useParams } from 'react-router-dom';
 import { useUserState } from '@/hooks/useStoreState';
 import { FormattedMessage } from 'react-intl';
+import { useActions } from '@/hooks/useActions';
 
 function CollectionChangeData({ croppedImage, file }: { croppedImage: string | undefined; file: File | undefined }) {
     const { id } = useParams();
     const { token } = useUserState();
+    const { showSnackbar } = useActions();
 
     const { isLoading: isLoadingGet, data: dataGet } = useGetCollectionInfoQuery(String(id));
-
     const [addCollectionImage, { isLoading: isLoadingImage, isSuccess: isSuccessImage, data: dataImage }] =
         useAddCollectionImageMutation();
+    const [changeCollection, { isLoading: isLoadingCollection }] = useChangeCollectionMutation();
 
     if (!token) {
         return <Navigate to={'/collection/' + id} />;
     }
-
-    const [changeCollection] = useChangeCollectionMutation();
 
     const [formDataCollection, setFormDataCollection] = useState({
         title: '',
@@ -60,7 +60,8 @@ function CollectionChangeData({ croppedImage, file }: { croppedImage: string | u
         setFormDataCollection({ ...formDataCollection, [name]: value });
     };
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (event: React.FormEvent) => {
+        event.preventDefault();
         if (croppedImage && file) {
             const formDataImage = new FormData();
             let imageFile = await dataUrlToFile(croppedImage, file.name);
@@ -77,12 +78,18 @@ function CollectionChangeData({ croppedImage, file }: { croppedImage: string | u
                     collectionFields: undefined
                 };
                 changeCollection(collectionData);
+                showSnackbar('Collection_changed_successfully');
             }
         }
     };
 
     return (
-        <>
+        <Box
+            sx={{ display: 'flex', flexDirection: 'column', gap: '20px' }}
+            component="form"
+            className="form-box"
+            onSubmit={handleSubmit}
+        >
             <Box sx={{ display: 'flex', flexDirection: 'row', gap: '20px' }}>
                 {dataGet && (
                     <Box>
@@ -108,13 +115,33 @@ function CollectionChangeData({ croppedImage, file }: { croppedImage: string | u
                     <InputLabel>
                         <FormattedMessage id="Collection_title" />
                     </InputLabel>
-                    <TextField id="title" name="title" value={formDataCollection.title} onChange={handleChange} />
+                    <TextField
+                        id="title"
+                        name="title"
+                        type="text"
+                        required
+                        label={<FormattedMessage id="Title" />}
+                        value={formDataCollection.title}
+                        onChange={handleChange}
+                    />
                     <InputLabel>
                         <FormattedMessage id="Collection_theme" />
                     </InputLabel>
-                    <TextField id="theme" name="theme" value={formDataCollection.theme} onChange={handleChange} />
+                    <TextField
+                        id="theme"
+                        name="theme"
+                        type="text"
+                        required
+                        label={<FormattedMessage id="Theme" />}
+                        value={formDataCollection.theme}
+                        onChange={handleChange}
+                    />
                     <Typography variant="body2" color="text.secondary">
-                        <FormattedMessage id="Creation_date" /> {' ' + dataGet?.creationDate?.toLocaleString()}
+                        <FormattedMessage id="Creation_date" />
+                        {': ' +
+                            new Date(dataGet?.creationDate!).toLocaleTimeString() +
+                            ' ' +
+                            new Date().toLocaleDateString()}
                     </Typography>
                 </Box>
             </Box>
@@ -124,6 +151,9 @@ function CollectionChangeData({ croppedImage, file }: { croppedImage: string | u
             <TextField
                 id="description"
                 name="description"
+                type="text"
+                required
+                label={<FormattedMessage id="Description" />}
                 value={formDataCollection.description}
                 onChange={handleChange}
                 multiline
@@ -131,11 +161,12 @@ function CollectionChangeData({ croppedImage, file }: { croppedImage: string | u
             <Button
                 variant="contained"
                 sx={{ marginTop: '20px', width: '20%', alignSelf: 'center' }}
-                onClick={handleSubmit}
+                type="submit"
+                disabled={isLoadingCollection}
             >
-                <FormattedMessage id="Save" />
+                {isLoadingCollection ? <CircularProgress color="inherit" size={25} /> : <FormattedMessage id="Save" />}
             </Button>
-        </>
+        </Box>
     );
 }
 

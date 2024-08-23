@@ -8,15 +8,16 @@ import { useUserState } from '@/hooks/useStoreState';
 
 function CabinetWrapper({ children }: { children: ReactElement[] | ReactElement }) {
     const navigate = useNavigate();
-    const { logout } = useActions();
+    const { logout, showSnackbar } = useActions();
     const { token } = useUserState();
     const { data: user } = useGetUserQuery();
-    const [deleteUser, { isLoading: isLoadingDelete, isSuccess: isSuccessDelete }] = useDeleteUserMutation();
+    const [deleteUser, { isLoading: isLoadingDelete }] = useDeleteUserMutation();
 
     const handleDelete = async () => {
         if (user) {
             try {
                 await deleteUser(user);
+                showSnackbar('Account_deleted_successfully');
                 logout();
             } catch (error) {
                 console.log(error);
@@ -49,13 +50,11 @@ function CabinetWrapper({ children }: { children: ReactElement[] | ReactElement 
                 <Button variant="contained" onClick={() => navigate('/cabinet')}>
                     <FormattedMessage id="My_data" />
                 </Button>
-                <Button variant="contained" onClick={() => navigate('/my-collections')}>
-                    <FormattedMessage id="My_collections" />
-                </Button>
-                <Button variant="contained">
+
+                <Button variant="contained" onClick={() => navigate('/cabinet/comments')}>
                     <FormattedMessage id="My_comments" />
                 </Button>
-                <Button variant="contained">
+                <Button variant="contained" onClick={() => navigate('/cabinet/reactions')}>
                     <FormattedMessage id="My_reactions" />
                 </Button>
                 <Button variant="contained" color="error" onClick={handleDelete}>

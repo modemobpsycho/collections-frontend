@@ -4,10 +4,11 @@ import AddIcon from '@mui/icons-material/Add';
 import { useState } from 'react';
 import { useAddItemMutation } from '@/stores/api/items.api';
 import { IItemFields } from '@/types/itemFields.interface';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
+import { useActions } from '@/hooks/useActions';
 
 function AddItem({ dataCollection }: { dataCollection: ICollection }) {
-    const intl = useIntl();
+    const { showSnackbar } = useActions();
     const [isAddingItem, setIsAddingItem] = useState(false);
     const [addItemTags, setAddItemTags] = useState<string[]>([]);
     const [itemFieldsValues, setItemFieldsValues] = useState<{ [key: string]: string }>({});
@@ -81,11 +82,11 @@ function AddItem({ dataCollection }: { dataCollection: ICollection }) {
                     likes: undefined
                 }
             });
+            setIsAddingItem(false);
+            setAddItemTags([]);
+            setItemFieldsValues({});
+            showSnackbar('Item_added_successfully');
         }
-
-        setIsAddingItem(false);
-        setAddItemTags([]);
-        setItemFieldsValues({});
     };
 
     const handleRemoveTag = (tag: string) => {
@@ -94,13 +95,13 @@ function AddItem({ dataCollection }: { dataCollection: ICollection }) {
 
     return (
         <>
-            <Button variant="contained" sx={{ width: '100%', margin: '10px 0 10px' }} onClick={handleAddItemButton}>
+            <Button variant="contained" sx={{ width: '100%', margin: '20px 0 10px' }} onClick={handleAddItemButton}>
                 {isAddingItem ? <FormattedMessage id="Cancel" /> : <FormattedMessage id="Add_item" />}
             </Button>
             {isAddingItem && (
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                     <Box sx={{ display: 'flex', gap: '10px' }}>
-                        <Box sx={{ display: 'flex', flexDirection: 'column', width: '50%' }}>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', width: '50%', gap: '10px' }}>
                             <InputLabel htmlFor="inputItemName">
                                 <FormattedMessage id="Item_name" />
                             </InputLabel>
@@ -110,11 +111,12 @@ function AddItem({ dataCollection }: { dataCollection: ICollection }) {
                                 label={<FormattedMessage id="Name_item" />}
                                 sx={{ color: 'black' }}
                                 value={itemFieldsValues['inputItemName'] || ''}
+                                required
                                 onChange={(e) => handleInputChange('inputItemName', e.target.value)}
                             />
                             {dataCollection.collectionFields &&
                                 dataCollection.collectionFields.map((field) => (
-                                    <Box key={field.id}>
+                                    <Box key={field.id} sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                                         <InputLabel htmlFor={'input' + field.id}>{field.fieldName}</InputLabel>
                                         <TextField
                                             className={field.fieldType === 'boolean' ? ' checkbox' : ''}
@@ -140,7 +142,7 @@ function AddItem({ dataCollection }: { dataCollection: ICollection }) {
                                 ))}
                         </Box>
                         <Box sx={{ display: 'flex', flexDirection: 'column', width: '50%' }}>
-                            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                            <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                                 <InputLabel htmlFor="inputTag">
                                     <FormattedMessage id="Tags" />
                                 </InputLabel>

@@ -1,14 +1,15 @@
-import { Button, Card, InputLabel, TextField, Typography } from '@mui/material';
+import { Button, Card, CircularProgress, InputLabel, TextField, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useGetUserQuery, useUpdateUserMutation } from '../../stores/api/user.api';
 import { useActions } from '../../hooks/useActions';
 
 function PersonalData() {
-    const { setUser } = useActions();
-    const [updateUser, { isLoading, isSuccess, data }] = useUpdateUserMutation();
+    const { setUser, showSnackbar } = useActions();
+    const [updateUser, { isLoading: isLoadingUpdate, isSuccess: isSuccessUpdate, data: dataUpdate, error, isError }] =
+        useUpdateUserMutation();
 
-    const { data: userData, isLoading: isLoadingUser, isSuccess: isSuccessUser } = useGetUserQuery();
+    const { data: dataUser, isLoading: isLoadingUser, isSuccess: isSuccessUser } = useGetUserQuery();
 
     const [formData, setFormData] = useState({
         fullName: '',
@@ -20,8 +21,8 @@ function PersonalData() {
     useEffect(() => {
         if (isSuccessUser) {
             setFormData({
-                fullName: userData.fullName,
-                email: userData.email,
+                fullName: dataUser.fullName,
+                email: dataUser.email,
                 oldPassword: '',
                 newPassword: ''
             });
@@ -29,10 +30,15 @@ function PersonalData() {
     }, [isLoadingUser]);
 
     useEffect(() => {
-        if (isSuccess) {
-            setUser(data);
+        if (isSuccessUpdate) {
+            setUser(dataUpdate);
+            showSnackbar('Profile_updated_successfully');
         }
-    }, [isLoading, isSuccess]);
+        if (isError) {
+            let errorMessage = (error as any).data.message.replace(/ /g, '_');
+            showSnackbar(errorMessage);
+        }
+    }, [isLoadingUpdate]);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -62,26 +68,26 @@ function PersonalData() {
             }}
         >
             <Typography variant="h4" sx={{ textAlign: 'center', marginTop: '20px' }}>
-                <FormattedMessage id="your_data" />
+                <FormattedMessage id="Your_personal_data" />
             </Typography>
             <InputLabel sx={{ marginTop: '20px' }}>
-                <FormattedMessage id="name" />
+                <FormattedMessage id="Name" />
             </InputLabel>
             <TextField id="fullName" name="fullName" value={formData.fullName} onChange={handleChange} />
             <InputLabel>
-                <FormattedMessage id="email" />
+                <FormattedMessage id="Email" />
             </InputLabel>
             <TextField id="email" name="email" value={formData.email} onChange={handleChange} />
             <InputLabel>
-                <FormattedMessage id="old_password" />
+                <FormattedMessage id="Old_password" />
             </InputLabel>
             <TextField id="oldPassword" name="oldPassword" value={formData.oldPassword} onChange={handleChange} />
             <InputLabel>
-                <FormattedMessage id="new_password" />
+                <FormattedMessage id="New_password" />
             </InputLabel>
             <TextField id="newPassword" name="newPassword" value={formData.newPassword} onChange={handleChange} />
             <Button variant="contained" sx={{ marginTop: '20px' }} onClick={handleSubmit}>
-                <FormattedMessage id="save" />
+                {isLoadingUpdate ? <CircularProgress size={25} /> : <FormattedMessage id="Save" />}
             </Button>
         </Card>
     );

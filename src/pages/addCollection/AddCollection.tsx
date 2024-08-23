@@ -26,9 +26,9 @@ function AddCollection() {
     }
 
     return (
-        <Card sx={{ width: '60%', margin: '10px auto' }}>
+        <Card sx={{ width: '60%', margin: '20px auto' }}>
             <CardContent>
-                <Typography variant="h5" component="div" sx={{ textAlign: 'center' }}>
+                <Typography variant="h4" component="div" sx={{ textAlign: 'center' }}>
                     <FormattedMessage id="Add_new_collection" />
                 </Typography>
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>

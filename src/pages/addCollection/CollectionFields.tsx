@@ -75,6 +75,7 @@ const CollectionFields = ({ fields, setFields }: { fields: ICollectionFields[]; 
                             placeholder={intl.formatMessage({ id: 'Field_name' })}
                             id={'fieldInput' + index}
                             sx={{ width: '100%', marginRight: '10px', height: '50px' }}
+                            required
                         />
                         <Button
                             onClick={() => handleRemoveField(index)}

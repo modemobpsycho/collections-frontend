@@ -1,3 +1,4 @@
+import { useActions } from '@/hooks/useActions';
 import { useDeleteUserMutation, useUpdateUserAdminMutation } from '@/stores/api/user.api';
 import { IUserUpdateAdminInfo } from '@/types/user.interface';
 import { Box, Button, CircularProgress } from '@mui/material';
@@ -10,6 +11,7 @@ function AdminPanelButtons({
     currentUser: IUserUpdateAdminInfo;
     setCurrentUser: Function;
 }) {
+    const { showSnackbar } = useActions();
     const [updateUserAdmin, { isLoading: isLoadingUpdate }] = useUpdateUserAdminMutation();
     const [deleteUser, { isLoading: isLoadingDelete }] = useDeleteUserMutation();
     const handleSubmit = async () => {
@@ -23,6 +25,7 @@ function AdminPanelButtons({
                     access: Boolean(currentUser.access),
                     password: currentUser.password
                 });
+                showSnackbar('User_updated_successfully');
             }
         } catch (error) {
             console.log(error);
@@ -31,15 +34,18 @@ function AdminPanelButtons({
 
     const handleDelete = async () => {
         try {
-            await deleteUser(currentUser);
-            setCurrentUser({
-                id: 0,
-                email: '',
-                fullName: '',
-                role: 0,
-                access: true,
-                password: ''
-            });
+            if (currentUser) {
+                await deleteUser(currentUser);
+                setCurrentUser({
+                    id: 0,
+                    email: '',
+                    fullName: '',
+                    role: 0,
+                    access: true,
+                    password: ''
+                });
+                showSnackbar('User_deleted_successfully');
+            }
         } catch (error) {
             console.log(error);
         }

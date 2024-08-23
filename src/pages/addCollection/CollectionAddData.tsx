@@ -1,4 +1,4 @@
-import { Button, CircularProgress, InputLabel, TextField } from '@mui/material';
+import { Box, Button, CircularProgress, InputLabel, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { dataUrlToFile } from '@/utils/cropUtils';
 import { ICollection } from '@/types/collection.interface';
@@ -6,9 +6,11 @@ import { useAddCollectionImageMutation, useAddCollectionMutation } from '../../s
 import CollectionFields from './CollectionFields';
 import { ICollectionFields } from '@/types/collectionFields.interface';
 import { FormattedMessage } from 'react-intl';
+import { useActions } from '@/hooks/useActions';
 
 function CollectionAddData({ croppedImage, file }: { croppedImage: string | undefined; file: File | undefined }) {
-    const [addCollection, { isLoading: isLoadingCollection }] = useAddCollectionMutation();
+    const { showSnackbar } = useActions();
+    const [addCollection, { isLoading: isLoadingCollection, isSuccess }] = useAddCollectionMutation();
     const [addCollectionImage, { isLoading: isLoadingImage, isSuccess: isSuccessImage, data: dataImage }] =
         useAddCollectionImageMutation();
 
@@ -35,7 +37,20 @@ function CollectionAddData({ croppedImage, file }: { croppedImage: string | unde
         }
     }, [isLoadingImage]);
 
-    const handleSubmit = async () => {
+    useEffect(() => {
+        if (isSuccess) {
+            setFormData({
+                title: '',
+                theme: '',
+                description: ''
+            });
+            setFields([]);
+            showSnackbar('Collection_added_successfully');
+        }
+    }, [isSuccess]);
+
+    const handleSubmit = async (event: React.FormEvent) => {
+        event?.preventDefault();
         if (croppedImage && file) {
             const formDataImage = new FormData();
             let imageFile = await dataUrlToFile(croppedImage, file.name);
@@ -55,7 +70,12 @@ function CollectionAddData({ croppedImage, file }: { croppedImage: string | unde
     };
 
     return (
-        <>
+        <Box
+            sx={{ gap: '10px', display: 'flex', flexDirection: 'column' }}
+            component="form"
+            className="form-box"
+            onSubmit={handleSubmit}
+        >
             <InputLabel sx={{ marginTop: '20px' }}>
                 <FormattedMessage id="Collection_title" />
             </InputLabel>
@@ -65,6 +85,7 @@ function CollectionAddData({ croppedImage, file }: { croppedImage: string | unde
                 name="title"
                 value={formData.title}
                 onChange={handleChange}
+                required
             />
             <InputLabel>
                 <FormattedMessage id="Collection_description" />
@@ -75,6 +96,7 @@ function CollectionAddData({ croppedImage, file }: { croppedImage: string | unde
                 label={<FormattedMessage id="Description" />}
                 value={formData.description}
                 onChange={handleChange}
+                required
             />
             <InputLabel>
                 <FormattedMessage id="Collection_theme" />
@@ -85,19 +107,20 @@ function CollectionAddData({ croppedImage, file }: { croppedImage: string | unde
                 name="theme"
                 value={formData.theme}
                 onChange={handleChange}
+                required
             />
             <InputLabel>
                 <FormattedMessage id="Add_fields_in_your_collection" />
             </InputLabel>
             <CollectionFields fields={fields} setFields={setFields} />
-            <Button variant="contained" sx={{ marginTop: '20px' }} onClick={handleSubmit}>
+            <Button variant="contained" sx={{ marginTop: '20px' }} type="submit" disabled={isLoadingCollection}>
                 {isLoadingCollection ? (
                     <CircularProgress color="inherit" size={25} />
                 ) : (
                     <FormattedMessage id="Submit" />
                 )}
             </Button>
-        </>
+        </Box>
     );
 }
 
