@@ -1,7 +1,7 @@
 export const variables = {
-    API_URL: 'http://localhost:3000/api',
-    BACKEND_URL: 'http://localhost:3000/',
-    SOCKET_URL: 'http://localhost:3000',
+    API_URL: 'https://collections-backend-jkri.onrender.com/api',
+    BACKEND_URL: 'https://collections-backend-jkri.onrender.com/',
+    SOCKET_URL: 'https://collections-backend-jkri.onrender.com',
     USER_LOCALSTORAGE: 'accessToken',
     THEME_LOCALSTORAGE: 'page_theme',
     ASPECT_RATIO: 16 / 9,

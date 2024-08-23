@@ -13,6 +13,10 @@ export interface IUser {
     collections: ICollection[] | undefined;
 }
 
+export interface IUserInfoGoogle {
+    token: string;
+}
+
 export interface IUserRegisterInfo {
     fullName: string;
     email: string;

@@ -33,7 +33,7 @@ function Item() {
     useEffect(() => {
         socket.connect();
 
-        if (user && user.fullName && item && item.id && socket) {
+        if (item && item.id && socket) {
             socket.emit('joinRoom', { roomId: item.id });
 
             socket.on('message', () => {

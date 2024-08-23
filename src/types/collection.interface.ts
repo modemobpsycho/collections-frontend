@@ -21,3 +21,5 @@ export interface ICollectionInfo {
 }
 
 export type ICollectionCreate = Omit<ICollection, 'id' | 'creationDate'>;
+
+export type ICollectionCreateWithUser = ICollection & { userId: number; userName: string };

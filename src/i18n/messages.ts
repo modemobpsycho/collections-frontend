@@ -136,7 +136,8 @@ export const messages = {
         Last_items: 'Latest added items',
         All_collections_empty: 'Our collection library is empty. And this is very sad for us :(',
         Searching_for: 'Searching for',
-        Back_to_item: 'Back to item'
+        Back_to_item: 'Back to item',
+        Collections_empty: 'Our collection library is empty. And this is very sad for us :('
     },
     [LOCALES.RUSSIAN]: {
         Login: 'Вход',
@@ -272,6 +273,7 @@ export const messages = {
         All_collections_empty: 'Наша библиотека коллекций пуста. И это очень грустно для нас :(',
         Searching_for: 'Поиск по запросу:',
         Back_to_item: 'Вернуться к предмету',
-        Item_updated_successfully: 'Предмет успешно обновлен'
+        Item_updated_successfully: 'Предмет успешно обновлен',
+        Collections_empty: 'Наша библиотека коллекций пуста. И это очень грустно для нас :('
     }
 };

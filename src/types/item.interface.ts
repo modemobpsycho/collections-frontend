@@ -1,4 +1,4 @@
-import { ICollection } from './collection.interface';
+import { ICollection, ICollectionCreateWithUser } from './collection.interface';
 import { IComment } from './comment.interface';
 import { IItemFields } from './itemFields.interface';
 import { IReaction } from './reaction.interface';
@@ -16,3 +16,5 @@ export interface IItem {
 }
 
 export type IItemWithFields = Omit<IItem, 'ItemFields'> & { ItemFields: IItemFields[] };
+
+export type IItemInfo = Omit<IItem, 'collection'> & { collection: ICollectionCreateWithUser };
