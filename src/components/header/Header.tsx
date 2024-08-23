@@ -4,8 +4,8 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import SearchIcon from '@mui/icons-material/Search';
 import AppsIcon from '@mui/icons-material/Apps';
-import { Input } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { IconButton, List, ListItem, TextField } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
 import { useActions } from '@/hooks/useActions';
 import ThemeButton from './themeButton/ThemeButton';
 import LanguageButton from './languageButton/LanguageButton';
@@ -13,13 +13,37 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { useOptionsState, useUserState } from '@/hooks/useStoreState';
 import { useDispatch } from 'react-redux';
 import { baseApi } from '@/stores/api/baseApi';
+import { useRef, useState } from 'react';
+import { useGetTagsQuery } from '@/stores/api/tags.api';
+import ClearIcon from '@mui/icons-material/Clear';
 
 export default function Header() {
     const { theme } = useOptionsState();
-    const { logout } = useActions();
+    const navigate = useNavigate();
+    const { logout, showSnackbar } = useActions();
     const intl = useIntl();
+    const inputSearch = useRef<HTMLInputElement>(null);
     const { token } = useUserState();
     const dispatch = useDispatch();
+    const [searchStr, setSearchStr] = useState('');
+    const [isShow, setIsShow] = useState(false);
+    const { data } = useGetTagsQuery(
+        { contain: searchStr, limit: 7 },
+        {
+            skip: searchStr === ''
+        }
+    );
+
+    const tagHandler = (tag: string) => {
+        navigate('/search/' + tag);
+        setSearchStr(tag);
+        if (inputSearch.current) inputSearch.current.value = tag;
+    };
+
+    const cancelHandler = () => {
+        setSearchStr('');
+        if (inputSearch.current) inputSearch.current.value = '';
+    };
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -52,18 +76,11 @@ export default function Header() {
                                 gap: '20px'
                             }}
                         >
-                            <AppsIcon sx={{ fontSize: '30px' }} />
-                            <Typography
-                                color="inherit"
-                                component={Link}
-                                to="/"
-                                variant="h6"
+                            <AppsIcon
                                 sx={{
-                                    textDecoration: 'none'
+                                    fontSize: '30px'
                                 }}
-                            >
-                                <FormattedMessage id="Home" />
-                            </Typography>
+                            />
                             <Typography
                                 color="inherit"
                                 component={Link}
@@ -91,19 +108,110 @@ export default function Header() {
                         </Box>
                     </Box>
 
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <Input
-                            placeholder={intl.formatMessage({ id: 'Search' })}
-                            inputProps={{ 'aria-label': 'Search' }}
+                    <Box
+                        sx={{
+                            position: 'relative',
+                            width: '100%',
+                            maxWidth: '400px'
+                        }}
+                    >
+                        <Box
                             sx={{
+                                display: 'flex',
+                                alignItems: 'center',
                                 borderRadius: '5px',
-                                height: '30px',
-                                marginRight: '10px',
-                                color: theme === 'dark' ? 'white' : 'black',
-                                backgroundColor: theme === 'dark' ? 'inherit' : 'white'
+                                backgroundColor: (theme) => theme.palette.secondary.dark,
+                                height: '40px',
+                                width: '100%'
                             }}
-                        />
-                        <SearchIcon />
+                        >
+                            <TextField
+                                type="text"
+                                variant="outlined"
+                                size="small"
+                                placeholder={intl.formatMessage({ id: 'Search' })}
+                                aria-label="Search"
+                                onChange={(e) => setSearchStr(e.target.value)}
+                                onFocus={() => setIsShow(true)}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') tagHandler(searchStr);
+                                }}
+                                onBlur={() => {
+                                    setTimeout(() => setIsShow(false), 300);
+                                }}
+                                inputRef={inputSearch}
+                                sx={{
+                                    flex: 1,
+                                    fontSize: '16px',
+                                    border: 'none',
+                                    outline: 'none',
+                                    backgroundColor: 'transparent'
+                                }}
+                            />
+                            <IconButton
+                                color="primary"
+                                aria-label="search"
+                                sx={{ padding: '8px' }}
+                                onClick={() => tagHandler(searchStr)}
+                            >
+                                <SearchIcon />
+                            </IconButton>
+                            <IconButton
+                                color="primary"
+                                aria-label="clear"
+                                sx={{ padding: '8px' }}
+                                onClick={cancelHandler}
+                            >
+                                <ClearIcon />
+                            </IconButton>
+                        </Box>
+                        {isShow && (
+                            <List
+                                onClick={() => setIsShow(false)}
+                                id="searchList"
+                                className="list-group position-absolute search-list"
+                                sx={{
+                                    backgroundColor: (theme) => theme.palette.secondary.dark,
+                                    borderRadius: '5px',
+                                    boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
+                                    marginTop: '5px',
+                                    padding: '10px',
+                                    listStyleType: 'none',
+                                    width: '100%'
+                                }}
+                            >
+                                {data &&
+                                    searchStr !== '' &&
+                                    data.length > 0 &&
+                                    data.map((tag) => (
+                                        <ListItem
+                                            className="list-group-item cursor-pointer text-truncate"
+                                            onClick={() => tagHandler(tag.tag)}
+                                            key={tag.id}
+                                            sx={{
+                                                marginBottom: '5px',
+                                                backgroundColor: (theme) => theme.palette.secondary.dark,
+                                                '&:hover': {
+                                                    backgroundColor: (theme) => theme.palette.secondary.light
+                                                }
+                                            }}
+                                        >
+                                            <Typography
+                                                className="dropdown-item text-truncate"
+                                                sx={{
+                                                    color: (theme) => theme.palette.text.primary,
+                                                    backgroundColor: 'transparent',
+                                                    '&:hover': {
+                                                        backgroundColor: (theme) => theme.palette.secondary.light
+                                                    }
+                                                }}
+                                            >
+                                                {tag.tag}
+                                            </Typography>
+                                        </ListItem>
+                                    ))}
+                            </List>
+                        )}
                     </Box>
 
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -124,7 +232,9 @@ export default function Header() {
                                     onClick={() => {
                                         logout();
                                         dispatch(baseApi.util.resetApiState());
+                                        showSnackbar('Logout_successfully');
                                     }}
+                                    sx={{ marginRight: '5px', marginLeft: '10px' }}
                                 >
                                     <FormattedMessage id="Log_out" />
                                 </Button>

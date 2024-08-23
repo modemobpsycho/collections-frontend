@@ -1,4 +1,4 @@
-import { IItem, IItemWithFields } from '@/types/item.interface';
+import { IItem, IItemInfo, IItemWithFields } from '@/types/item.interface';
 import { baseApi } from './baseApi';
 
 export const itemsApi = baseApi.injectEndpoints({
@@ -9,16 +9,16 @@ export const itemsApi = baseApi.injectEndpoints({
                 url: `/item/${collectionId}`,
                 method: 'POST'
             }),
-            invalidatesTags: () => ['Collection', 'Items']
+            invalidatesTags: () => ['Collection', 'Items', 'Collections', 'Tag']
         }),
-        getItems: builder.query<IItemWithFields[], number>({
-            query: (collectionId) => ({
-                url: `/item/all/${collectionId}`,
+        getItems: builder.query<IItemWithFields[], { collectionId: string; limit: number }>({
+            query: ({ collectionId, limit }) => ({
+                url: `/item/all/${collectionId}/${limit}`,
                 method: 'GET'
             }),
             providesTags: () => ['Item']
         }),
-        getItem: builder.query<IItem, string>({
+        getItem: builder.query<IItemInfo, string>({
             query: (itemId) => ({
                 url: `/item/${itemId}`,
                 method: 'GET'
@@ -31,17 +31,37 @@ export const itemsApi = baseApi.injectEndpoints({
                 url: `/item/${itemId}`,
                 method: 'PUT'
             }),
-            invalidatesTags: () => ['Collection', 'Item']
+            invalidatesTags: () => ['Collection', 'Item', 'Collections']
         }),
         deleteItem: builder.mutation<string, number>({
             query: (itemId) => ({
                 url: `/item/${itemId}`,
                 method: 'DELETE'
             }),
-            invalidatesTags: () => ['Collection', 'Item']
+            invalidatesTags: () => ['Collection', 'Item', 'Collections', 'Tag']
+        }),
+        searchItems: builder.query<IItem[], { contain: string; limit: number }>({
+            query: ({ contain, limit }) => ({
+                url: `/item/search/${contain}/${limit}`,
+                method: 'GET'
+            })
+        }),
+        getLastItems: builder.query<IItemInfo[] | string, number>({
+            query: (limit) => ({
+                url: `/item/getLast/${limit}`,
+                method: 'GET'
+            }),
+            providesTags: () => ['Item', 'Collection']
         })
     })
 });
 
-export const { useAddItemMutation, useGetItemsQuery, useUpdateItemMutation, useDeleteItemMutation, useGetItemQuery } =
-    itemsApi;
+export const {
+    useAddItemMutation,
+    useGetItemsQuery,
+    useUpdateItemMutation,
+    useSearchItemsQuery,
+    useDeleteItemMutation,
+    useGetItemQuery,
+    useGetLastItemsQuery
+} = itemsApi;
