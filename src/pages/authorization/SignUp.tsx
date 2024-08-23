@@ -1,11 +1,13 @@
 import { Container, Typography, TextField, Button, Box, CircularProgress } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSignupUserMutation } from '@/stores/api/user.api';
 import { FormattedMessage } from 'react-intl';
+import { useActions } from '@/hooks/useActions';
 
 function SignUp() {
-    const [signupUser, { isLoading }] = useSignupUserMutation();
+    const [signupUser, { isLoading, isSuccess, isError, error }] = useSignupUserMutation();
+    const { showSnackbar } = useActions();
 
     const [formData, setFormData] = useState({
         fullName: '',
@@ -18,14 +20,24 @@ function SignUp() {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleSubmit = async () => {
-        try {
-            await signupUser(formData);
+    useEffect(() => {
+        if (isSuccess) {
+            showSnackbar('Sign_up_success');
             setFormData({
                 fullName: '',
                 email: '',
                 password: ''
             });
+        }
+        if (isError) {
+            showSnackbar((error as any).data?.message.replace(/ /g, '_'));
+        }
+    }, [isSuccess, isError]);
+
+    const handleSubmit = async (event: React.FormEvent) => {
+        event.preventDefault();
+        try {
+            await signupUser(formData);
         } catch (error) {
             console.log(error);
         }
@@ -34,7 +46,7 @@ function SignUp() {
     return (
         <div className="container">
             <Container maxWidth="sm">
-                <Box component="form" className="form-box">
+                <Box component="form" className="form-box" onSubmit={handleSubmit}>
                     <Typography variant="h4" sx={{ marginBottom: '20px' }}>
                         <FormattedMessage id="Sign_up" />
                     </Typography>
@@ -43,6 +55,7 @@ function SignUp() {
                         label={<FormattedMessage id="Full_Name" />}
                         id="fullName"
                         name="fullName"
+                        type="text"
                         value={formData.fullName}
                         onChange={handleChange}
                         required
@@ -53,6 +66,7 @@ function SignUp() {
                         label={<FormattedMessage id="Email" />}
                         id="email"
                         name="email"
+                        type="email"
                         value={formData.email}
                         onChange={handleChange}
                         required
@@ -70,14 +84,7 @@ function SignUp() {
                         className="input-field"
                     />
 
-                    <Button
-                        type="submit"
-                        variant="contained"
-                        color="primary"
-                        className="button"
-                        onClick={handleSubmit}
-                        disabled={isLoading}
-                    >
+                    <Button type="submit" variant="contained" color="primary" className="button" disabled={isLoading}>
                         {isLoading ? <CircularProgress size={25} /> : <FormattedMessage id="Sign_up_button" />}
                     </Button>
                     <Typography variant="body1" className="new-to-collections">

@@ -8,3 +8,7 @@ export const useUserState = () => {
 export const useOptionsState = () => {
     return useSelector((state: RootState) => state.options);
 };
+
+export const useSnackbarState = () => {
+    return useSelector((state: RootState) => state.snackbar);
+};

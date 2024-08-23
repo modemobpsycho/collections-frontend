@@ -1,11 +1,13 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { reducer as userReducer } from './slices/user.slice';
 import { reducer as optionsReducer } from './slices/pageSettings.slice';
+import { reducer as snackbarReducer } from './slices/snackbar.slice';
 import { baseApi } from './api/baseApi';
 
 const reducers = combineReducers({
     user: userReducer,
     options: optionsReducer,
+    snackbar: snackbarReducer,
     [baseApi.reducerPath]: baseApi.reducer
 });
 

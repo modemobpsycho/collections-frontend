@@ -7,22 +7,29 @@ import { messages } from '../i18n/messages';
 import { IMessages } from '../types/messages.interface';
 import CssBaseline from '@mui/material/CssBaseline';
 import { useOptionsState } from '../hooks/useStoreState';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import MySnackbar from '@/components/snackbar/MySnackbar';
 
 function App() {
     const { theme, language } = useOptionsState();
-
     return (
         <div className="app">
-            <IntlProvider
-                locale={language === 0 ? LOCALES.ENGLISH : LOCALES.RUSSIAN}
-                defaultLocale={LOCALES.ENGLISH}
-                messages={messages[language === 0 ? LOCALES.ENGLISH : LOCALES.RUSSIAN] as IMessages}
+            <GoogleOAuthProvider
+                clientId={process.env.VITE_REACT_APP_GOOGLE_CLIENT_ID as string}
+                key={process.env.VITE_REACT_APP_GOOGLE_SECRET}
             >
-                <ThemeProvider theme={theme === 'dark' ? darkTheme : lightTheme}>
-                    <CssBaseline />
-                    <AppRouter />
-                </ThemeProvider>
-            </IntlProvider>
+                <IntlProvider
+                    locale={language === 0 ? LOCALES.ENGLISH : LOCALES.RUSSIAN}
+                    defaultLocale={LOCALES.ENGLISH}
+                    messages={messages[language === 0 ? LOCALES.ENGLISH : LOCALES.RUSSIAN] as unknown as IMessages}
+                >
+                    <ThemeProvider theme={theme === 'dark' ? darkTheme : lightTheme}>
+                        <CssBaseline />
+                        <MySnackbar />
+                        <AppRouter />
+                    </ThemeProvider>
+                </IntlProvider>
+            </GoogleOAuthProvider>
         </div>
     );
 }

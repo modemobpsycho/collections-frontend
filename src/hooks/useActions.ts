@@ -3,10 +3,12 @@ import { useMemo } from 'react';
 import { bindActionCreators } from '@reduxjs/toolkit';
 import { actions as userActions } from '@/stores/slices/user.slice';
 import { actions as settingsActions } from '@/stores/slices/pageSettings.slice';
+import { actions as snackbarActions } from '@/stores/slices/snackbar.slice';
 
 const rootActions = {
     ...userActions,
-    ...settingsActions
+    ...settingsActions,
+    ...snackbarActions
 };
 
 export const useActions = () => {
