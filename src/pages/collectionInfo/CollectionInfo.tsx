@@ -43,16 +43,26 @@ function CollectionInfo() {
                     }}
                 >
                     <CardContent>
-                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '100%' }}>
                             <Box
                                 sx={{
                                     display: 'flex',
                                     alignItems: 'center',
                                     flexDirection: 'column',
-                                    margin: '0 auto'
+                                    margin: '0 auto',
+                                    width: '100%'
                                 }}
                             >
-                                <Typography variant="h4" component="div" sx={{ textAlign: 'center', fontSize: '38px' }}>
+                                <Typography
+                                    variant="h4"
+                                    component="div"
+                                    sx={{
+                                        textAlign: 'center',
+                                        fontSize: '38px',
+                                        wordBreak: 'break-word',
+                                        width: '100%'
+                                    }}
+                                >
                                     {collection.title}
                                 </Typography>
                                 <Typography

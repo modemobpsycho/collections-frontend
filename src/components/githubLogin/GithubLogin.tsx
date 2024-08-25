@@ -26,7 +26,6 @@ function GithubLogin() {
         const url = window.location.href;
         const code = new URLSearchParams(window.location.search).get('code');
         const hasCode = url.includes('?code=');
-
         if (hasCode) {
             const newUrl = url.split('?code=');
             window.history.pushState({}, '', newUrl[0]);

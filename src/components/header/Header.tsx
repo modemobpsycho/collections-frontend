@@ -147,6 +147,7 @@ export default function Header() {
                                     outline: 'none',
                                     backgroundColor: 'transparent'
                                 }}
+                                inputProps={{ maxLength: 100 }}
                             />
                             <IconButton
                                 color="primary"
@@ -177,7 +178,8 @@ export default function Header() {
                                     marginTop: '5px',
                                     padding: '10px',
                                     listStyleType: 'none',
-                                    width: '100%'
+                                    width: '100%',
+                                    zIndex: 999
                                 }}
                             >
                                 {data &&

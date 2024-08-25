@@ -1,4 +1,4 @@
-import { Button, Card, CircularProgress, InputLabel, TextField, Typography } from '@mui/material';
+import { Box, Button, Card, CircularProgress, InputLabel, TextField, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useGetUserQuery, useUpdateUserMutation } from '../../stores/api/user.api';
@@ -45,7 +45,8 @@ function PersonalData() {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (event: React.FormEvent) => {
+        event.preventDefault();
         try {
             await updateUser(formData);
         } catch (error) {
@@ -67,28 +68,83 @@ function PersonalData() {
                 backgroundColor: 'secondary.dark'
             }}
         >
-            <Typography variant="h4" sx={{ textAlign: 'center', marginTop: '20px' }}>
-                <FormattedMessage id="Your_personal_data" />
-            </Typography>
-            <InputLabel sx={{ marginTop: '20px' }}>
-                <FormattedMessage id="Name" />
-            </InputLabel>
-            <TextField id="fullName" name="fullName" value={formData.fullName} onChange={handleChange} />
-            <InputLabel>
-                <FormattedMessage id="Email" />
-            </InputLabel>
-            <TextField id="email" name="email" value={formData.email} onChange={handleChange} />
-            <InputLabel>
-                <FormattedMessage id="Old_password" />
-            </InputLabel>
-            <TextField id="oldPassword" name="oldPassword" value={formData.oldPassword} onChange={handleChange} />
-            <InputLabel>
-                <FormattedMessage id="New_password" />
-            </InputLabel>
-            <TextField id="newPassword" name="newPassword" value={formData.newPassword} onChange={handleChange} />
-            <Button variant="contained" sx={{ marginTop: '20px' }} onClick={handleSubmit}>
-                {isLoadingUpdate ? <CircularProgress size={25} /> : <FormattedMessage id="Save" />}
-            </Button>
+            {isLoadingUser ? (
+                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                    <CircularProgress />
+                </Box>
+            ) : (
+                <Box
+                    component="form"
+                    className="form-box"
+                    onSubmit={handleSubmit}
+                    sx={{ display: 'flex', gap: '10px', flexDirection: 'column' }}
+                >
+                    <Typography variant="h4" sx={{ textAlign: 'center', marginTop: '20px' }}>
+                        <FormattedMessage id="Your_personal_data" />
+                    </Typography>
+                    <InputLabel sx={{ marginTop: '20px' }}>
+                        <FormattedMessage id="Name" />
+                    </InputLabel>
+                    <TextField
+                        id="fullName"
+                        name="fullName"
+                        type="text"
+                        required
+                        value={formData.fullName}
+                        onChange={handleChange}
+                        inputProps={{ maxLength: 30 }}
+                    />
+                    <InputLabel>
+                        <FormattedMessage id="Email" />
+                    </InputLabel>
+                    <TextField
+                        id="email"
+                        name="email"
+                        type="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        autoComplete="email"
+                        required
+                        inputProps={{ maxLength: 50 }}
+                    />
+                    <InputLabel>
+                        <FormattedMessage id="Old_password" />
+                    </InputLabel>
+                    <TextField
+                        id="oldPassword"
+                        name="oldPassword"
+                        type="password"
+                        required
+                        value={formData.oldPassword}
+                        onChange={handleChange}
+                        inputProps={{
+                            maxLength: 20,
+                            minLength: 6,
+                            pattern: '^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$',
+                            title: 'Password must contain at least one letter and one number'
+                        }}
+                    />
+                    <InputLabel>
+                        <FormattedMessage id="New_password" />
+                    </InputLabel>
+                    <TextField
+                        id="newPassword"
+                        name="newPassword"
+                        type="password"
+                        value={formData.newPassword}
+                        onChange={handleChange}
+                        inputProps={{
+                            maxLength: 20,
+                            minLength: 6,
+                            pattern: '^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$',
+                            title: 'Password must contain at least one letter and one number'
+                        }}
+                    />
+                    <Button variant="contained" type="submit" sx={{ marginTop: '20px' }} disabled={isLoadingUpdate}>
+                        {isLoadingUpdate ? <CircularProgress size={25} /> : <FormattedMessage id="Save" />}
+                    </Button>
+                </Box>
+            )}
         </Card>
     );
 }

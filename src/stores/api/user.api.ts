@@ -39,7 +39,7 @@ export const userApi = baseApi.injectEndpoints({
                 url: '/user/update',
                 method: 'PUT'
             }),
-            invalidatesTags: ['User', 'Users']
+            invalidatesTags: ['User', 'Users', 'Collections']
         }),
         updateUserAdmin: builder.mutation<string | IUserUpdateAdminInfo, IUserUpdateAdminInfo>({
             query: (userInfo) => ({
@@ -47,7 +47,7 @@ export const userApi = baseApi.injectEndpoints({
                 url: '/user/update-admin',
                 method: 'PUT'
             }),
-            invalidatesTags: ['User', 'Users']
+            invalidatesTags: ['User', 'Users', 'Collections']
         }),
         getUser: builder.query<IUser, void>({
             query: () => ({

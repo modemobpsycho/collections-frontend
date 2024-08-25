@@ -10,7 +10,8 @@ import { useActions } from '@/hooks/useActions';
 
 function CollectionAddData({ croppedImage, file }: { croppedImage: string | undefined; file: File | undefined }) {
     const { showSnackbar } = useActions();
-    const [addCollection, { isLoading: isLoadingCollection, isSuccess }] = useAddCollectionMutation();
+    const [addCollection, { isLoading: isLoadingCollection, isSuccess: isSuccessCollection }] =
+        useAddCollectionMutation();
     const [addCollectionImage, { isLoading: isLoadingImage, isSuccess: isSuccessImage, data: dataImage }] =
         useAddCollectionImageMutation();
 
@@ -38,7 +39,7 @@ function CollectionAddData({ croppedImage, file }: { croppedImage: string | unde
     }, [isLoadingImage]);
 
     useEffect(() => {
-        if (isSuccess) {
+        if (isSuccessCollection) {
             setFormData({
                 title: '',
                 theme: '',
@@ -47,7 +48,7 @@ function CollectionAddData({ croppedImage, file }: { croppedImage: string | unde
             setFields([]);
             showSnackbar('Collection_added_successfully');
         }
-    }, [isSuccess]);
+    }, [isSuccessCollection]);
 
     const handleSubmit = async (event: React.FormEvent) => {
         event?.preventDefault();
@@ -86,6 +87,7 @@ function CollectionAddData({ croppedImage, file }: { croppedImage: string | unde
                 value={formData.title}
                 onChange={handleChange}
                 required
+                inputProps={{ maxLength: 40, minLength: 3 }}
             />
             <InputLabel>
                 <FormattedMessage id="Collection_description" />
@@ -97,6 +99,7 @@ function CollectionAddData({ croppedImage, file }: { croppedImage: string | unde
                 value={formData.description}
                 onChange={handleChange}
                 required
+                inputProps={{ maxLength: 1000 }}
             />
             <InputLabel>
                 <FormattedMessage id="Collection_theme" />
@@ -108,6 +111,7 @@ function CollectionAddData({ croppedImage, file }: { croppedImage: string | unde
                 value={formData.theme}
                 onChange={handleChange}
                 required
+                inputProps={{ maxLength: 30, minLength: 3 }}
             />
             <InputLabel>
                 <FormattedMessage id="Add_fields_in_your_collection" />

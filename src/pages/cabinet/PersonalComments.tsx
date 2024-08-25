@@ -36,67 +36,74 @@ function PersonalComments() {
                 backgroundColor: 'secondary.dark'
             }}
         >
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                {comments &&
-                    comments.map((comment) => (
-                        <Card
-                            key={comment.id}
-                            sx={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                gap: '10px',
-                                padding: '10px',
-                                width: '100%',
-                                borderRadius: '10px'
-                            }}
-                        >
-                            <Box sx={{ display: 'flex', gap: '10px' }}>
-                                <Box
-                                    sx={{
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        gap: '10px',
-                                        marginRight: 'auto',
-                                        width: '100%'
-                                    }}
-                                >
-                                    <Typography sx={{ fontWeight: 'bold', fontSize: '20px' }}>
-                                        <FormattedMessage id="Comment" />
-                                    </Typography>
-                                    <Typography
+            {!isLoading ? (
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    {comments &&
+                        comments.map((comment) => (
+                            <Card
+                                key={comment.id}
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    gap: '10px',
+                                    padding: '10px',
+                                    width: '100%',
+                                    borderRadius: '10px'
+                                }}
+                            >
+                                <Box sx={{ display: 'flex', gap: '10px' }}>
+                                    <Box
                                         sx={{
-                                            fontSize: '15px',
-                                            maxWidth: '650px',
-                                            wordWrap: 'break-word'
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            gap: '10px',
+                                            marginRight: 'auto',
+                                            width: '100%'
                                         }}
                                     >
-                                        {comment.textComment}
-                                    </Typography>
-                                </Box>
+                                        <Typography sx={{ fontWeight: 'bold', fontSize: '20px' }}>
+                                            <FormattedMessage id="Comment" />
+                                        </Typography>
+                                        <Typography
+                                            sx={{
+                                                fontSize: '15px',
+                                                maxWidth: '650px',
+                                                wordWrap: 'break-word'
+                                            }}
+                                        >
+                                            {comment.textComment}
+                                        </Typography>
+                                    </Box>
 
-                                <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '20%' }}>
-                                    <Typography
-                                        variant="subtitle2"
-                                        sx={{ display: 'flex', gap: '10px', alignSelf: 'flex-end' }}
-                                    >
-                                        {new Date(comment.creationDate).toLocaleTimeString().slice(0, 5)}{' '}
-                                        {new Date(comment.creationDate).toLocaleDateString()}
-                                    </Typography>
-                                    <Button
-                                        variant="outlined"
-                                        onClick={() => {
-                                            navigate(`/item/${comment.item.id}`);
-                                        }}
-                                        sx={{ alignSelf: 'flex-end', marginTop: 'auto' }}
-                                    >
-                                        <FormattedMessage id="Go_to_item" />
-                                    </Button>
+                                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '20%' }}>
+                                        <Typography
+                                            variant="subtitle2"
+                                            sx={{ display: 'flex', gap: '10px', alignSelf: 'flex-end' }}
+                                        >
+                                            {new Date(comment.creationDate).toLocaleTimeString().slice(0, 5)}{' '}
+                                            {new Date(comment.creationDate).toLocaleDateString()}
+                                        </Typography>
+                                        <Button
+                                            variant="outlined"
+                                            onClick={() => {
+                                                navigate(`/item/${comment.item.id}`);
+                                            }}
+                                            sx={{ alignSelf: 'flex-end', marginTop: 'auto' }}
+                                        >
+                                            <FormattedMessage id="Go_to_item" />
+                                        </Button>
+                                    </Box>
                                 </Box>
-                            </Box>
-                        </Card>
-                    ))}
-            </Box>
-            {comments && comments.length > 0 && (
+                            </Card>
+                        ))}
+                </Box>
+            ) : (
+                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                    <CircularProgress />
+                </Box>
+            )}
+
+            {comments && commentsLimit <= comments.length && (
                 <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                     {commentsLimit < variables.COMMENTS_REACTIONS_MAX && (
                         <IconButton sx={{ marginTop: '20px' }} onClick={handleLoadMore}>

@@ -1,5 +1,5 @@
 import { IItem } from '@/types/item.interface';
-import { Box, Button, Card, TextField, Typography } from '@mui/material';
+import { Box, Button, Card, CircularProgress, TextField, Typography } from '@mui/material';
 import { FormattedMessage } from 'react-intl';
 import CloseIcon from '@mui/icons-material/Close';
 import SendIcon from '@mui/icons-material/Send';
@@ -12,7 +12,7 @@ import { useActions } from '@/hooks/useActions';
 function ItemComments({ item, user, connection }: { item: IItem; user: IUser | undefined; connection: Socket }) {
     const { showSnackbar } = useActions();
     const [commentText, setCommentText] = useState('');
-    const [addComment] = useAddCommentMutation();
+    const [addComment, { isLoading: isLoadingAdd }] = useAddCommentMutation();
     const [deleteComment] = useDeleteCommentMutation();
     const commentListRef = useRef<HTMLDivElement>(null);
 
@@ -46,7 +46,7 @@ function ItemComments({ item, user, connection }: { item: IItem; user: IUser | u
     };
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '20px' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '10px' }}>
             <Typography variant="h5" sx={{ textAlign: 'center' }}>
                 <FormattedMessage id="Comments" />
             </Typography>
@@ -152,9 +152,11 @@ function ItemComments({ item, user, connection }: { item: IItem; user: IUser | u
                         onChange={(e) => setCommentText(e.target.value)}
                         sx={{ width: '100%' }}
                         onKeyDown={(e) => e.key === 'Enter' && handleAddComment()}
-                    ></TextField>
-                    <Button variant="contained" onClick={handleAddComment}>
-                        <SendIcon />
+                        inputProps={{ maxLength: 300, minLength: 1, maxRows: 6 }}
+                        multiline
+                    />
+                    <Button variant="contained" onClick={handleAddComment} disabled={isLoadingAdd || !commentText}>
+                        {isLoadingAdd ? <CircularProgress size={20} /> : <SendIcon />}
                     </Button>
                 </Box>
             )}

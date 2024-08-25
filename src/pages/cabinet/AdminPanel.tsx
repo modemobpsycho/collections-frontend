@@ -1,13 +1,29 @@
-import { Box, Card, InputLabel, MenuItem, Select, SelectChangeEvent, TextField, Typography } from '@mui/material';
+import {
+    Backdrop,
+    Box,
+    Card,
+    CircularProgress,
+    InputLabel,
+    MenuItem,
+    Select,
+    SelectChangeEvent,
+    TextField,
+    Typography
+} from '@mui/material';
 import AdminPanelUsers from './AdminPanelUsers';
 import AdminPanelButtons from './AdminPanelButtons';
-import { useGetAllUsersQuery } from '@/stores/api/user.api';
-import { useEffect, useState } from 'react';
+import { useGetAllUsersQuery, useGetUserQuery } from '@/stores/api/user.api';
+import { useState } from 'react';
 import { IUser } from '@/types/user.interface';
 import { FormattedMessage } from 'react-intl';
+import { useNavigate } from 'react-router-dom';
+import { useActions } from '@/hooks/useActions';
 
 function AdminPanel() {
-    const { isLoading, data } = useGetAllUsersQuery();
+    const { data, isLoading } = useGetAllUsersQuery();
+    const { data: user } = useGetUserQuery();
+    const { showSnackbar } = useActions();
+    const navigate = useNavigate();
     const [currentUser, setCurrentUser] = useState({
         id: 0,
         email: '',
@@ -17,7 +33,10 @@ function AdminPanel() {
         password: ''
     });
 
-    useEffect(() => {}, [isLoading]);
+    if (user && user.role === 0) {
+        navigate('/cabinet');
+        showSnackbar('You_are_not_administrator');
+    }
 
     const setCurrentUserHandler = (user: IUser) => {
         setCurrentUser({
@@ -35,7 +54,6 @@ function AdminPanel() {
         setCurrentUser({ ...currentUser, [name]: value });
     };
 
-    useEffect(() => {}, [isLoading]);
     return (
         <Card
             sx={{
@@ -49,7 +67,13 @@ function AdminPanel() {
                 backgroundColor: 'backgroundCardDark'
             }}
         >
-            <AdminPanelUsers data={data} setCurrentUser={setCurrentUserHandler} />
+            {isLoading ? (
+                <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={isLoading}>
+                    <CircularProgress />
+                </Backdrop>
+            ) : (
+                <AdminPanelUsers data={data} setCurrentUser={setCurrentUserHandler} />
+            )}
             <Card sx={{ padding: '10px' }}>
                 <Typography variant="h6" sx={{ marginBottom: '10px', textAlign: 'center' }}>
                     <FormattedMessage id="Current_user_data" />
@@ -59,8 +83,7 @@ function AdminPanel() {
                         <InputLabel htmlFor="id">
                             <FormattedMessage id="ID" />
                         </InputLabel>
-                        <TextField id="id" sx={{ color: 'black' }} disabled value={currentUser.id}></TextField>
-
+                        <TextField id="id" sx={{ color: 'black' }} disabled value={currentUser.id} />
                         <InputLabel htmlFor="fullName">
                             <FormattedMessage id="Full_Name" />
                         </InputLabel>
@@ -71,6 +94,8 @@ function AdminPanel() {
                             name="fullName"
                             value={currentUser.fullName}
                             sx={{ color: 'black' }}
+                            required
+                            inputProps={{ maxLength: 30 }}
                         />
 
                         <InputLabel htmlFor="email">
@@ -80,9 +105,11 @@ function AdminPanel() {
                             id="email"
                             type="email"
                             name="email"
+                            required
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
                             sx={{ color: 'black' }}
                             value={currentUser.email}
+                            inputProps={{ maxLength: 50 }}
                         />
                     </Box>
                     <Box
@@ -95,6 +122,7 @@ function AdminPanel() {
                             id="role"
                             type="select"
                             name="role"
+                            required
                             value={String(currentUser.role)}
                             onChange={(e: SelectChangeEvent) => handleChange(e)}
                         >
@@ -113,6 +141,7 @@ function AdminPanel() {
                             name="access"
                             value={String(currentUser.access ? 1 : 0)}
                             onChange={(e: SelectChangeEvent) => handleChange(e)}
+                            required
                         >
                             <MenuItem value={0}>
                                 <FormattedMessage id="Blocked" />
@@ -131,11 +160,17 @@ function AdminPanel() {
                             name="newPassword"
                             value={currentUser.password}
                             sx={{ color: 'black' }}
+                            inputProps={{
+                                maxLength: 20,
+                                minLength: 6,
+                                pattern: '^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$',
+                                title: 'Password must contain at least one letter and one number'
+                            }}
                         />
                     </Box>
                 </Box>
             </Card>
-            <AdminPanelButtons currentUser={currentUser} setCurrentUser={setCurrentUserHandler} />
+            <AdminPanelButtons currentUser={currentUser} setCurrentUser={setCurrentUserHandler} user={user} />
         </Card>
     );
 }

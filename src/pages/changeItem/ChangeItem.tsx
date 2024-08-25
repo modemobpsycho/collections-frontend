@@ -143,6 +143,8 @@ function ChangeItem() {
                                 name="name"
                                 value={formDataItem}
                                 onChange={(e) => setFormDataItem(e.target.value)}
+                                required
+                                inputProps={{ maxLength: 100, minLength: 1 }}
                             />
                             {collectionFields.map((field) => (
                                 <Box key={field.id} sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
@@ -166,7 +168,11 @@ function ChangeItem() {
                                         id={'input' + field.fieldName}
                                         value={itemFieldsValues['input' + field.fieldName] || ''}
                                         onChange={(e) => handleInputChange('input' + field.fieldName, e.target.value)}
-                                    ></TextField>
+                                        required
+                                        inputProps={{
+                                            maxLength: field.fieldType === 'string' ? 100 : undefined
+                                        }}
+                                    />
                                 </Box>
                             ))}
                         </Box>
@@ -185,6 +191,7 @@ function ChangeItem() {
                                         sx={{ width: '100%', color: 'black' }}
                                         value={itemFieldsValues['inputTag'] || ''}
                                         onChange={(e) => handleInputChange('inputTag', e.target.value)}
+                                        inputProps={{ maxLength: 30, minLength: 1 }}
                                     />
                                     <Button variant="contained" onClick={handleAddTag}>
                                         <AddIcon />
@@ -195,8 +202,8 @@ function ChangeItem() {
                                         <Box
                                             key={tag}
                                             sx={{
-                                                backgroundColor: 'cyan',
-                                                color: 'black',
+                                                backgroundColor: 'black',
+                                                color: 'white',
                                                 padding: '5px',
                                                 borderRadius: '10px',
                                                 cursor: 'pointer'

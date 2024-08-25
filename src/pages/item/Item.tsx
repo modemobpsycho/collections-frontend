@@ -58,7 +58,9 @@ function Item() {
                 <FormattedMessage id="Back_to_collection" />
             </Button>
             {isLoading ? (
-                <CircularProgress />
+                <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+                    <CircularProgress />
+                </Box>
             ) : (
                 isSuccess &&
                 item && (

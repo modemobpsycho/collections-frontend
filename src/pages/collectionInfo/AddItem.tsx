@@ -17,7 +17,7 @@ function AddItem({ dataCollection }: { dataCollection: ICollection }) {
     const handleInputChange = (fieldId: string, value: string) => {
         setItemFieldsValues((prevValues) => ({
             ...prevValues,
-            [fieldId]: value
+            [fieldId]: String(value)
         }));
     };
 
@@ -61,7 +61,6 @@ function AddItem({ dataCollection }: { dataCollection: ICollection }) {
                         break;
                     case 'boolean':
                         value = itemFieldsValues['input' + field.id] === 'true' ? true : false;
-                        itemFieldsValues['input' + field.id] === 'true' ? 'true' : 'false';
                         fieldTypeDb = 'bool';
                         break;
                 }
@@ -113,6 +112,7 @@ function AddItem({ dataCollection }: { dataCollection: ICollection }) {
                                 value={itemFieldsValues['inputItemName'] || ''}
                                 required
                                 onChange={(e) => handleInputChange('inputItemName', e.target.value)}
+                                inputProps={{ maxLength: 100, minLength: 1 }}
                             />
                             {dataCollection.collectionFields &&
                                 dataCollection.collectionFields.map((field) => (
@@ -136,7 +136,18 @@ function AddItem({ dataCollection }: { dataCollection: ICollection }) {
                                             }
                                             id={'input' + field.id}
                                             value={itemFieldsValues['input' + field.id] || ''}
-                                            onChange={(e) => handleInputChange('input' + field.id, e.target.value)}
+                                            onChange={(e) =>
+                                                handleInputChange(
+                                                    'input' + field.id,
+                                                    field.fieldType === 'boolean'
+                                                        ? (e.target as any).checked
+                                                        : e.target.value
+                                                )
+                                            }
+                                            required
+                                            inputProps={{
+                                                maxLength: field.fieldType === 'string' ? 100 : undefined
+                                            }}
                                         />
                                     </Box>
                                 ))}
@@ -154,6 +165,7 @@ function AddItem({ dataCollection }: { dataCollection: ICollection }) {
                                         sx={{ width: '100%', color: 'black' }}
                                         value={itemFieldsValues['inputTag'] || ''}
                                         onChange={(e) => handleInputChange('inputTag', e.target.value)}
+                                        inputProps={{ maxLength: 30, minLength: 1 }}
                                     />
                                     <Button variant="contained" onClick={handleAddTag}>
                                         <AddIcon />
@@ -165,8 +177,8 @@ function AddItem({ dataCollection }: { dataCollection: ICollection }) {
                                     <Box
                                         key={tag}
                                         sx={{
-                                            backgroundColor: 'cyan',
-                                            color: 'black',
+                                            backgroundColor: 'black',
+                                            color: 'white',
                                             padding: '5px',
                                             borderRadius: '10px',
                                             cursor: 'pointer'

@@ -21,7 +21,12 @@ function UserCollections() {
             sx={{
                 width: '50vw',
                 maxWidth: '50vw',
-                margin: '20px auto'
+                margin: 'auto',
+                display: 'grid',
+                gridTemplateColumns: 'repeat(1, 1fr)',
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: '10px'
             }}
         >
             {data && data?.length > 0 ? (

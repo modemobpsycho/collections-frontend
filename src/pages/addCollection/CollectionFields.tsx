@@ -55,6 +55,7 @@ const CollectionFields = ({ fields, setFields }: { fields: ICollectionFields[]; 
                             sx={{ width: '130px', marginRight: '10px', height: '50px' }}
                             value={_field.fieldType}
                             variant="outlined"
+                            required
                         >
                             <MenuItem value="string">
                                 <FormattedMessage id="Text" />
@@ -76,6 +77,7 @@ const CollectionFields = ({ fields, setFields }: { fields: ICollectionFields[]; 
                             id={'fieldInput' + index}
                             sx={{ width: '100%', marginRight: '10px', height: '50px' }}
                             required
+                            inputProps={{ maxLength: 100 }}
                         />
                         <Button
                             onClick={() => handleRemoveField(index)}

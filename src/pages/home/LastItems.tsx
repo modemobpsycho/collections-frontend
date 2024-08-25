@@ -27,15 +27,16 @@ function LastItems() {
     return (
         <>
             {items && items.length > 0 && (
-                <Box>
+                <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                     <Typography variant="h4" sx={{ textAlign: 'center', marginTop: '40px' }}>
                         <FormattedMessage id="Last_items" />
                     </Typography>
                     <Box
                         sx={{
                             display: 'grid',
-                            gridTemplateColumns: 'repeat(5, 1fr)',
-                            justifyContent: 'center',
+                            gridTemplateColumns: `repeat(${items.length > 5 ? 5 : items.length}, 1fr)`,
+                            width: `calc((100vw - 40px) / 5 * ${items.length > 5 ? 5 : items.length})`,
+                            margin: 'auto',
                             gap: '20px',
                             marginTop: '20px'
                         }}
@@ -120,12 +121,12 @@ function LastItems() {
                             ))}
                     </Box>
                     <Box sx={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
-                        {itemsLimit < maxItems && (
+                        {items && itemsLimit <= items.length && (
                             <Button variant="outlined" sx={{ marginTop: '20px' }} onClick={handleLoadMore}>
                                 <ExpandMoreIcon color="primary" sx={{ fontSize: '40px' }} />
                             </Button>
                         )}
-                        {itemsLimit > minItems && (
+                        {items && itemsLimit > variables.ITEMS_MIN && (
                             <Button variant="outlined" sx={{ marginTop: '20px' }} onClick={handleResetItems}>
                                 <ExpandLessIcon color="primary" sx={{ fontSize: '40px' }} />
                             </Button>

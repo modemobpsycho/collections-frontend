@@ -60,6 +60,7 @@ function SignUp() {
                         onChange={handleChange}
                         required
                         className="input-field"
+                        inputProps={{ maxLength: 30 }}
                     />
 
                     <TextField
@@ -68,9 +69,11 @@ function SignUp() {
                         name="email"
                         type="email"
                         value={formData.email}
+                        autoComplete="email"
                         onChange={handleChange}
                         required
                         className="input-field"
+                        inputProps={{ maxLength: 50 }}
                     />
 
                     <TextField
@@ -82,6 +85,12 @@ function SignUp() {
                         onChange={handleChange}
                         required
                         className="input-field"
+                        inputProps={{
+                            maxLength: 20,
+                            minLength: 6,
+                            pattern: '^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$',
+                            title: 'Password must contain at least one letter and one number'
+                        }}
                     />
 
                     <Button type="submit" variant="contained" color="primary" className="button" disabled={isLoading}>

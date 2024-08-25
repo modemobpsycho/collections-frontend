@@ -131,6 +131,7 @@ function Login() {
                     onChange={handleChange}
                     required
                     className="input-field"
+                    inputProps={{ maxLength: 50 }}
                 />
                 <TextField
                     type="password"
@@ -141,6 +142,10 @@ function Login() {
                     onChange={handleChange}
                     required
                     className="input-field"
+                    inputProps={{
+                        maxLength: 20,
+                        minLength: 6
+                    }}
                 />
                 <Button type="submit" variant="contained" color="primary" className="button" disabled={isLoading}>
                     {isLoading ? <CircularProgress size={25} /> : <FormattedMessage id="Log_in_button" />}
