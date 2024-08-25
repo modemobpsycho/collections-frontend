@@ -7,9 +7,11 @@ import CollectionAddData from './CollectionAddData';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import 'cropperjs/dist/cropper.css';
+import { useActions } from '@/hooks/useActions';
 
 function AddCollection() {
     const intl = useIntl();
+    const { showSnackbar } = useActions();
     const { token } = useUserState();
     const [file, setFile] = useState<File>();
     const [croppedImage, setCroppedImage] = useState<string | undefined>(undefined);
@@ -18,6 +20,7 @@ function AddCollection() {
         const selectedFile = event.target.files?.[0];
         if (selectedFile) {
             setFile(selectedFile);
+            showSnackbar('Please wait, the image must be cropped for successful upload.');
         }
     };
 

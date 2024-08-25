@@ -3,9 +3,11 @@ import { Box, Button, Card, InputLabel, Typography } from '@mui/material';
 import ImageCropper from '@/components/ImageCropper';
 import CollectionChangeData from './CollectionChangeData';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { useActions } from '@/hooks/useActions';
 
 function ChangeCollection() {
     const [croppedImage, setCroppedImage] = useState<string | undefined>(undefined);
+    const { showSnackbar } = useActions();
     const intl = useIntl();
     const [file, setFile] = useState<File>();
 
@@ -13,6 +15,7 @@ function ChangeCollection() {
         const selectedFile = event.target.files?.[0];
         if (selectedFile) {
             setFile(selectedFile);
+            showSnackbar('Please wait, the image must be cropped for successful upload.');
         }
     };
 
@@ -76,7 +79,6 @@ function ChangeCollection() {
                                 setCroppedImage={setCroppedImage}
                             />
                         </Box>
-
                         {croppedImage && (
                             <Box
                                 sx={{

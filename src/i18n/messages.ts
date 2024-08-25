@@ -52,7 +52,7 @@ export const messages = {
         Crop_image: 'Crop image',
         Cancel_upload: 'Cancel upload',
         Add_new_collection: 'Add new collection',
-        Upload_cover_image: 'Upload cover image',
+        Upload_cover_image: 'Upload cover image (must be cropped for successful upload)',
         Upload_image: 'Upload image',
         Collection_title: 'Collection title',
         Collection_description: 'Collection description (optional in Markdown)',
@@ -137,7 +137,10 @@ export const messages = {
         All_collections_empty: 'Our collection library is empty. And this is very sad for us :(',
         Searching_for: 'Searching for',
         Back_to_item: 'Back to item',
-        Collections_empty: 'Our collection library is empty. And this is very sad for us :('
+        Collections_empty: 'Our collection library is empty. And this is very sad for us :(',
+        No_items_found: 'No items found for your search :(',
+        You_are_not_administrator: 'You are not administrator',
+        Nothing_to_update: 'Nothing to update'
     },
     [LOCALES.RUSSIAN]: {
         Login: 'Вход',
@@ -192,7 +195,7 @@ export const messages = {
         Crop_image: 'Обрезать изображение',
         Cancel_upload: 'Отменить загрузку',
         Add_new_collection: 'Добавить новую коллекцию',
-        Upload_cover_image: 'Загрузить обложку',
+        Upload_cover_image: 'Загрузить обложку (для успешной загрузки изображение необходимо обрезать)',
         Upload_image: 'Загрузить изображение',
         Collection_title: 'Название коллекции',
         Collection_description: 'Описание коллекции (опционально в Markdown)',
@@ -274,6 +277,9 @@ export const messages = {
         Searching_for: 'Поиск по запросу:',
         Back_to_item: 'Вернуться к предмету',
         Item_updated_successfully: 'Предмет успешно обновлен',
-        Collections_empty: 'Наша библиотека коллекций пуста. И это очень грустно для нас :('
+        Collections_empty: 'Наша библиотека коллекций пуста. И это очень грустно для нас :(',
+        No_items_found: 'По вашему запросу ничего не нашлось :(',
+        You_are_not_administrator: 'Вы не являетесь администратором',
+        Nothing_to_update: 'Данные для обновления не найдены'
     }
 };

@@ -50,7 +50,6 @@ function CabinetWrapper({ children }: { children: ReactElement[] | ReactElement 
                 <Button variant="contained" onClick={() => navigate('/cabinet')}>
                     <FormattedMessage id="My_data" />
                 </Button>
-
                 <Button variant="contained" onClick={() => navigate('/cabinet/comments')}>
                     <FormattedMessage id="My_comments" />
                 </Button>
