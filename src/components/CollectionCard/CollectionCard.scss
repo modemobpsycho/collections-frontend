@@ -1,0 +1,216 @@
+@import '@/styles/variables.scss';
+
+.collection-card-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 10px;
+
+    @media screen and (max-width: $media-lg) {
+        padding: 5px;
+    }
+
+    .content {
+        &-header {
+            display: flex;
+            gap: 10px;
+
+            @media screen and (max-width: $media-lg) {
+                gap: 5px;
+            }
+
+            @media screen and (max-width: $media-md) {
+                flex-direction: column-reverse;
+            }
+
+            @media screen and (max-width: $media-sm) {
+                gap: 5px;
+            }
+
+            &-img {
+                width: 50%;
+                border-radius: 10px;
+
+                @media screen and (max-width: $media-md) {
+                    width: 90%;
+                    margin: 0 auto;
+                }
+
+                @media screen and (max-width: $media-sm) {
+                    width: 100%;
+                    margin: 0 auto;
+                }
+            }
+
+            &-titles {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin: 0 auto;
+                width: calc(50% - 10px);
+
+                @media screen and (max-width: $media-md) {
+                    width: 100%;
+                    margin: 0 auto;
+                }
+
+                &-title {
+                    font-size: 18px;
+                    width: 100%;
+                    text-align: center;
+                    overflow: hidden;
+
+                    @media screen and (max-width: $media-lg) {
+                        font-size: 20px;
+                    }
+
+                    @media screen and (max-width: $media-md) {
+                        font-size: 22px;
+                    }
+
+                    @media screen and (max-width: $media-sm) {
+                        font-size: 16px;
+                        overflow: visible;
+                        word-wrap: break-word;
+                    }
+
+                    @media screen and (max-width: $media-xs) {
+                        font-size: 16px;
+                        overflow: visible;
+                        word-wrap: break-word;
+                    }
+                }
+
+                &-theme {
+                    margin-bottom: 10px;
+                    font-size: 14px;
+                    width: 100%;
+                    text-align: center;
+
+                    @media screen and (max-width: $media-lg) {
+                        font-size: 16px;
+                    }
+
+                    @media screen and (max-width: $media-md) {
+                        font-size: 14px;
+                    }
+
+                    @media screen and (max-width: $media-sm) {
+                        font-size: 12px;
+                    }
+
+                    @media screen and (max-width: $media-xs) {
+                        font-size: 11px;
+                    }
+                }
+            }
+        }
+
+        &-description {
+            display: flex;
+            &-created {
+                font-size: 16px;
+                margin-top: 10px;
+
+                @media screen and (max-width: $media-xxl) {
+                    font-size: 14px;
+                }
+
+                @media screen and (max-width: $media-lg) {
+                    font-size: 18px;
+                }
+
+                @media screen and (max-width: $media-md) {
+                    font-size: 16px;
+                }
+
+                @media screen and (max-width: $media-sm) {
+                    font-size: 14px;
+                }
+            }
+
+            &-date {
+                font-size: 16px;
+                margin-top: 10px;
+                margin-left: auto;
+
+                @media screen and (max-width: $media-xxl) {
+                    font-size: 14px;
+                }
+
+                @media screen and (max-width: $media-lg) {
+                    font-size: 18px;
+                }
+
+                @media screen and (max-width: $media-md) {
+                    font-size: 16px;
+                }
+
+                @media screen and (max-width: $media-sm) {
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+    .block-icons {
+        display: flex;
+        width: 100%;
+        padding: 10px;
+        gap: 10px;
+        padding-left: 15px;
+
+        @media screen and (max-width: $media-sm) {
+            flex-direction: column;
+        }
+
+        &-wrapper {
+            display: flex;
+            gap: 10px;
+
+            @media screen and (max-width: $media-lg) {
+                gap: 10px;
+            }
+
+            @media screen and (max-width: $media-md) {
+                gap: 10px;
+            }
+
+            @media screen and (max-width: $media-sm) {
+                width: 100%;
+                justify-content: center;
+                gap: 15px;
+            }
+        }
+
+        &-like {
+            display: flex;
+            margin-top: auto;
+            gap: 5px;
+        }
+
+        &-dislike {
+            display: flex;
+            margin-top: auto;
+            gap: 5px;
+        }
+
+        &-items {
+            display: flex;
+            margin-top: auto;
+            gap: 10px;
+        }
+
+        &-view {
+            margin-left: auto;
+            margin-right: 5px;
+            font-size: 12px;
+
+            @media screen and (max-width: $media-sm) {
+                margin-top: 10px;
+                align-self: center;
+                margin-left: 0;
+                width: 100%;
+            }
+        }
+    }
+}

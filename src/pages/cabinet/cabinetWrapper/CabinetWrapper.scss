@@ -1,0 +1,25 @@
+@import '@/styles/variables.scss';
+
+.cabinet {
+    display: flex;
+    flex-direction: column;
+    width: 10%;
+    gap: 10px;
+    margin: 0 10px;
+    height: 85%;
+    position: fixed;
+
+    @media screen and (max-width: $media-xl) {
+        width: 15%;
+    }
+
+    @media screen and (max-width: $media-lg) {
+        width: 20%;
+    }
+
+    @media screen and (max-width: $media-sm) {
+        position: static;
+        width: 100%;
+        margin: 0;
+    }
+}

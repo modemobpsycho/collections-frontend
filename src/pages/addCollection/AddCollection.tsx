@@ -5,9 +5,10 @@ import { Navigate } from 'react-router-dom';
 import { useUserState } from '@/hooks/useStoreState';
 import CollectionAddData from './CollectionAddData';
 import { FormattedMessage, useIntl } from 'react-intl';
-
 import 'cropperjs/dist/cropper.css';
 import { useActions } from '@/hooks/useActions';
+
+import './AddCollection.scss';
 
 function AddCollection() {
     const intl = useIntl();
@@ -20,7 +21,7 @@ function AddCollection() {
         const selectedFile = event.target.files?.[0];
         if (selectedFile) {
             setFile(selectedFile);
-            showSnackbar('Please wait, the image must be cropped for successful upload.');
+            showSnackbar('Please_wait_the_image_must_be_cropped_for_successful_upload');
         }
     };
 
@@ -29,7 +30,7 @@ function AddCollection() {
     }
 
     return (
-        <Card sx={{ width: '60%', margin: '20px auto' }}>
+        <Card className="add-collection">
             <CardContent>
                 <Typography variant="h4" component="div" sx={{ textAlign: 'center' }}>
                     <FormattedMessage id="Add_new_collection" />
@@ -39,7 +40,7 @@ function AddCollection() {
                         <FormattedMessage id="Upload_cover_image" />
                     </InputLabel>
                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                        <Button variant="contained" sx={{ width: '20%', position: 'relative' }}>
+                        <Button variant="contained" className="upload-button">
                             <label htmlFor="upload-image" style={{ width: '100%', height: '100%' }}>
                                 <Typography variant="subtitle2">
                                     <FormattedMessage id="Upload_image" />
@@ -62,7 +63,7 @@ function AddCollection() {
                             </label>
                         </Button>
                         {file && (
-                            <Box sx={{ display: 'flex', flexDirection: 'row', gap: '10px' }}>
+                            <Box className="image-box">
                                 <Box
                                     sx={{
                                         display: 'flex',
@@ -87,7 +88,7 @@ function AddCollection() {
                                         <img
                                             src={croppedImage}
                                             alt={intl.formatMessage({ id: 'Cropped_preview' })}
-                                            style={{ maxWidth: '500px', borderRadius: '10px' }}
+                                            className="img-cropped"
                                         />
                                     </Box>
                                 )}

@@ -62,7 +62,7 @@ function AdminPanel() {
                 padding: '10px',
                 gap: '10px',
                 width: '40%',
-                margin: 'auto',
+                margin: '20px auto',
                 borderRadius: '10px',
                 backgroundColor: 'backgroundCardDark'
             }}

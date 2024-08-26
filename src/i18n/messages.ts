@@ -30,7 +30,7 @@ export const messages = {
         Welcome_to_our_collection_world: 'Welcome to our collection world',
         Explore_unique_collections_from_our_users: 'Explore unique collections from our users.',
         Home: 'Home',
-        All_collections: 'Collections library',
+        All_collections: 'Gallery',
         My_collections: 'My collections',
         Search: 'Search',
         Join: 'Join',
@@ -134,13 +134,15 @@ export const messages = {
         Back_to_collection: 'Back to collection',
         Last_tags: 'Latest added tags',
         Last_items: 'Latest added items',
-        All_collections_empty: 'Our collection library is empty. And this is very sad for us :(',
+        All_collections_empty: 'Our collection library is empty. Be the first to create it!',
         Searching_for: 'Searching for',
         Back_to_item: 'Back to item',
-        Collections_empty: 'Our collection library is empty. And this is very sad for us :(',
+        Collections_empty: 'Our collection library is empty. Be the first to create it!',
         No_items_found: 'No items found for your search :(',
         You_are_not_administrator: 'You are not administrator',
-        Nothing_to_update: 'Nothing to update'
+        Nothing_to_update: 'Nothing to update',
+        Please_wait_the_image_must_be_cropped_for_successful_upload:
+            'Warning! The image must be cropped for successful upload'
     },
     [LOCALES.RUSSIAN]: {
         Login: 'Вход',
@@ -170,7 +172,7 @@ export const messages = {
         Welcome_to_our_collection_world: 'Добро пожаловать в наш мир коллекций',
         Explore_unique_collections_from_our_users: 'Исследуйте уникальные коллекции от наших пользователей.',
         Home: 'Главная',
-        All_collections: 'Библиотека коллекций',
+        All_collections: 'Галерея',
         My_collections: 'Мои коллекции',
         Search: 'Поиск',
         Join: 'Вход',
@@ -273,13 +275,15 @@ export const messages = {
         Back_to_collection: 'Вернуться к коллекции',
         Last_tags: 'Последние добавленные теги',
         Last_items: 'Последние добавленные предметы',
-        All_collections_empty: 'Наша библиотека коллекций пуста. И это очень грустно для нас :(',
+        All_collections_empty: 'Наша библиотека коллекций пуста. Будь первым кто ее создаст!',
         Searching_for: 'Поиск по запросу:',
         Back_to_item: 'Вернуться к предмету',
         Item_updated_successfully: 'Предмет успешно обновлен',
-        Collections_empty: 'Наша библиотека коллекций пуста. И это очень грустно для нас :(',
+        Collections_empty: 'Наша библиотека коллекций пуста. Будь первым кто ее создаст!',
         No_items_found: 'По вашему запросу ничего не нашлось :(',
         You_are_not_administrator: 'Вы не являетесь администратором',
-        Nothing_to_update: 'Данные для обновления не найдены'
+        Nothing_to_update: 'Данные для обновления не найдены',
+        Please_wait_the_image_must_be_cropped_for_successful_upload:
+            'Внимание! Изображение должно быть обрезано для успешного загрузки'
     }
 };

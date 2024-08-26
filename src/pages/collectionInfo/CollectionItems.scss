@@ -1,0 +1,27 @@
+@import '@/styles/variables.scss';
+
+.collection-items {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 20px;
+
+    @media screen and (max-width: $media-lg) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        padding: 10px;
+    }
+
+    @media screen and (max-width: $media-md) {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 5px;
+        padding: 5px;
+    }
+
+    .item-name {
+        font-size: 20px;
+        text-align: center;
+        word-break: break-word;
+        margin-bottom: 10px;
+    }
+}

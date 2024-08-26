@@ -7,25 +7,18 @@ function BiggestCollections() {
     const { data: collections, isLoading: isLoadingCollections } = useGetBiggestCollectionsQuery();
 
     return (
-        <Box>
-            <Box sx={{ textAlign: 'center' }}>
-                <Typography variant="h3">
+        <Box className="biggest-wrapper">
+            <Box>
+                <Typography className="typography-wrapper-welcome">
                     <FormattedMessage id="Welcome_to_Our_Collections" />
                 </Typography>
             </Box>
             {collections && collections.length > 0 ? (
                 <>
-                    <Typography variant="h4" sx={{ marginBottom: '20px', textAlign: 'center' }}>
+                    <Typography className="biggest-title">
                         <FormattedMessage id="Here_our_biggest_collections" />
                     </Typography>
-                    <Box
-                        sx={{
-                            display: 'grid',
-                            gridTemplateColumns: 'repeat(3, 1fr)',
-                            justifyContent: 'center',
-                            gap: '20px'
-                        }}
-                    >
+                    <Box className="biggest-collections">
                         {collections &&
                             collections.map((collection) => (
                                 <CollectionCard key={collection.id} collection={collection} />
@@ -33,7 +26,7 @@ function BiggestCollections() {
                     </Box>
                 </>
             ) : (
-                <Typography variant="h4" sx={{ textAlign: 'center', margin: '20px' }}>
+                <Typography className="biggest-title">
                     {isLoadingCollections ? <CircularProgress /> : <FormattedMessage id="Collections_empty" />}
                 </Typography>
             )}

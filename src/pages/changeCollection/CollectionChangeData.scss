@@ -1,0 +1,62 @@
+@import '@/styles/variables.scss';
+
+.button-back {
+    position: relative;
+    margin: 20px;
+
+    top: calc(80px);
+    left: 10px;
+
+    @media screen and (max-width: $media-lg) {
+        top: calc(90px);
+    }
+
+    @media screen and (max-width: $media-md) {
+        position: relative !important;
+        top: 0 !important;
+        left: 0 !important;
+    }
+}
+
+.header-box {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+
+    @media screen and (max-width: $media-lg) {
+        flex-direction: column !important; // for rewriting MUI styles
+        gap: 0;
+    }
+}
+
+.img {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 10px;
+
+    @media screen and (max-width: $media-lg) {
+        max-width: 100%;
+    }
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 50%;
+    margin-top: 10px;
+
+    @media screen and (max-width: $media-lg) {
+        width: 100%;
+    }
+}
+
+.submit-button {
+    margin-top: 20px;
+    width: 20%;
+    align-self: center;
+
+    @media screen and (max-width: $media-lg) {
+        width: 100%;
+    }
+}

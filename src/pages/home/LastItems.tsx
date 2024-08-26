@@ -27,34 +27,19 @@ function LastItems() {
     return (
         <>
             {items && items.length > 0 && (
-                <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                    <Typography variant="h4" sx={{ textAlign: 'center', marginTop: '40px' }}>
+                <Box className="last-items-wrapper">
+                    <Typography className="last-items-wrapper-title">
                         <FormattedMessage id="Last_items" />
                     </Typography>
-                    <Box
-                        sx={{
-                            display: 'grid',
-                            gridTemplateColumns: `repeat(${items.length > 5 ? 5 : items.length}, 1fr)`,
-                            width: `calc((100vw - 40px) / 5 * ${items.length > 5 ? 5 : items.length})`,
-                            margin: 'auto',
-                            gap: '20px',
-                            marginTop: '20px'
-                        }}
-                    >
+                    <Box className="last-items-wrapper-items">
                         {Array.isArray(items) &&
                             items &&
                             items?.map((item) => (
                                 <Card
                                     key={item.id}
                                     onClick={() => navigate(`/item/${item.id}`)}
-                                    sx={{
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        padding: '10px',
-                                        borderRadius: '10px',
-                                        backgroundColor: 'secondary.dark',
-                                        cursor: 'pointer'
-                                    }}
+                                    className="last-item-wrapper"
+                                    sx={{ backgroundColor: 'secondary.dark' }}
                                 >
                                     <Box
                                         sx={{
@@ -67,12 +52,7 @@ function LastItems() {
                                             <img
                                                 src={variables.BACKEND_URL + item.collection.photoPath}
                                                 alt={item.name}
-                                                style={{
-                                                    width: '60px',
-                                                    height: '60px',
-                                                    borderRadius: '50%',
-                                                    objectFit: 'cover'
-                                                }}
+                                                className="last-item-wrapper-img"
                                             />
                                         </Box>
                                         <Box

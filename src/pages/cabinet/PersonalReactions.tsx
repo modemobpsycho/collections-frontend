@@ -32,7 +32,7 @@ function PersonalReactions() {
                 padding: '10px',
                 borderRadius: '10px',
                 margin: 'auto',
-                marginTop: '10px',
+                marginTop: '20px',
                 backgroundColor: 'secondary.dark'
             }}
         >

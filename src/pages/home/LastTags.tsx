@@ -9,21 +9,14 @@ function LastTags() {
     const [tagsLimit, setTagsLimit] = useState(15);
     const { data: tags } = useGetLastTagsQuery(tagsLimit);
     return (
-        <Box>
+        <Box className="last-tags-wrapper">
             {tags && tags.length > 0 && (
                 <>
-                    <Typography variant="h4" sx={{ textAlign: 'center', marginTop: '40px' }}>
+                    <Typography className="last-tags-wrapper-title" sx={{ marginBottom: '20px' }}>
                         <FormattedMessage id="Last_tags" />
                     </Typography>
-                    <Box>
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                gap: '20px',
-                                marginTop: '20px'
-                            }}
-                        >
+                    <Box sx={{ display: 'flex' }}>
+                        <Box className="last-tags-wrapper-tags">
                             {tags &&
                                 tags.map((tag) => (
                                     <Card

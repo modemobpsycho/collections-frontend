@@ -12,6 +12,8 @@ import { useUserState } from '@/hooks/useStoreState';
 import { FormattedMessage } from 'react-intl';
 import { useActions } from '@/hooks/useActions';
 
+import './CollectionChangeData.scss';
+
 function CollectionChangeData({ croppedImage, file }: { croppedImage: string | undefined; file: File | undefined }) {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -93,7 +95,8 @@ function CollectionChangeData({ croppedImage, file }: { croppedImage: string | u
             <Button
                 variant="outlined"
                 onClick={() => navigate('/collections/' + dataGet?.id)}
-                sx={{ margin: '20px', position: 'fixed', top: 'calc(60px)', left: '0' }}
+                className="button-back"
+                sx={{ position: 'fixed' }}
             >
                 <FormattedMessage id="Back_to_collection" />
             </Button>
@@ -103,28 +106,16 @@ function CollectionChangeData({ croppedImage, file }: { croppedImage: string | u
                 className="form-box"
                 onSubmit={handleSubmit}
             >
-                <Box sx={{ display: 'flex', flexDirection: 'row', gap: '20px' }}>
+                <Box className="header-box">
                     {dataGet && (
                         <Box>
                             <InputLabel sx={{ margin: '10px 0', width: '100%' }}>
                                 <FormattedMessage id="Current_collection_image" />
                             </InputLabel>
-                            <img
-                                src={variables.BACKEND_URL + dataGet.photoPath}
-                                alt={dataGet.title}
-                                style={{ width: '500px', borderRadius: '10px' }}
-                            />
+                            <img src={variables.BACKEND_URL + dataGet.photoPath} alt={dataGet.title} className="img" />
                         </Box>
                     )}
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            gap: '10px',
-                            width: '50%',
-                            marginTop: '10px'
-                        }}
-                    >
+                    <Box className="inputs">
                         <InputLabel>
                             <FormattedMessage id="Collection_title" />
                         </InputLabel>
@@ -176,7 +167,7 @@ function CollectionChangeData({ croppedImage, file }: { croppedImage: string | u
                 />
                 <Button
                     variant="contained"
-                    sx={{ marginTop: '20px', width: '20%', alignSelf: 'center' }}
+                    className="submit-button"
                     type="submit"
                     disabled={isLoadingCollection || isLoadingImage}
                 >

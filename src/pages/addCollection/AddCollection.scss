@@ -1,0 +1,38 @@
+@import '@/styles/variables.scss';
+
+.add-collection {
+    width: 70%;
+    margin: 20px auto;
+
+    @media screen and (max-width: $media-md) {
+        width: 90%;
+    }
+
+    @media screen and (max-width: $media-sm) {
+        width: 95%;
+    }
+
+    .upload-button {
+        width: 20%;
+        position: relative;
+
+        @media screen and (max-width: $media-sm) {
+            width: 100%;
+        }
+    }
+
+    .image-box {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+
+        @media screen and (max-width: $media-md) {
+            flex-direction: column;
+        }
+    }
+
+    .img-cropped {
+        width: 100%;
+        border-radius: 10px;
+    }
+}

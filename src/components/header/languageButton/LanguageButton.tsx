@@ -23,8 +23,8 @@ function LanguageButton() {
 
     return (
         <>
-            <IconButton color="inherit" onClick={handleMenuLanguageClick} sx={{ padding: '0', marginRight: '20px' }}>
-                <LanguageIcon sx={{ fontSize: '30px' }} />
+            <IconButton color="inherit" onClick={handleMenuLanguageClick} sx={{ padding: '0' }}>
+                <LanguageIcon className="header-wrapper-settings-icon" />
             </IconButton>
             <Menu anchorEl={anchorElLanguage} open={Boolean(anchorElLanguage)} onClose={handleClose}>
                 <MenuItem onClick={() => handleLanguageMenuItemClick(0)}>English</MenuItem>

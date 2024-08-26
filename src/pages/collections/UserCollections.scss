@@ -1,0 +1,76 @@
+@import '@/styles/variables.scss';
+
+.user-collections {
+    width: 50vw;
+    max-width: 50vw;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: auto;
+
+    @media screen and (max-width: $media-xl) {
+        width: 70%;
+        max-width: 100%;
+    }
+
+    @media screen and (max-width: $media-lg) {
+        width: 80vw;
+        max-width: 80vw;
+    }
+
+    @media screen and (max-width: $media-md) {
+        width: 90vw;
+        max-width: 90vw;
+    }
+
+    @media screen and (max-width: $media-sm) {
+        width: 95vw;
+        max-width: 95vw;
+    }
+
+    .header {
+        text-align: center;
+        margin: 20px;
+        font-size: 32px;
+
+        @media screen and (max-width: $media-xl) {
+            font-size: 30px;
+        }
+
+        @media screen and (max-width: $media-lg) {
+            font-size: 28px;
+        }
+
+        @media screen and (max-width: $media-md) {
+            font-size: 26px;
+        }
+    }
+
+    .add-collection {
+        position: fixed;
+        left: calc(75% + 20px);
+        bottom: 10px;
+
+        @media screen and (max-width: $media-xl) {
+            left: calc(85% + 20px);
+        }
+
+        @media screen and (max-width: $media-lg) {
+            left: calc(90% + 10px);
+        }
+
+        @media screen and (max-width: $media-md) {
+            left: calc(90% - 10px);
+        }
+
+        @media screen and (max-width: $media-sm) {
+            left: calc(80%);
+        }
+
+        @media screen and (max-width: $media-xs) {
+            left: calc(70% + 15px);
+        }
+    }
+}

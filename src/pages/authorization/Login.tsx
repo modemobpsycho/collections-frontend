@@ -116,9 +116,9 @@ function Login() {
     });
 
     return (
-        <Container maxWidth="sm" className="container">
+        <Container className="container">
             <Box component="form" className="form-box" autoComplete="on" onSubmit={handleSubmit}>
-                <Typography variant="h4" sx={{ marginBottom: '20px' }}>
+                <Typography className="login-title">
                     <FormattedMessage id="Login" />
                 </Typography>
                 <TextField
@@ -126,7 +126,6 @@ function Login() {
                     id="email"
                     name="email"
                     type="email"
-                    autoComplete="email"
                     value={formData.email}
                     onChange={handleChange}
                     required

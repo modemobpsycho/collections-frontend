@@ -40,9 +40,6 @@ const ImageCropper = ({ file, setFile, croppedImage, setCroppedImage }: ImageCro
                 aspectRatio={variables.ASPECT_RATIO}
                 guides={true}
                 style={{ width: '400px', maxHeight: '600px' }}
-                zoomable={false}
-                scalable={false}
-                movable={false}
             />
             <Box style={{ display: 'flex', flexDirection: 'row', gap: '10px' }}>
                 <Button variant="contained" onClick={handleCrop} sx={{ marginTop: '10px' }}>

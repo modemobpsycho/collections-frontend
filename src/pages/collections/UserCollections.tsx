@@ -10,6 +10,8 @@ import { variables } from '@/helpers/variables';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 
+import './UserCollections.scss';
+
 function UserCollections() {
     const [collectionsLimit, setCollectionsLimit] = useState(variables.USER_COLLECTIONS_MIN);
     const { isLoading, data } = useGetMyCollectionsQuery(collectionsLimit);
@@ -17,21 +19,10 @@ function UserCollections() {
     useEffect(() => {}, [isLoading]);
 
     return (
-        <Box
-            sx={{
-                width: '50vw',
-                maxWidth: '50vw',
-                margin: 'auto',
-                display: 'grid',
-                gridTemplateColumns: 'repeat(1, 1fr)',
-                justifyContent: 'center',
-                alignItems: 'center',
-                gap: '10px'
-            }}
-        >
+        <Box className="user-collections">
             {data && data?.length > 0 ? (
                 <>
-                    <Typography variant="h4" sx={{ textAlign: 'center', margin: '20px' }}>
+                    <Typography className="header">
                         <FormattedMessage id="My_collections" />
                     </Typography>
                     <Box
@@ -55,11 +46,7 @@ function UserCollections() {
                     {isLoading ? <CircularProgress /> : <FormattedMessage id="No_user_collections" />}
                 </Typography>
             )}
-            <Link
-                component={RouterLink}
-                to="/add-collection"
-                sx={{ position: 'fixed', left: 'calc(75% + 20px)', bottom: '10px' }}
-            >
+            <Link component={RouterLink} to="/add-collection" className="add-collection">
                 <Button
                     variant="contained"
                     color="primary"

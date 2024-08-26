@@ -5,17 +5,13 @@ import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 
+import './CollectionItems.scss';
+
 function CollectionItems({ items }: { items: IItem[] | undefined }) {
     const navigate = useNavigate();
     return (
         <Box
-            sx={{
-                marginTop: '20px',
-                flexDirection: 'column',
-                gap: '10px',
-                display: 'grid',
-                gridTemplateColumns: 'repeat(2, 1fr)'
-            }}
+            className="collection-items"
         >
             {items &&
                 items.map((item) => (
@@ -32,10 +28,7 @@ function CollectionItems({ items }: { items: IItem[] | undefined }) {
                     >
                         <Box sx={{ display: 'flex' }}>
                             <Typography
-                                variant="h5"
-                                noWrap
-                                component="div"
-                                sx={{ marginBottom: '10px', width: '250px' }}
+                                className="item-name"
                             >
                                 {item.name}
                             </Typography>

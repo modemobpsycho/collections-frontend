@@ -45,9 +45,9 @@ function SignUp() {
 
     return (
         <div className="container">
-            <Container maxWidth="sm">
+            <Container>
                 <Box component="form" className="form-box" onSubmit={handleSubmit}>
-                    <Typography variant="h4" sx={{ marginBottom: '20px' }}>
+                    <Typography className="login-title">
                         <FormattedMessage id="Sign_up" />
                     </Typography>
 
@@ -96,7 +96,7 @@ function SignUp() {
                     <Button type="submit" variant="contained" color="primary" className="button" disabled={isLoading}>
                         {isLoading ? <CircularProgress size={25} /> : <FormattedMessage id="Sign_up_button" />}
                     </Button>
-                    <Typography variant="body1" className="new-to-collections">
+                    <Typography className="new-to-collections">
                         <FormattedMessage id="Already_have_an_account" />
                         <Typography component={Link} to="/login" sx={{ textDecoration: 'none', marginLeft: '5px' }}>
                             <FormattedMessage id="Log_in_button" />

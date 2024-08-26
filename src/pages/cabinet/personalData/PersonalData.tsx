@@ -1,8 +1,10 @@
 import { Box, Button, Card, CircularProgress, InputLabel, TextField, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { useGetUserQuery, useUpdateUserMutation } from '../../stores/api/user.api';
-import { useActions } from '../../hooks/useActions';
+import { useGetUserQuery, useUpdateUserMutation } from '@/stores/api/user.api';
+import { useActions } from '@/hooks/useActions';
+
+import './PersonalData.scss';
 
 function PersonalData() {
     const { setUser, showSnackbar } = useActions();
@@ -56,15 +58,8 @@ function PersonalData() {
 
     return (
         <Card
+            className="card"
             sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                width: '30%',
-                padding: '10px',
-                borderRadius: '10px',
-                margin: 'auto',
-                marginTop: '10px',
-                gap: '10px',
                 backgroundColor: 'secondary.dark'
             }}
         >
@@ -75,7 +70,6 @@ function PersonalData() {
             ) : (
                 <Box
                     component="form"
-                    className="form-box"
                     onSubmit={handleSubmit}
                     sx={{ display: 'flex', gap: '10px', flexDirection: 'column' }}
                 >
@@ -103,7 +97,6 @@ function PersonalData() {
                         type="email"
                         value={formData.email}
                         onChange={handleChange}
-                        autoComplete="email"
                         required
                         inputProps={{ maxLength: 50 }}
                     />

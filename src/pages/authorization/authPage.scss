@@ -1,8 +1,30 @@
+@import '@/styles/variables.scss';
+
 .auth-page {
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
+
+    .header {
+        position: absolute;
+        margin-top: 20px;
+        width: 100%;
+        text-align: center;
+        font-size: 34px;
+
+        @media screen and (max-width: $media-md) {
+            font-size: 28px;
+        }
+
+        @media screen and (max-width: $media-sm) {
+            font-size: 24px;
+        }
+
+        @media screen and (max-width: $media-xs) {
+            font-size: 20px;
+        }
+    }
 }
 
 .container {
@@ -17,16 +39,66 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        margin: 0 auto;
         justify-content: center;
         box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+        width: 50%;
 
-        h3 {
+        @media screen and (max-width: $media-xl) {
+            width: 60%;
+        }
+        @media screen and (max-width: $media-lg) {
+            width: 70%;
+        }
+
+        @media screen and (max-width: $media-md) {
+            width: 80%;
+        }
+
+        @media screen and (max-width: $media-sm) {
+            width: 90%;
+        }
+
+        @media screen and (max-width: $media-xs) {
+            width: 100%;
+        }
+
+        .login-title {
+            font-size: 32px;
             margin-bottom: 20px;
+
+            @media screen and (max-width: $media-md) {
+                font-size: 28px;
+            }
+
+            @media screen and (max-width: $media-sm) {
+                font-size: 24px;
+            }
+
+            @media screen and (max-width: $media-xs) {
+                font-size: 24px;
+            }
         }
 
         .input-field {
             width: 50%;
             margin-bottom: 20px;
+
+            @media screen and (max-width: $media-lg) {
+                width: 70%;
+            }
+
+            @media screen and (max-width: $media-md) {
+                width: 80%;
+            }
+
+            @media screen and (max-width: $media-sm) {
+                width: 90%;
+            }
+
+            @media screen and (max-width: $media-xs) {
+                width: 100%;
+            }
         }
 
         .button {
@@ -35,7 +107,11 @@
 
         .new-to-collections {
             margin-top: 20px;
+            font-size: 16px;
 
+            @media screen and (max-width: $media-md) {
+                font-size: 14px;
+            }
             a {
                 text-decoration: none;
                 margin-left: 5px;

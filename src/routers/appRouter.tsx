@@ -11,12 +11,12 @@ import AddCollection from '@/pages/addCollection/AddCollection';
 import CollectionInfo from '@/pages/collectionInfo/CollectionInfo';
 import ChangeCollection from '@/pages/changeCollection/ChangeCollection';
 import AdminPanel from '@/pages/cabinet/AdminPanel';
-import CabinetWrapper from '@/pages/cabinet/CabinetWrapper';
-import PersonalData from '@/pages/cabinet/PersonalData';
+import CabinetWrapper from '@/pages/cabinet/cabinetWrapper/CabinetWrapper';
+import PersonalData from '@/pages/cabinet/personalData/PersonalData';
 import Item from '@/pages/item/Item';
 import ChangeItem from '@/pages/changeItem/ChangeItem';
 import PersonalReactions from '@/pages/cabinet/PersonalReactions';
-import PersonalComments from '@/pages/cabinet/PersonalComments';
+import PersonalComments from '@/pages/cabinet/personalComments/PersonalComments';
 import Search from '@/pages/search/Search';
 
 export const AppRouter = () => {

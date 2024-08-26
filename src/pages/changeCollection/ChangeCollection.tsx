@@ -5,6 +5,8 @@ import CollectionChangeData from './CollectionChangeData';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useActions } from '@/hooks/useActions';
 
+import './ChangeCollection.scss';
+
 function ChangeCollection() {
     const [croppedImage, setCroppedImage] = useState<string | undefined>(undefined);
     const { showSnackbar } = useActions();
@@ -25,15 +27,8 @@ function ChangeCollection() {
                 <FormattedMessage id="Collection_information" />
             </Typography>
             <Card
+                className="card"
                 sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    width: '50%',
-                    padding: '20px',
-                    borderRadius: '10px',
-                    margin: 'auto',
-                    marginBottom: '20px',
-                    gap: '10px',
                     backgroundColor: 'secondary.dark'
                 }}
             >
@@ -61,13 +56,7 @@ function ChangeCollection() {
                     </label>
                 </Button>
                 {file && (
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'row',
-                            gap: '10px'
-                        }}
-                    >
+                    <Box className="image-box">
                         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                             <InputLabel sx={{ margin: '10px 0' }}>
                                 <FormattedMessage id="Crop_image_here" />
@@ -83,7 +72,6 @@ function ChangeCollection() {
                             <Box
                                 sx={{
                                     display: 'flex',
-                                    flexDirection: 'column',
                                     alignItems: 'center'
                                 }}
                             >

@@ -15,6 +15,8 @@ import { FormattedMessage } from 'react-intl';
 import CsvLink from '@/components/csvLink/CsvLink';
 import { useActions } from '@/hooks/useActions';
 
+import './CollectionInfo.scss';
+
 function CollectionInfo() {
     const { id } = useParams();
     const { showSnackbar } = useActions();
@@ -34,11 +36,8 @@ function CollectionInfo() {
         <>
             {collection ? (
                 <Card
+                    className="collection-info"
                     sx={{
-                        width: '50%',
-                        padding: '10px',
-                        borderRadius: '10px',
-                        margin: '20px auto 20px auto',
                         backgroundColor: 'secondary.dark'
                     }}
                 >
@@ -53,23 +52,8 @@ function CollectionInfo() {
                                     width: '100%'
                                 }}
                             >
-                                <Typography
-                                    variant="h4"
-                                    component="div"
-                                    sx={{
-                                        textAlign: 'center',
-                                        fontSize: '38px',
-                                        wordBreak: 'break-word',
-                                        width: '100%'
-                                    }}
-                                >
-                                    {collection.title}
-                                </Typography>
-                                <Typography
-                                    variant="h6"
-                                    color="text.secondary"
-                                    sx={{ marginBottom: '10px', marginTop: '-5px', textAlign: 'center' }}
-                                >
+                                <Typography className="title">{collection.title}</Typography>
+                                <Typography color="text.secondary" className="theme">
                                     {collection.theme}
                                 </Typography>
                             </Box>
@@ -80,7 +64,7 @@ function CollectionInfo() {
                             />
                         </Box>
                         <Box sx={{ display: 'flex' }}>
-                            <Typography variant="subtitle1" sx={{ marginTop: '10px' }}>
+                            <Typography className="created-by">
                                 {collection.user && (
                                     <>
                                         {<FormattedMessage id="Created_by" />} {collection.user.fullName}
@@ -89,14 +73,13 @@ function CollectionInfo() {
                             </Typography>
                             <CsvLink data={collection} />
                         </Box>
-                        <Typography variant="h6" sx={{ marginTop: '10px', marginBottom: '-10px' }}>
+                        <Typography className="description">
                             <FormattedMessage id="Description" />
                         </Typography>
                         {collection.description && collection.description?.trim() != '' && (
                             <Typography
-                                variant="body1"
                                 color="text.primary"
-                                sx={{ marginTop: '10px', textAlign: 'justify' }}
+                                className="description-text"
                                 dangerouslySetInnerHTML={{ __html: marked.parse(collection.description) }}
                             ></Typography>
                         )}
@@ -105,6 +88,7 @@ function CollectionInfo() {
                         ((collections && collections.some((item) => item.id === collection.id)) || user.role === 1) && (
                             <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                                 <Button
+                                    className="buttons"
                                     variant="contained"
                                     color="primary"
                                     sx={{ margin: '10px 15px', float: 'right' }}
@@ -117,6 +101,7 @@ function CollectionInfo() {
                                     </Link>
                                 </Button>
                                 <Button
+                                    className="buttons"
                                     variant="contained"
                                     color="error"
                                     sx={{ margin: '10px 15px', float: 'right' }}

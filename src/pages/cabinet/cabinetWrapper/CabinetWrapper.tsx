@@ -6,6 +6,8 @@ import { ReactElement } from 'react';
 import { useActions } from '@/hooks/useActions';
 import { useUserState } from '@/hooks/useStoreState';
 
+import './CabinetWrapper.scss';
+
 function CabinetWrapper({ children }: { children: ReactElement[] | ReactElement }) {
     const navigate = useNavigate();
     const { logout, showSnackbar } = useActions();
@@ -31,17 +33,7 @@ function CabinetWrapper({ children }: { children: ReactElement[] | ReactElement 
 
     return (
         <Box>
-            <Box
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '20px',
-                    width: 'auto',
-                    height: '85%',
-                    marginLeft: '10px',
-                    position: 'fixed'
-                }}
-            >
+            <Box className="cabinet">
                 {user && user.role === 1 && (
                     <Button variant="contained" onClick={() => navigate('/admin-panel')}>
                         <FormattedMessage id="Admin_panel" />
@@ -60,7 +52,7 @@ function CabinetWrapper({ children }: { children: ReactElement[] | ReactElement 
                     {isLoadingDelete ? <CircularProgress size={25} /> : <FormattedMessage id="Delete_account" />}
                 </Button>
             </Box>
-            <Box sx={{ marginLeft: '20px', marginTop: '20px' }}>{children}</Box>
+            <Box>{children}</Box>
         </Box>
     );
 }

@@ -26,13 +26,8 @@ function PersonalComments() {
 
     return (
         <Card
+            className="card"
             sx={{
-                display: 'grid',
-                width: '50%',
-                padding: '10px',
-                borderRadius: '10px',
-                margin: 'auto',
-                marginTop: '10px',
                 backgroundColor: 'secondary.dark'
             }}
         >

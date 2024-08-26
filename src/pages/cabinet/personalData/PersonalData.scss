@@ -1,0 +1,29 @@
+@import '@/styles/variables.scss';
+
+.card {
+    display: flex;
+    flex-direction: column;
+    width: 50% !important;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    gap: 10px;
+
+    @media screen and (max-width: $media-xl) {
+        width: 40% !important;
+    }
+
+    @media screen and (max-width: $media-lg) {
+        width: 50%;
+    }
+
+    @media screen and (max-width: $media-md) {
+        width: 90% !important;
+    }
+
+    @media screen and (max-width: $media-sm) {
+        width: 100%;
+    }
+}
