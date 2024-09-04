@@ -48,6 +48,9 @@ function CabinetWrapper({ children }: { children: ReactElement[] | ReactElement 
                 <Button variant="contained" onClick={() => navigate('/cabinet/reactions')}>
                     <FormattedMessage id="My_reactions" />
                 </Button>
+                <Button variant="contained" onClick={() => navigate('/cabinet/support')}>
+                    <FormattedMessage id="Support" />
+                </Button>
                 <Button variant="contained" color="error" onClick={handleDelete}>
                     {isLoadingDelete ? <CircularProgress size={25} /> : <FormattedMessage id="Delete_account" />}
                 </Button>

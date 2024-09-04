@@ -142,7 +142,14 @@ export const messages = {
         You_are_not_administrator: 'You are not administrator',
         Nothing_to_update: 'Nothing to update',
         Please_wait_the_image_must_be_cropped_for_successful_upload:
-            'Warning! The image must be cropped for successful upload'
+            'Warning! The image must be cropped for successful upload',
+        Support: 'Support',
+        Support_successfully_sent: 'Support successfully sent',
+        Describe_your_problem_or_feature: 'Describe your problem or feature',
+        Type: 'Request type',
+        Send: 'Send',
+        Title_support: 'Support title',
+        Status: 'Status'
     },
     [LOCALES.RUSSIAN]: {
         Login: 'Вход',
@@ -284,6 +291,14 @@ export const messages = {
         You_are_not_administrator: 'Вы не являетесь администратором',
         Nothing_to_update: 'Данные для обновления не найдены',
         Please_wait_the_image_must_be_cropped_for_successful_upload:
-            'Внимание! Изображение должно быть обрезано для успешного загрузки'
+            'Внимание! Изображение должно быть обрезано для успешного загрузки',
+        Support: 'Поддержка',
+        Support_successfully_sent: 'Ваше обращение успешно отправлено',
+        Back_to_homepage: 'Вернуться на главную',
+        Describe_your_problem_or_feature: 'Опишите вашу проблему или предложение',
+        Type: 'Тип обращения',
+        Send: 'Отправить',
+        Title_support: 'Заголовок обращения',
+        Status: 'Статус'
     }
 };

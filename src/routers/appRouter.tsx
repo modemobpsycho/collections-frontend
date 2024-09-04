@@ -18,6 +18,7 @@ import ChangeItem from '@/pages/changeItem/ChangeItem';
 import PersonalReactions from '@/pages/cabinet/PersonalReactions';
 import PersonalComments from '@/pages/cabinet/personalComments/PersonalComments';
 import Search from '@/pages/search/Search';
+import Support from '@/pages/cabinet/support/Support';
 
 export const AppRouter = () => {
     return (
@@ -71,6 +72,14 @@ export const AppRouter = () => {
                         element={
                             <CabinetWrapper>
                                 <PersonalComments />
+                            </CabinetWrapper>
+                        }
+                    />
+                    <Route
+                        path="/cabinet/support"
+                        element={
+                            <CabinetWrapper>
+                                <Support />
                             </CabinetWrapper>
                         }
                     />
