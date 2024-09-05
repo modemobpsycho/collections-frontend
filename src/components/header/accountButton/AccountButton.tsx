@@ -1,4 +1,4 @@
-import { Button, IconButton, InputLabel, Menu, MenuItem, Select, TextField } from '@mui/material';
+import { Button, CircularProgress, IconButton, InputLabel, Menu, MenuItem, Select, TextField } from '@mui/material';
 import { FormattedMessage, useIntl } from 'react-intl';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useState } from 'react';
@@ -13,13 +13,13 @@ function AccountButton() {
     const intl = useIntl();
     const [anchorElAccount, setAnchorElAccount] = useState<Element | null>(null);
     const [showModal, setShowModal] = useState<boolean>(false);
-    const [createTicket, { isLoading }] = useCreateTicketMutation();
+    const [createTicket, { isLoading: isLoadingTicket }] = useCreateTicketMutation();
     const { logout, showSnackbar } = useActions();
     const [formData, setFormData] = useState({
         title: '',
         description: '',
-        type: 'Bug',
-        priority: 'Medium'
+        type: '',
+        priority: ''
     });
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -51,6 +51,8 @@ function AccountButton() {
     const handleSendSupport = async () => {
         if (formData.title && formData.description) {
             await createTicket({ ...formData, url: window.location.href });
+            showSnackbar('Your_request_has_been_successfully_sent_to_the_support_service');
+            setFormData({ title: '', description: '', type: '', priority: '' });
             handleCloseModal();
         }
     };
@@ -101,8 +103,15 @@ function AccountButton() {
                     <FormattedMessage id="Type" />
                 </InputLabel>
                 <Select value={formData.type} onChange={(e) => setFormData({ ...formData, type: e.target.value })}>
-                    <MenuItem value="Bug">Bug</MenuItem>
-                    <MenuItem value="Feature">Feature</MenuItem>
+                    <MenuItem value="Bug">
+                        <FormattedMessage id="Bug" />
+                    </MenuItem>
+                    <MenuItem value="Feature">
+                        <FormattedMessage id="Feature" />
+                    </MenuItem>
+                    <MenuItem value="Question">
+                        <FormattedMessage id="Question" />
+                    </MenuItem>
                 </Select>
                 <InputLabel sx={{ marginTop: '10px' }}>
                     <FormattedMessage id="Priority" />
@@ -111,19 +120,29 @@ function AccountButton() {
                     value={formData.priority}
                     onChange={(e) => setFormData({ ...formData, priority: e.target.value })}
                 >
-                    <MenuItem value="Lowest">Lowest</MenuItem>
-                    <MenuItem value="Low">Low</MenuItem>
-                    <MenuItem value="Medium">Medium</MenuItem>
-                    <MenuItem value="High">High</MenuItem>
-                    <MenuItem value="Highest">Highest</MenuItem>
+                    <MenuItem value="Lowest">
+                        <FormattedMessage id="Lowest" />
+                    </MenuItem>
+                    <MenuItem value="Low">
+                        <FormattedMessage id="Low" />
+                    </MenuItem>
+                    <MenuItem value="Medium">
+                        <FormattedMessage id="Medium" />
+                    </MenuItem>
+                    <MenuItem value="High">
+                        <FormattedMessage id="High" />
+                    </MenuItem>
+                    <MenuItem value="Highest">
+                        <FormattedMessage id="Highest" />
+                    </MenuItem>
                 </Select>
                 <Button
                     sx={{ marginTop: '10px' }}
                     variant="contained"
                     onClick={handleSendSupport}
-                    disabled={isLoading || !formData.title || !formData.description}
+                    disabled={isLoadingTicket || !formData.title || !formData.description}
                 >
-                    <FormattedMessage id="Send" />
+                    {isLoadingTicket ? <CircularProgress size={25} /> : <FormattedMessage id="Send" />}
                 </Button>
             </ModalWindow>
         </>

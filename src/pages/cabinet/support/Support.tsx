@@ -1,12 +1,25 @@
+import { variables } from '@/helpers/variables';
 import { useGetTicketsQuery } from '@/stores/api/jira.api';
-import { Box, Card, CircularProgress, Typography } from '@mui/material';
+import { Box, Card, CircularProgress, IconButton, Typography } from '@mui/material';
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 
 function Support() {
-    const [ticketsLimit, setTicketsLimit] = useState(10);
+    const [ticketsLimit, setTicketsLimit] = useState(variables.TICKETS_MIN);
     const { data: tickets, isLoading: isLoadingTickets } = useGetTicketsQuery(ticketsLimit);
-    console.log(tickets);
+
+    const handleLoadMore = () => {
+        if (ticketsLimit + variables.TICKETS_INC <= variables.TICKETS_MAX) {
+            setTicketsLimit(ticketsLimit + variables.TICKETS_INC);
+        }
+    };
+
+    const handleResetTickets = () => {
+        setTicketsLimit(variables.TICKETS_MIN);
+    };
+
     return (
         <Box sx={{ display: 'flex', marginTop: '20px', justifyContent: 'center' }}>
             <Card
@@ -20,7 +33,7 @@ function Support() {
                 }}
             >
                 <Typography variant="h4" sx={{ margin: '20px auto' }}>
-                    Support
+                    <FormattedMessage id="Support" />
                 </Typography>
                 {isLoadingTickets ? (
                     <CircularProgress sx={{ margin: 'auto' }} />
@@ -81,6 +94,31 @@ function Support() {
                                 </Card>
                             ))}
                     </Box>
+                )}
+
+                {tickets && tickets.length > 0 && (
+                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                        {ticketsLimit <= variables.TICKETS_MAX && (
+                            <IconButton sx={{ marginTop: '20px' }} onClick={handleLoadMore}>
+                                <ExpandMoreIcon color="primary" sx={{ fontSize: '40px' }} />
+                            </IconButton>
+                        )}
+                        {ticketsLimit > variables.TICKETS_MIN && (
+                            <IconButton sx={{ marginTop: '20px' }} onClick={handleResetTickets}>
+                                <ExpandLessIcon color="primary" sx={{ fontSize: '40px' }} />
+                            </IconButton>
+                        )}
+                    </Box>
+                )}
+
+                {tickets && tickets.length === 0 && (
+                    <Typography variant="h6" sx={{ textAlign: 'center' }}>
+                        {isLoadingTickets ? (
+                            <CircularProgress />
+                        ) : (
+                            <FormattedMessage id="You_have_not_yet_contacted_support" />
+                        )}
+                    </Typography>
                 )}
             </Card>
         </Box>
