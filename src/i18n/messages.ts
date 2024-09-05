@@ -91,8 +91,8 @@ export const messages = {
         Change_item: 'Change item',
         Comments: 'Comments',
         Add_comment: 'Add comment',
-        Welcome_to_Our_Collections: 'Welcome to Our Collections',
-        Here_our_biggest_collections: 'Here our biggest collections and you can watch them now!',
+        Welcome_to_Our_Collections: 'Welcome to Collections',
+        Here_our_biggest_collections: 'Here you can see our biggest collections!',
         Number_of_items: 'Items',
         Number_of_fields: 'Fields',
         Field_name: 'Field name',
@@ -149,7 +149,20 @@ export const messages = {
         Type: 'Request type',
         Send: 'Send',
         Title_support: 'Support title',
-        Status: 'Status'
+        Status: 'Status',
+        You_have_not_yet_contacted_support: 'You have not yet contacted support',
+        Bug: 'Bug',
+        Feature: 'Feature',
+        Lowest: 'Lowest',
+        Low: 'Low',
+        Medium: 'Medium',
+        High: 'High',
+        Highest: 'Highest',
+        Priority: 'Priority',
+        Your_request_has_been_successfully_sent_to_the_support_service:
+            'Your request has been successfully sent to the support service',
+        Your_request_has_not_been_sent_to_support_service: 'Your request has not been sent to support service',
+        Question: 'Question'
     },
     [LOCALES.RUSSIAN]: {
         Login: 'Вход',
@@ -241,8 +254,8 @@ export const messages = {
         Change_item: 'Изменить предмет',
         Comments: 'Комментарии',
         Add_comment: 'Добавить комментарий',
-        Welcome_to_Our_Collections: 'Добро пожаловать в наш мир коллекций',
-        Here_our_biggest_collections: 'Здесь наши самые большие коллекции и ты можешь посмотреть их сейчас!',
+        Welcome_to_Our_Collections: 'Добро пожаловать в Collections',
+        Here_our_biggest_collections: 'Здесь можно увидеть самые большие коллекции!',
         Number_of_items: 'Предметов',
         Number_of_fields: 'Полей',
         Change_item_page: 'Изменение предмета',
@@ -299,6 +312,19 @@ export const messages = {
         Type: 'Тип обращения',
         Send: 'Отправить',
         Title_support: 'Заголовок обращения',
-        Status: 'Статус'
+        Status: 'Статус',
+        You_have_not_yet_contacted_support: 'Вы еще не обращались в службу поддержки',
+        Priority: 'Приоритет',
+        Lowest: 'Совсем незначительный',
+        Low: 'Незначительный',
+        Medium: 'Средний',
+        High: 'Серьезный',
+        Highest: 'Очень серьезный',
+        Bug: 'Баг',
+        Feature: 'Предложение',
+        Your_request_has_been_successfully_sent_to_the_support_service:
+            'Ваша заявка успешно отправлена в службу поддержки',
+        Your_request_has_not_been_sent_to_support_service: 'Ваша заявка не была отправлена в службу поддержки',
+        Question: 'Вопрос'
     }
 };

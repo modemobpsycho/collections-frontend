@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 import { Box, Typography } from '@mui/material';
 import { FormattedMessage } from 'react-intl';
 
-import './authPage.scss';
+import './AuthPage.scss';
 
 function AuthWrapper({ children }: { children: ReactElement[] | ReactElement }) {
     return (

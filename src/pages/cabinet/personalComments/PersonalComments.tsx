@@ -1,7 +1,7 @@
 import { variables } from '@/helpers/variables';
 import { useGetUserCommentsQuery } from '@/stores/api/comments.api';
 import { Box, Button, Card, CircularProgress, IconButton, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useNavigate } from 'react-router-dom';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -22,8 +22,6 @@ function PersonalComments() {
         setCommentsLimit(variables.COMMENTS_REACTIONS_MIN);
     };
 
-    useEffect(() => {}, [isLoading]);
-
     return (
         <Card
             className="card"
@@ -31,6 +29,9 @@ function PersonalComments() {
                 backgroundColor: 'secondary.dark'
             }}
         >
+            <Typography variant="h4" sx={{ margin: '20px auto' }}>
+                <FormattedMessage id="My_comments" />
+            </Typography>
             {!isLoading ? (
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                     {comments &&

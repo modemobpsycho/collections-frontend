@@ -128,12 +128,9 @@ function CollectionInfo() {
                     {collection.items && collection.items.length > 0 ? (
                         <CollectionItems items={collection.items} />
                     ) : (
-                        <Box sx={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
-                            <Typography variant="h4">
-                                <FormattedMessage id="There_are_no_items_in_this_collection_yet" />
-                            </Typography>
-                            <SentimentVeryDissatisfiedIcon sx={{ fontSize: '30px', marginTop: 'auto' }} />
-                        </Box>
+                        <Typography variant="h4" sx={{ textAlign: 'center', margin: '20px' }}>
+                            <FormattedMessage id="There_are_no_items_in_this_collection_yet" />
+                        </Typography>
                     )}
                 </Card>
             ) : (

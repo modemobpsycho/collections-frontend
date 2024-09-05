@@ -1,7 +1,10 @@
 export const variables = {
-    API_URL: 'https://collections-backend-jkri.onrender.com/api',
-    BACKEND_URL: 'https://collections-backend-jkri.onrender.com/',
-    SOCKET_URL: 'https://collections-backend-jkri.onrender.com',
+    API_URL: 'http://localhost:3000/api',
+    BACKEND_URL: 'http://localhost:3000/',
+    SOCKET_URL: 'http://localhost:3000',
+    // API_URL: 'https://collections-backend-jkri.onrender.com/api',
+    // BACKEND_URL: 'https://collections-backend-jkri.onrender.com/',
+    // SOCKET_URL: 'https://collections-backend-jkri.onrender.com',
     USER_LOCALSTORAGE: 'accessToken',
     THEME_LOCALSTORAGE: 'page_theme',
     ASPECT_RATIO: 16 / 9,
@@ -19,8 +22,13 @@ export const variables = {
     COMMENTS_REACTIONS_MIN: 7,
     COMMENTS_REACTIONS_MAX: 77,
     COMMENTS_REACTIONS_INC: 7,
+    TICKETS_MIN: 5,
+    TICKETS_INC: 5,
+    TICKETS_MAX: 100,
     SEARCH_MIN: 9,
     SEARCH_INC: 6,
+    TAGS_MIN: 15,
+
     GET_ACCESS_TOKEN: () => {
         return localStorage.getItem('accessToken');
     }

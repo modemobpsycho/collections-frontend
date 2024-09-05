@@ -16,7 +16,7 @@ function LastItems() {
 
     const handleLoadMore = () => {
         if (itemsLimit + variables.ITEMS_INC <= maxItems) {
-            setItemLimit(itemsLimit + 5);
+            setItemLimit(itemsLimit + variables.ITEMS_INC);
         }
     };
 

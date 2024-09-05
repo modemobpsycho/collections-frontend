@@ -1,13 +1,12 @@
-import { useState } from 'react';
 import { useGetLastTagsQuery } from '@/stores/api/tags.api';
 import { Box, Card, Typography } from '@mui/material';
 import { FormattedMessage } from 'react-intl';
 import { useNavigate } from 'react-router-dom';
+import { variables } from '@/helpers/variables';
 
 function LastTags() {
     const navigate = useNavigate();
-    const [tagsLimit, setTagsLimit] = useState(15);
-    const { data: tags } = useGetLastTagsQuery(tagsLimit);
+    const { data: tags } = useGetLastTagsQuery(variables.TAGS_MIN);
     return (
         <Box className="last-tags-wrapper">
             {tags && tags.length > 0 && (

@@ -60,7 +60,6 @@ function AdminPanel() {
                 display: 'flex',
                 flexDirection: 'column',
                 padding: '10px',
-                gap: '10px',
                 width: '40%',
                 margin: '20px auto',
                 borderRadius: '10px',

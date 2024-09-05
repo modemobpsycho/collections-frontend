@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 function AdminPanelUsers({ data, setCurrentUser }: { data: IUser[] | undefined; setCurrentUser: Function }) {
     return (
         <>
-            <Typography variant="h4" sx={{ textAlign: 'center' }}>
+            <Typography variant="h4" sx={{ textAlign: 'center', margin: '20px auto' }}>
                 <FormattedMessage id="User_management" />
             </Typography>
             <Box
