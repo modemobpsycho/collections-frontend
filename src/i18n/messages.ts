@@ -162,7 +162,8 @@ export const messages = {
         Your_request_has_been_successfully_sent_to_the_support_service:
             'Your request has been successfully sent to the support service',
         Your_request_has_not_been_sent_to_support_service: 'Your request has not been sent to support service',
-        Question: 'Question'
+        Question: 'Question',
+        Assignee: 'Assignee'
     },
     [LOCALES.RUSSIAN]: {
         Login: 'Вход',
@@ -315,16 +316,17 @@ export const messages = {
         Status: 'Статус',
         You_have_not_yet_contacted_support: 'Вы еще не обращались в службу поддержки',
         Priority: 'Приоритет',
-        Lowest: 'Совсем незначительный',
-        Low: 'Незначительный',
+        Lowest: 'Очень низкий',
+        Low: 'Низкий',
         Medium: 'Средний',
-        High: 'Серьезный',
-        Highest: 'Очень серьезный',
+        High: 'Высокий',
+        Highest: 'Очень высокий',
         Bug: 'Баг',
         Feature: 'Предложение',
         Your_request_has_been_successfully_sent_to_the_support_service:
             'Ваша заявка успешно отправлена в службу поддержки',
         Your_request_has_not_been_sent_to_support_service: 'Ваша заявка не была отправлена в службу поддержки',
-        Question: 'Вопрос'
+        Question: 'Вопрос',
+        Assignee: 'Исполнитель'
     }
 };

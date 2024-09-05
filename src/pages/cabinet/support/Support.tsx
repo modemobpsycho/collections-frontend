@@ -56,10 +56,15 @@ function Support() {
                                         sx={{ display: 'flex', gap: '5px', alignItems: 'center', marginBottom: '5px' }}
                                     >
                                         <img src={ticket.issueIconUrl} alt={ticket.summary} width={30} />
-                                        <Typography sx={{ fontSize: '20px' }}> {ticket.issueType}</Typography>
+                                        <Typography sx={{ fontSize: '20px' }}>
+                                            {' '}
+                                            <FormattedMessage id={ticket.issueType} />
+                                        </Typography>
                                         <Box sx={{ display: 'flex', gap: '5px', marginLeft: 'auto' }}>
                                             <img src={ticket.priorityIconUrl} alt={ticket.priority} width={30} />{' '}
-                                            <Typography sx={{ fontSize: '20px' }}>{ticket.priority} </Typography>
+                                            <Typography sx={{ fontSize: '20px' }}>
+                                                <FormattedMessage id={ticket.priority} />{' '}
+                                            </Typography>
                                         </Box>
                                     </Box>
                                     <Box sx={{ display: 'flex', gap: '10px' }}>
@@ -81,16 +86,97 @@ function Support() {
                                     >
                                         {ticket.description}
                                     </Typography>
+                                    <Typography variant="subtitle1" sx={{ fontSize: '16px' }}>
+                                        <FormattedMessage id="Status" />: {ticket.status}
+                                    </Typography>
 
                                     <Box sx={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
-                                        <Typography variant="subtitle2" sx={{ fontSize: '16px' }}>
-                                            <FormattedMessage id="Status" />: {ticket.status}
+                                        <Typography variant="subtitle1" sx={{ marginRight: 'auto' }}>
+                                            <FormattedMessage id="Assignee" />: {ticket.assignee}
                                         </Typography>
-                                        <Typography variant="subtitle2" sx={{ marginLeft: 'auto' }}>
+                                        <Typography variant="subtitle1" sx={{ marginLeft: 'auto' }}>
                                             {ticket.created && new Date(ticket.created).toLocaleTimeString()}{' '}
                                             {ticket.created && new Date(ticket.created).toLocaleDateString()}
                                         </Typography>
                                     </Box>
+                                    {ticket.comments.length > 0 && (
+                                        <Box
+                                            sx={{
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                gap: '10px',
+                                                marginTop: '10px'
+                                            }}
+                                        >
+                                            <Typography
+                                                variant="body1"
+                                                sx={{ textAlign: 'center', fontWeight: 'bold' }}
+                                            >
+                                                <FormattedMessage id="Comments" />
+                                            </Typography>
+                                            {ticket.comments &&
+                                                ticket.comments?.map((comment) => (
+                                                    <Box
+                                                        key={comment.id}
+                                                        sx={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}
+                                                    >
+                                                        <Box sx={{ display: 'flex', gap: '5px' }}>
+                                                            <img
+                                                                src={comment.author.avatarUrls['48x48']}
+                                                                alt="Avatar"
+                                                                style={{
+                                                                    borderRadius: '50%',
+                                                                    width: '40px',
+                                                                    height: '40px'
+                                                                }}
+                                                            />
+                                                        </Box>
+                                                        <Box
+                                                            sx={{
+                                                                display: 'flex',
+                                                                flexDirection: 'column',
+                                                                gap: '5px',
+                                                                width: '100%'
+                                                            }}
+                                                        >
+                                                            <Box sx={{ display: 'flex', gap: '5px' }}>
+                                                                <Typography
+                                                                    sx={{
+                                                                        fontSize: '18px',
+                                                                        wordWrap: 'break-word'
+                                                                    }}
+                                                                >
+                                                                    {comment.author.displayName}
+                                                                </Typography>
+                                                                <Typography
+                                                                    variant="subtitle2"
+                                                                    sx={{
+                                                                        fontSize: '14px',
+                                                                        wordWrap: 'break-word',
+                                                                        marginLeft: 'auto'
+                                                                    }}
+                                                                >
+                                                                    {comment.created &&
+                                                                        new Date(
+                                                                            comment.created
+                                                                        ).toLocaleTimeString()}{' '}
+                                                                    {comment.created &&
+                                                                        new Date(comment.created).toLocaleDateString()}
+                                                                </Typography>
+                                                            </Box>
+                                                            <Typography
+                                                                sx={{
+                                                                    fontSize: '16px',
+                                                                    wordWrap: 'break-word'
+                                                                }}
+                                                            >
+                                                                {comment.body.content[0].content[0].text}
+                                                            </Typography>
+                                                        </Box>
+                                                    </Box>
+                                                ))}
+                                        </Box>
+                                    )}
                                 </Card>
                             ))}
                     </Box>

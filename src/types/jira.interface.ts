@@ -18,7 +18,9 @@ export interface IJiraTicket {
     description: string;
     issueType: string;
     issueIconUrl: string;
+    assignee: string;
     priority: string;
+    comments: IJiraComment[];
     priorityIconUrl: string;
     created: string;
     updated: string;
@@ -29,4 +31,24 @@ export interface IJiraCreate {
     description: string;
     type: string;
     url: string;
+}
+
+export interface IJiraComment {
+    id: number;
+    author: {
+        avatarUrls: {
+            '48x48': string;
+        };
+        displayName: string;
+    };
+    body: CommentBody;
+    created: string;
+}
+
+interface CommentBody {
+    content: {
+        content: {
+            text: string;
+        }[];
+    }[];
 }
